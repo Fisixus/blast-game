@@ -14,5 +14,14 @@ namespace Core.Enum
         SI_Box= 100,
         SI_Stone = 101,
         SI_Vase = 102,
+        
+        //Boosters
+        RocketHorizontal = 200,
+        RocketVertical = 201,
+        Bomb = 202,
+        BombBomb = 203,
+        RocketHorizontalBomb = 204,
+        RocketVerticalBomb = 205,
+        RocketRocket = 206
     }
 }
