@@ -1,7 +1,8 @@
 ﻿using System.Collections.Generic;
+using Core.Interface;
 using UnityEngine;
 
-namespace Core.Interface
+namespace Core.Factories.Interface
 {
     public interface IFactory<T>
     {
