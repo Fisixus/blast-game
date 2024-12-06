@@ -20,8 +20,7 @@ namespace Core.Enum
         RocketVertical = 201,
         Bomb = 202,
         BombBomb = 203,
-        RocketHorizontalBomb = 204,
-        RocketVerticalBomb = 205,
-        RocketRocket = 206
+        RocketBomb = 204,
+        RocketRocket = 205
     }
 }

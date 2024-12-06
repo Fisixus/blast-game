@@ -1,4 +1,4 @@
-namespace DI
+namespace DependencyInjection
 {
     public interface IDependency
     {

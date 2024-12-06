@@ -1,10 +1,12 @@
+using Events;
+using Events.Game;
 using UnityEngine;
 
 namespace MVP.Presenters
 {
     public class GamePresenter : MonoBehaviour
     {
-        public void Awake()
+        public void OnEnable()
         {
             StartLevel();
         }
@@ -13,7 +15,7 @@ namespace MVP.Presenters
 
         private void StartLevel()
         {
-            //TODO:m_SignalBus.Fire(new GameStartSignal() { });
+            GameEventSystem.Invoke<OnGameStartedEvent>();
         }
     }
 }

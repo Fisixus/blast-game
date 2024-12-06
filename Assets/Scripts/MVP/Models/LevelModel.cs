@@ -1,4 +1,7 @@
+using System;
 using Core.Enum;
+using Events;
+using Events.Game;
 using LevelBase;
 using MVP.Models.Interface;
 using UnityEngine;
@@ -32,13 +35,23 @@ namespace MVP.Models
         //
         //     m_SignalBus.Subscribe<GameStartSignal>(OnLevelStarted);
         // }
-        
+
+        private void OnEnable()
+        {
+            GameEventSystem.AddListener<OnGameStartedEvent>(LoadLevel);
+        }
+
+        private void OnDisable()
+        {
+            GameEventSystem.RemoveListener<OnGameStartedEvent>(LoadLevel);
+        }
+
         // private void OnLevelStarted(GameStartSignal args)
         // {
         //     LoadLevel();
         // }
 
-        public void LoadLevel()
+        public void LoadLevel(object args)
         {
             LevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
             if (LevelInfo is null)

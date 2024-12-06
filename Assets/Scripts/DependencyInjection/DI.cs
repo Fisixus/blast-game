@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
 
-namespace DI
+namespace DependencyInjection
 {
     /// <summary>
     /// Simple Dependency Injector for general use, allowing one dependency per type.

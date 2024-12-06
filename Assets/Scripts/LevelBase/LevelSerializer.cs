@@ -13,9 +13,9 @@ namespace LevelBase
             {
                 TextAsset jsonFile = Resources.Load<TextAsset>("Levels/level_" + level.ToString("00"));
                 string jsonString = jsonFile.text;
-                var levelJson = JsonUtility.FromJson<LevelJSON>(jsonString);
+                var levelJson = JsonUtility.FromJson<LevelJson>(jsonString);
                 var (gridItems, levelGoals) = ProcessLevelJson(levelJson);
-                return new LevelInfo(gridItems, levelGoals, levelJson.MoveCount);
+                return new LevelInfo(levelJson.LevelNumber, gridItems, levelGoals, levelJson.MoveCount);
             }
             catch (Exception e)
             {
@@ -23,7 +23,7 @@ namespace LevelBase
                 throw;
             }
         }
-        private static (ItemType[,] GridItems, List<LevelGoal> Goals) ProcessLevelJson(LevelJSON levelJson)
+        private static (ItemType[,] GridItems, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
         {
             // Count obstacles for goal data
             int numberOfBoxes = 0;

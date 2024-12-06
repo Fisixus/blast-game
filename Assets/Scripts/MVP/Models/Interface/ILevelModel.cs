@@ -6,6 +6,6 @@ namespace MVP.Models.Interface
     {
         public LevelInfo LevelInfo { get; }
         public int LevelIndex { get; set; }
-        public void LoadLevel(); 
+        public void LoadLevel(object args); 
     }
 }

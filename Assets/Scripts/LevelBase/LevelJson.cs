@@ -7,7 +7,7 @@ namespace LevelBase
     /// 
     /// </summary>
     [System.Serializable]
-    public class LevelJSON
+    public class LevelJson
     {
         public int LevelNumber { get; set; }
         public int GridWidth { get; set; }
