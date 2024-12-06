@@ -45,8 +45,7 @@ namespace MVP.Presenters
         private void LevelLoaded(object args)
         {
             var levelInfo = (args as OnLevelLoadedEvent)?.LevelInfo;
-            var gridSize = new Vector2Int(levelInfo.GridItems.GetLength(0), levelInfo.GridItems.GetLength(1));
-            _gridView.CalculateGridSize(gridSize, Vector2.one);
+            _gridView.CalculateGridSize(levelInfo.GridSize);
             //m_LevelStateHandler.Initialize(levelInfo);
             //m_GoalHandler.Initialize(levelInfo);
             _gridView.ScaleGrid();

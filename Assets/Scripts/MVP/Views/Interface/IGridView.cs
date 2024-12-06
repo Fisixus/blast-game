@@ -8,12 +8,14 @@ namespace MVP.Views.Interface
         public SpriteRenderer GridSprite { get; }
 
         public Transform GridTopLeftTr { get; }
+        
+        public Vector2 CellSize { get;}
 
         public Vector2 GridTopLeftMargin { get; }
 
         public Vector2 GridPadding { get; }
 
-        public void CalculateGridSize(Vector2Int gridSize, Vector2 longestCell);
+        public void CalculateGridSize(Vector2Int gridSize);
 
         public void ScaleGrid();
     }
