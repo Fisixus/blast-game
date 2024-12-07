@@ -8,7 +8,7 @@ namespace MVP.Presenters
     {
         public GamePresenter()
         {
-            Debug.Log("ZZZZ");
+            Debug.Log("SA");
             GameEventSystem.Invoke<OnGameStartedEvent>();
         }
     }

@@ -10,14 +10,13 @@ namespace MVP.Presenters.Handlers
 {
     public class LevelStateHandler
     {
-        private IItemFactory _itemFactory;
-        private IBoosterFactory _boosterFactory;
-        private IGridModel _gridModel;
+        private readonly IItemFactory _itemFactory;
+        private readonly IBoosterFactory _boosterFactory;
+        private readonly IGridModel _gridModel;
         public void Bind()
         {
             //DI.Bind(this);
-            //_itemFactory = DI.Resolve<IItemFactory>();
-            //_boosterFactory = DI.Resolve<IBoosterFactory>();
+
             
             // m_LevelModel = levelModel;
             // m_UIView = uiView;
@@ -25,6 +24,13 @@ namespace MVP.Presenters.Handlers
             // m_LevelTransitionHandler = levelTransitionHandler;
             // m_MatchHandler = matchHandler;
             // m_BoosterHandler = boosterHandler;
+        }
+
+        public LevelStateHandler(IItemFactory itemFactory, IBoosterFactory boosterFactory, IGridModel gridModel)
+        {
+            _itemFactory = itemFactory;
+            _boosterFactory = boosterFactory;
+            _gridModel = gridModel;
         }
 
         public void Initialize(LevelInfo levelInfo)

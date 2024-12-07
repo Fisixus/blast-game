@@ -1,4 +1,6 @@
+using Core.Factories.Interface;
 using DI;
+using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 
 namespace Installers
@@ -7,7 +9,11 @@ namespace Installers
     {
         protected override void InstallBindings()
         {
-            Container.BindAsSingle(() => new LevelStateHandler());
+            Container.BindAsSingle(() => new LevelStateHandler
+            (Container.Resolve<IItemFactory>(), 
+            Container.Resolve<IBoosterFactory>(), 
+                Container.Resolve<IGridModel>())
+            );
         }
     }
 }

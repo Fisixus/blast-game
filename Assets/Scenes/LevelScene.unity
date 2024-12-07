@@ -1224,8 +1224,6 @@ GameObject:
   - component: {fileID: 1557328246}
   - component: {fileID: 1557328247}
   - component: {fileID: 1557328250}
-  - component: {fileID: 1557328249}
-  - component: {fileID: 1557328251}
   m_Layer: 0
   m_Name: SceneContext
   m_TagString: Untagged
@@ -1264,8 +1262,6 @@ MonoBehaviour:
   - {fileID: 1557328246}
   - {fileID: 1557328247}
   - {fileID: 1557328250}
-  - {fileID: 1557328249}
-  - {fileID: 1557328251}
 --- !u!114 &1557328246
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1292,19 +1288,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3828148c74fffa54794ee48f6110178e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1557328249
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557328243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 777a58f32a47a24489df6d1c97f0a665, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  _gridView: {fileID: 1573939753}
 --- !u!114 &1557328250
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1317,18 +1300,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 381c568476f6e314994bb49faa0ffd61, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &1557328251
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1557328243}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4685314796cac34e9625e80543b996e, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
+  _gridView: {fileID: 1573939753}
 --- !u!1 &1570871147
 GameObject:
   m_ObjectHideFlags: 0
@@ -1690,7 +1662,7 @@ Canvas:
   serializedVersion: 3
   m_RenderMode: 1
   m_Camera: {fileID: 519420031}
-  m_PlaneDistance: 5
+  m_PlaneDistance: 25
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
   m_OverrideSorting: 0

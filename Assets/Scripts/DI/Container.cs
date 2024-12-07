@@ -13,7 +13,11 @@ namespace DI
             T instance = null;
             _bindings[typeof(T)] = () => instance ??= factory();
         }
-
+        public void BindAsSingleNonLazy<T>(Func<T> factory) where T : class
+        {
+            BindAsSingle(factory);
+            _bindings[typeof(T)].Invoke();
+        }
         // Bind a type as Transient
         public void BindAsTransient<T>(Func<T> factory) where T : class
         {
