@@ -1,6 +1,4 @@
 
-using System.Collections.Generic;
-using Core.Enum;
 using UnityEngine;
 
 namespace Core.ScriptableObjects
@@ -12,8 +10,8 @@ namespace Core.ScriptableObjects
         public Sprite ItemSprite { get; private set; }
         [field: SerializeField]
         public Vector2 ItemWidthHeight { get; private set; }
-        [field: SerializeField]
-        public List<BoosterType> BoosterParents{ get; private set; }
+        //[field: SerializeField]
+        //public List<BoosterType> BoosterParents{ get; private set; }
         [field: SerializeField]
         public int MinItemsNeeded{ get; private set; }
         [field: SerializeField]

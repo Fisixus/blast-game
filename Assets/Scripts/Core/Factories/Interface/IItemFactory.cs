@@ -11,7 +11,7 @@ namespace Core.Factories.Interface
     {
         public ItemSpawnProbabilityDistributionSO Probability { get; }
         public SerializedDictionary<ItemType, ItemDataSO> ItemDataDict { get; }
-        public List<Item> GenerateItems(ItemType[,] itemTypes);
+        public List<Item> GenerateItems(System.Enum[,] itemTypes);
         public BaseGridObject GenerateItem(Vector2Int itemCoordinate);
         public void DestroyAllItems();
     }

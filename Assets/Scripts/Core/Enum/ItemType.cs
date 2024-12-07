@@ -14,7 +14,5 @@ namespace Core.Enum
         SI_Box= 100,
         SI_Stone = 101,
         SI_Vase = 102,
-        
-        
     }
 }
