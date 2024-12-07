@@ -2,7 +2,7 @@ using System;
 using Core.Enum;
 using UnityEngine;
 
-namespace LevelBase
+namespace Core.LevelSerialization
 {
     /// <summary>
     /// The LevelGoal class represents a goal for a specific level in the game. 

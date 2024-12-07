@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace MVP.Presenters
 {
-    public class LevelPresenter : MonoBehaviour
+    public class LevelPresenter
     {
         //private LevelStateHandler m_LevelStateHandler;
         //private GoalHandler m_GoalHandler;

@@ -9,7 +9,6 @@ namespace MVP.Views
     {
         [field: SerializeField] public SpriteRenderer GridSprite { get; private set; }
         [field: SerializeField] public Transform GridTopLeftTr { get; private set; }
-        
         [field: SerializeField] public Vector2 CellSize { get; private set; }
         [field: SerializeField] public Vector2 GridTopLeftMargin { get; private set; }
         [field: SerializeField] public Vector2 GridPadding { get; private set; }

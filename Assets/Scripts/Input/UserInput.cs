@@ -1,9 +1,12 @@
 using System.Collections.Generic;
+using Core.GridElements.GridPawns;
+using Events;
+using Events.Grid;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
 
-namespace InputBase
+namespace Input
 {
     public class UserInput : MonoBehaviour
     {
@@ -62,8 +65,8 @@ namespace InputBase
                 return;
 
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);
-            //if (hit && hit.transform.TryGetComponent<BaseGridObject>(out var gridObject))
-                //m_SignalBus.Fire(new OnGridObjectTouchedSignal() { GridObject = gridObject });
+            if (hit && hit.transform.TryGetComponent<BaseGridObject>(out var gridObject))
+                GameEventSystem.Invoke<OnGridObjectTouchedEvent>(new OnGridObjectTouchedEvent() { GridObject = gridObject });
         }
     }
 }

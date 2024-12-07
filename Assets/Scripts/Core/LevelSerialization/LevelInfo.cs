@@ -1,20 +1,18 @@
-using System;
 using System.Collections.Generic;
-using Core.Enum;
 using UnityEngine;
 
-namespace LevelBase
+namespace Core.LevelSerialization
 {
     public class LevelInfo
     {
         public int LevelNumber { get; private set; }
-        public Enum[,] GridObjectTypes { get; private set; }
+        public System.Enum[,] GridObjectTypes { get; private set; }
         public Vector2Int GridSize { get; private set; }
         public List<LevelGoal> Goals { get; private set; }
         public int NumberOfMoves { get; private set; }
         //public ItemSpawnProbabilityDistributionSO Probability;
 
-        public LevelInfo(int levelNumber, Enum[,] gridItems, List<LevelGoal> goals, int numberOfMoves)
+        public LevelInfo(int levelNumber, System.Enum[,] gridItems, List<LevelGoal> goals, int numberOfMoves)
         {
             LevelNumber = levelNumber;
             GridObjectTypes = gridItems;

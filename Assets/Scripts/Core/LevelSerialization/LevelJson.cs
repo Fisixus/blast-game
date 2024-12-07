@@ -1,4 +1,4 @@
-namespace LevelBase
+namespace Core.LevelSerialization
 {
     /// <summary>
     /// 

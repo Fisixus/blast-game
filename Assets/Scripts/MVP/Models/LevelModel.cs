@@ -1,16 +1,17 @@
 using System;
 using Core.Enum;
+using Core.LevelSerialization;
 using Events;
 using Events.Game;
-using LevelBase;
+using Events.Level;
 using MVP.Models.Interface;
 using UnityEngine;
 
 namespace MVP.Models
 {
-    public class LevelModel: MonoBehaviour, ILevelModel
+    public class LevelModel: ILevelModel
     {
-        public LevelInfo LevelInfo { get; private set; }
+        public LevelInfo CurrentLevelInfo { get; private set; }
         public int LevelIndex
         {
             get
@@ -27,15 +28,7 @@ namespace MVP.Models
 
         private ItemType[,] _gridData;
         private const string LevelIndexStr = "LevelIndex";
-
-        // [Inject]
-        // private void Construct(SignalBus signalBus)
-        // {
-        //     m_SignalBus = signalBus;
-        //
-        //     m_SignalBus.Subscribe<GameStartSignal>(OnLevelStarted);
-        // }
-
+        
         private void OnEnable()
         {
             GameEventSystem.AddListener<OnGameStartedEvent>(LoadLevel);
@@ -45,21 +38,16 @@ namespace MVP.Models
         {
             GameEventSystem.RemoveListener<OnGameStartedEvent>(LoadLevel);
         }
-
-        // private void OnLevelStarted(GameStartSignal args)
-        // {
-        //     LoadLevel();
-        // }
-
+        
         public void LoadLevel(object args)
         {
-            LevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
-            if (LevelInfo is null)
+            CurrentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
+            if (CurrentLevelInfo is null)
             {
                 ResetLevelIndex();
-                LevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
+                CurrentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
             }
-            //TODO:m_SignalBus.Fire(new OnLevelLoadSignal() { Level = CurrentLevel });
+            GameEventSystem.Invoke<OnLevelLoadedEvent>(new OnLevelLoadedEvent() { LevelInfo = CurrentLevelInfo });
         }
         
         private void ResetLevelIndex()

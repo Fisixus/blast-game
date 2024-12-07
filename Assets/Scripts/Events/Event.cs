@@ -5,21 +5,21 @@ namespace Events
 {
     public class Event
     {
-        private readonly List<Action<object>> m_actions = new List<Action<object>>();
+        private readonly List<Action<object>> _actions = new List<Action<object>>();
 
         public void AddListener(Action<object> action)
         {
-            m_actions.Add(action);
+            _actions.Add(action);
         }
 
         public void RemoveListener(Action<object> action)
         {
-            m_actions.Remove(action);
+            _actions.Remove(action);
         }
 
         public void Trigger(object item)
         {
-            foreach (var action in m_actions)
+            foreach (var action in _actions)
             {
                 action?.Invoke(item);
             }

@@ -36,6 +36,22 @@ namespace Core.Factories
             _allBoosters.Add(booster);
             return booster;
         }
+        
+        public List<Booster> GenerateBoosters(System.Enum[,] boosterTypes)
+        {
+            for (var i = 0; i < boosterTypes.GetLength(1); i++)
+            for (var j = 0; j < boosterTypes.GetLength(0); j++)
+            {
+                if (boosterTypes[j, i] is not BoosterType) continue;
+                var boosterType = (BoosterType)boosterTypes[j, i];
+                
+                var booster = CreateObj();
+                booster.SetAttributes(new Vector2Int(i, j), boosterType, false);
+                booster.ApplyBoosterData(BoosterDataDict[boosterType]);
+            }
+
+            return _allBoosters;
+        }
 
         public void DestroyAllBoosters()
         {

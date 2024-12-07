@@ -1,4 +1,4 @@
-using LevelBase;
+using Core.LevelSerialization;
 
 namespace Events.Level
 {

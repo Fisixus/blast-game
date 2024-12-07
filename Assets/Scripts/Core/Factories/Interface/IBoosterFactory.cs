@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Core.Enum;
 using Core.GridElements.GridPawns;
@@ -9,7 +10,8 @@ namespace Core.Factories.Interface
     public interface IBoosterFactory
     {
         public SerializedDictionary<BoosterType, BoosterDataSO> BoosterDataDict { get; }
-        public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord); // Specialized method
+        public List<Booster> GenerateBoosters(System.Enum[,] boosterTypes);
+        public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord);
         public void DestroyAllBoosters();
         
     }
