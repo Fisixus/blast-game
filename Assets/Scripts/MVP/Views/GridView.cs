@@ -1,11 +1,10 @@
-using DependencyInjection;
 using MVP.Views.Interface;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace MVP.Views
 {
-    public class GridView : MonoBehaviour,IGridView, IDependency
+    public class GridView : MonoBehaviour,IGridView
     {
         [field: SerializeField] public SpriteRenderer GridSprite { get; private set; }
         [field: SerializeField] public Transform GridTopLeftTr { get; private set; }
@@ -13,12 +12,6 @@ namespace MVP.Views
         [field: SerializeField] public Vector2 GridTopLeftMargin { get; private set; }
         [field: SerializeField] public Vector2 GridPadding { get; private set; }
 
-        private IGridView _gridView;
-        public void Bind()
-        {
-            DI.Bind(_gridView);
-        }
-        
         public void CalculateGridSize(Vector2Int gridSize)
         {
             var cellHeight = CellSize.y;

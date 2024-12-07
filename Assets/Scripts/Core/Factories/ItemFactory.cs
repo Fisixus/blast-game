@@ -4,7 +4,6 @@ using Core.Enum;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.ScriptableObjects;
-using DependencyInjection;
 using UnityEngine;
 
 namespace Core.Factories
@@ -18,9 +17,8 @@ namespace Core.Factories
 
         private List<Item> _allItems;
 
-        public override void Bind()
+        public void Awake()
         {
-            base.Bind();
             Pool.Initialize(ObjPrefab, ParentTr, 64); // Initialize the pool
             _allItems = new List<Item>(64);
         }

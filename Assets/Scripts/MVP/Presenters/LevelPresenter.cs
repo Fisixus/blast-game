@@ -1,4 +1,3 @@
-using DependencyInjection;
 using Events;
 using Events.Level;
 using MVP.Views.Interface;
@@ -14,7 +13,7 @@ namespace MVP.Presenters
 
         private void OnEnable()
         {
-            _gridView = DI.Resolve<IGridView>();
+            //_gridView = DI.Resolve<IGridView>();
             GameEventSystem.AddListener<OnLevelLoadedEvent>(LevelLoaded);
         }
 

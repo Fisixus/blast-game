@@ -1,22 +1,23 @@
 using System.Collections.Generic;
+using System.Numerics;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.LevelSerialization;
-using DependencyInjection;
 using MVP.Models.Interface;
+using UnityEngine;
 
 namespace MVP.Presenters.Handlers
 {
-    public class LevelStateHandler: IDependency
+    public class LevelStateHandler
     {
         private IItemFactory _itemFactory;
         private IBoosterFactory _boosterFactory;
         private IGridModel _gridModel;
         public void Bind()
         {
-            DI.Bind(this);
-            _itemFactory = DI.Resolve<IItemFactory>();
-            _boosterFactory = DI.Resolve<IBoosterFactory>();
+            //DI.Bind(this);
+            //_itemFactory = DI.Resolve<IItemFactory>();
+            //_boosterFactory = DI.Resolve<IBoosterFactory>();
             
             // m_LevelModel = levelModel;
             // m_UIView = uiView;
@@ -29,17 +30,17 @@ namespace MVP.Presenters.Handlers
         public void Initialize(LevelInfo levelInfo)
         {
             //var longestCell = ItemHelper.FindLongestCell(_itemFactory.ItemDataDict);
-            // List<BaseGridObject> gridObjects = new List<BaseGridObject>(levelInfo.GridObjectTypes.);
-            // var items = _itemFactory.GenerateItems(levelInfo.GridObjectTypes);
-            // gridObjects.AddRange(items);
-            // var boosters = _boosterFactory.GenerateBoosters(levelInfo.GridObjectTypes);
-            // gridObjects.AddRange(boosters);
-            //
-            // _gridModel.Initialize(
-            //     gridObjects,
-            //     longestCell.x, longestCell.y,
-            //     level.GridInfo.GridSize.y, level.GridInfo.GridSize.x
-            // );
+            List<BaseGridObject> gridObjects = new List<BaseGridObject>(64);
+            var items = _itemFactory.GenerateItems(levelInfo.GridObjectTypes);
+            gridObjects.AddRange(items);
+            var boosters = _boosterFactory.GenerateBoosters(levelInfo.GridObjectTypes);
+            gridObjects.AddRange(boosters);
+            
+            _gridModel.Initialize(
+                gridObjects,
+                levelInfo.GridObjectTypes.GetLength(1), 
+                levelInfo.GridObjectTypes.GetLength(0)
+            );
 
             // Set up match and effect handlers
             

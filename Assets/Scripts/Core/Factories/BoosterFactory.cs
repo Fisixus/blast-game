@@ -16,9 +16,8 @@ namespace Core.Factories
 
         private List<Booster> _allBoosters;
         
-        public override void Bind()
+        public void Awake()
         {
-            base.Bind();
             Pool.Initialize(ObjPrefab, ParentTr, 8); // Initialize the pool
             _allBoosters = new List<Booster>(8);
         }
