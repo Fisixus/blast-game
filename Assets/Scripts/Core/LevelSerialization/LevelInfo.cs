@@ -20,5 +20,10 @@ namespace Core.LevelSerialization
             Goals = goals;
             NumberOfMoves = numberOfMoves;
         }
+
+        public override string ToString()
+        {
+            return $"LevelNumber:{LevelNumber}, GridSize:{GridSize}, NumberOfMoves:{NumberOfMoves}, Goals:{Goals.Count}";
+        }
     }
 }

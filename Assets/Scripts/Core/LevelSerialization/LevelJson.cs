@@ -9,10 +9,10 @@ namespace Core.LevelSerialization
     [System.Serializable]
     public class LevelJson
     {
-        public int LevelNumber { get; set; }
-        public int GridWidth { get; set; }
-        public int GridHeight { get; set; }
-        public int MoveCount { get; set; }
-        public string[] Grid { get; set; }
+        public int level_number;
+        public int grid_width;
+        public int grid_height;
+        public int move_count;
+        public string[] grid;
     }
 }

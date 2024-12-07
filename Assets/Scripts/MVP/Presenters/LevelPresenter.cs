@@ -2,6 +2,7 @@ using Events;
 using Events.Level;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
+using UnityEngine;
 
 namespace MVP.Presenters
 {
@@ -45,7 +46,9 @@ namespace MVP.Presenters
 
         private void LevelLoaded(object args)
         {
+            Debug.Log("LevelLoaded");
             var levelInfo = (args as OnLevelLoadedEvent)?.LevelInfo;
+            Debug.Log(levelInfo);
             _gridView.CalculateGridSize(levelInfo.GridSize);
             _levelStateHandler.Initialize(levelInfo);
             //m_GoalHandler.Initialize(levelInfo);

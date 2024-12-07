@@ -1407,7 +1407,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <GridSprite>k__BackingField: {fileID: 83611672}
   <GridTopLeftTr>k__BackingField: {fileID: 1095378668}
-  <CellSize>k__BackingField: {x: 0.57, y: 0.57}
+  <CellSize>k__BackingField: {x: 0.55, y: 0.55}
   <GridTopLeftMargin>k__BackingField: {x: -0.1, y: -0.4}
   <GridPadding>k__BackingField: {x: 0.27, y: 0.22}
 --- !u!1 &1687335501

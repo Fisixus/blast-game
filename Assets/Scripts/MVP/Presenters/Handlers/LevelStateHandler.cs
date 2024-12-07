@@ -13,8 +13,6 @@ namespace MVP.Presenters.Handlers
         private readonly IItemFactory _itemFactory;
         private readonly IBoosterFactory _boosterFactory;
         private readonly IGridModel _gridModel;
-        public void Bind()
-        {
             //DI.Bind(this);
 
             
@@ -24,7 +22,6 @@ namespace MVP.Presenters.Handlers
             // m_LevelTransitionHandler = levelTransitionHandler;
             // m_MatchHandler = matchHandler;
             // m_BoosterHandler = boosterHandler;
-        }
 
         public LevelStateHandler(IItemFactory itemFactory, IBoosterFactory boosterFactory, IGridModel gridModel)
         {

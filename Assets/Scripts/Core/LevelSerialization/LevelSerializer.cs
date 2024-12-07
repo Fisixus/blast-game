@@ -15,11 +15,11 @@ namespace Core.LevelSerialization
                 string jsonString = jsonFile.text;
                 var levelJson = JsonUtility.FromJson<LevelJson>(jsonString);
                 var (gridObjectTypes, levelGoals) = ProcessLevelJson(levelJson);
-                return new LevelInfo(levelJson.LevelNumber, gridObjectTypes, levelGoals, levelJson.MoveCount);
+                return new LevelInfo(levelJson.level_number, gridObjectTypes, levelGoals, levelJson.move_count);
             }
             catch (Exception e)
             {
-                Debug.Log(e);
+                Debug.Log("JSON error:" + e);
                 throw;
             }
         }
@@ -31,13 +31,13 @@ namespace Core.LevelSerialization
             int numberOfVases = 0;
 
             // Set the grid data
-            var gridData = new System.Enum[levelJson.GridHeight, levelJson.GridWidth];
+            var gridData = new System.Enum[levelJson.grid_height, levelJson.grid_width];
 
             int gridIndex = 0;
-            for (int i = levelJson.GridHeight - 1; i >= 0; --i)
-                for (int j = 0; j < levelJson.GridWidth; ++j)
+            for (int i = levelJson.grid_height - 1; i >= 0; --i)
+                for (int j = 0; j < levelJson.grid_width; ++j)
                 {
-                    switch (levelJson.Grid[gridIndex++])
+                    switch (levelJson.grid[gridIndex++])
                     {
                         // Obstacles
                         case "bo":
