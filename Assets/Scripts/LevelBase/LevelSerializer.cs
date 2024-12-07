@@ -14,8 +14,8 @@ namespace LevelBase
                 TextAsset jsonFile = Resources.Load<TextAsset>("Levels/level_" + level.ToString("00"));
                 string jsonString = jsonFile.text;
                 var levelJson = JsonUtility.FromJson<LevelJson>(jsonString);
-                var (gridItems, levelGoals) = ProcessLevelJson(levelJson);
-                return new LevelInfo(levelJson.LevelNumber, gridItems, levelGoals, levelJson.MoveCount);
+                var (gridObjectTypes, levelGoals) = ProcessLevelJson(levelJson);
+                return new LevelInfo(levelJson.LevelNumber, gridObjectTypes, levelGoals, levelJson.MoveCount);
             }
             catch (Exception e)
             {
@@ -23,7 +23,7 @@ namespace LevelBase
                 throw;
             }
         }
-        private static (ItemType[,] GridItems, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
+        private static (Enum[,] GridObjectTypes, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
         {
             // Count obstacles for goal data
             int numberOfBoxes = 0;
@@ -31,7 +31,7 @@ namespace LevelBase
             int numberOfVases = 0;
 
             // Set the grid data
-            var gridData = new ItemType[levelJson.GridHeight, levelJson.GridWidth];
+            var gridData = new Enum[levelJson.GridHeight, levelJson.GridWidth];
 
             int gridIndex = 0;
             for (int i = levelJson.GridHeight - 1; i >= 0; --i)
@@ -69,7 +69,7 @@ namespace LevelBase
                             gridData[i, j] = ((ItemType[]) Enum.GetValues(typeof(ItemType)))[UnityEngine.Random.Range(1, 5)];
                             break;
                         case "t":
-                            gridData[i, j] = ItemType.Bomb;
+                            gridData[i, j] = BoosterType.Bomb;
                             break;
                         default:
                             gridData[i, j] = ((ItemType[])Enum.GetValues(typeof(ItemType)))[UnityEngine.Random.Range(1, 5)];

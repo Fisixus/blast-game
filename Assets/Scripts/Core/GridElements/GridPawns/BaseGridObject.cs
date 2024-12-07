@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Core.GridElements.GridPawns
 {
-    public abstract class BaseGridObject : MonoBehaviour, IGridObject
+    public abstract class BaseGridObject : MonoBehaviour, IGridObject, IType
     {
         [field: SerializeField] public BoxCollider2D BoxCollider { get; private set; }
 
@@ -17,7 +17,9 @@ namespace Core.GridElements.GridPawns
 
         [field: SerializeField] public Vector2Int Coordinate { get; set; }
 
-        public ItemType ItemType { get; protected set; }
+        public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
+
+        public bool IsEmpty { get; set; } = false;
 
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
@@ -49,10 +51,11 @@ namespace Core.GridElements.GridPawns
         }
 
         // SetAttributes, leveraging IType and polymorphism
-        public virtual void SetAttributes(Vector2Int newCoord, ItemType type)
+        public virtual void SetAttributes(Vector2Int newCoord, System.Enum type, bool emptiness)
         {
             Coordinate = newCoord;
-            ItemType = type;
+            Type = type;
+            IsEmpty = emptiness;
             name = ToString();
         }
 

@@ -13,6 +13,6 @@ namespace Core.GridElements.GridPawns.Interface
         void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr, Vector2Int? coordinateOverride = null,
             bool isAnimationOn = false, float animationTime = 0.2f);
 
-        void SetAttributes(Vector2Int newCoord, ItemType type);
+        void SetAttributes(Vector2Int newCoord, System.Enum type, bool emptiness);
     }
 }

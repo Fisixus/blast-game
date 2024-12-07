@@ -1,23 +1,24 @@
 using AYellowpaper.SerializedCollections;
 using Core.Enum;
 using UnityEngine;
+using UnityEngine.Serialization;
 
 namespace Core.ScriptableObjects
 {
     [CreateAssetMenu(fileName = "ProbabilityDistribution_00", menuName = "Scriptable Objects/New Distribution")]
     public class ItemSpawnProbabilityDistributionSO : ScriptableObject
     {
-        [SerializeField] [SerializedDictionary("Item Type", "Ratio")]
-        private SerializedDictionary<ItemType, float> m_ItemDataDict;
+        [FormerlySerializedAs("m_ItemDataDict")] [SerializeField] [SerializedDictionary("Item Type", "Ratio")]
+        private SerializedDictionary<ItemType, float> _itemDataDict;
 
-        [SerializeField] private float m_TotalProbability;
+        [FormerlySerializedAs("m_TotalProbability")] [SerializeField] private float _totalProbability;
 
 #if UNITY_EDITOR
         private void OnValidate()
         {
             // Optionally show warnings in the editor if total probability is low or zero
             CalculateTotalProbability();
-            if (m_TotalProbability <= 0)
+            if (_totalProbability <= 0)
                 Debug.LogWarning("Total probability is zero. Add valid percentages for item spawning.");
         }
 #endif
@@ -30,23 +31,23 @@ namespace Core.ScriptableObjects
         // Calculate the total probability for cumulative calculation
         private void CalculateTotalProbability()
         {
-            m_TotalProbability = 0;
-            foreach (var value in m_ItemDataDict.Values) m_TotalProbability += value;
+            _totalProbability = 0;
+            foreach (var value in _itemDataDict.Values) _totalProbability += value;
         }
 
         // Method to randomly select an ItemType based on their probabilities
         public ItemType PickRandomItemType()
         {
-            if (m_TotalProbability <= 0)
+            if (_totalProbability <= 0)
             {
                 Debug.LogWarning("Total probability is zero. Ensure the dictionary has valid values.");
                 return ItemType.None; // Fallback item type
             }
 
-            var randomValue = Random.Range(0, m_TotalProbability);
+            var randomValue = Random.Range(0, _totalProbability);
             float cumulative = 0;
 
-            foreach (var pair in m_ItemDataDict)
+            foreach (var pair in _itemDataDict)
             {
                 cumulative += pair.Value; // Add current item's probability
                 if (randomValue < cumulative) return pair.Key; // Return the item type that fits the random value
