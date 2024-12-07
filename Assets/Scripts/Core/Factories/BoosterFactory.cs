@@ -18,7 +18,7 @@ namespace Core.Factories
         
         public void Awake()
         {
-            Pool.Initialize(ObjPrefab, ParentTr, 8); // Initialize the pool
+            SetPool(8); // Initialize the pool
             _allBoosters = new List<Booster>(8);
         }
         

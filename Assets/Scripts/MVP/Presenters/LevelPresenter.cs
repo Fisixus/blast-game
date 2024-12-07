@@ -1,7 +1,6 @@
 using Events;
 using Events.Level;
 using MVP.Views.Interface;
-using UnityEngine;
 
 namespace MVP.Presenters
 {
@@ -11,13 +10,13 @@ namespace MVP.Presenters
         //private GoalHandler m_GoalHandler;
         private IGridView _gridView;
 
-        private void OnEnable()
+        public LevelPresenter()
         {
-            //_gridView = DI.Resolve<IGridView>();
             GameEventSystem.AddListener<OnLevelLoadedEvent>(LevelLoaded);
+            //_gridView = DI.Resolve<IGridView>();
         }
 
-        public void OnDisable()
+        ~LevelPresenter()
         {
             GameEventSystem.RemoveListener<OnLevelLoadedEvent>(LevelLoaded);
             //m_SignalBus.Unsubscribe<OnLevelRequestedSignal>(LevelRequested);

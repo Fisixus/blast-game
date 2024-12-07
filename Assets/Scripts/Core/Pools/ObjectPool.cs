@@ -1,40 +1,48 @@
-﻿using System.Collections.Generic;
-using Core.Interface;
-using UnityEngine;
+﻿using Core.Pools.Interface;
 
 namespace Core.Pools
 {
-    public class ObjectPool<T> : MonoBehaviour, IPool<T> where T : MonoBehaviour
-    {
-        private Queue<T> Pool { get; set; }
+    using System.Collections.Generic;
+    using UnityEngine;
 
-        public void Initialize(T prefab, Transform parent, int poolSize = 64)
+    public class ObjectPool<T> : IPool<T> where T : Component
+    {
+        private readonly Queue<T> _pool = new();
+        private readonly T _prefab;
+        private readonly Transform _parentTr;
+        public ObjectPool(){}
+        public ObjectPool(T prefab, Transform parentTr, int poolSize = 64)
         {
-            Pool = new Queue<T>(poolSize);
+            _prefab = prefab;
+            _parentTr = parentTr;
+
+            // Preload the pool with inactive objects
             for (var i = 0; i < poolSize; i++)
             {
-                var obj = Instantiate(prefab, parent);
-                Pool.Enqueue(obj);
+                var obj = Object.Instantiate(_prefab, _parentTr);
                 obj.gameObject.SetActive(false);
+                _pool.Enqueue(obj);
             }
         }
 
         public T Get()
         {
-            if (Pool.Count > 0)
+            if (_pool.Count > 0)
             {
-                var obj = Pool.Dequeue();
+                var obj = _pool.Dequeue();
                 obj.gameObject.SetActive(true);
                 return obj;
             }
 
-            return null;
+            // If the pool is empty, create a new instance
+            var newObj = Object.Instantiate(_prefab, _parentTr);
+            return newObj;
         }
 
         public void Return(T obj)
         {
             obj.gameObject.SetActive(false);
-            Pool.Enqueue(obj);
+            _pool.Enqueue(obj);
         }
     }
 }

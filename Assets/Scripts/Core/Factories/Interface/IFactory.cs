@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-using Core.Interface;
+using Core.Pools.Interface;
 using UnityEngine;
 
 namespace Core.Factories.Interface

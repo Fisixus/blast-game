@@ -13,15 +13,16 @@ namespace Input
         private Camera _cam;
         private EventSystem _eventSystem;
 
-        private bool _isInputOff = false;
-        private IA_User _userActions;
+        private bool _isInputOn = true;
         
         private void Awake()
         {
+            var userActions = new IA_User(); // Instantiate the input actions class
+            userActions.Match.Enable(); // Enable the specific action map
+            userActions.Match.Touch.performed += TouchItemNotifier; // Subscribe to the action
+            
             _cam = Camera.main;
             _eventSystem = EventSystem.current;
-            _userActions.Match.Enable();
-            _userActions.Match.Touch.performed += TouchItemNotifier;
         }
 
         private void OnDisable()
@@ -32,7 +33,7 @@ namespace Input
 
         // private void SetInputState(OnInputStateChangedSignal args)
         // {
-        //     _isInputOff = args.IsInputOff;
+        //     _isInputOn = args.IsInputOn;
         // }
 
         private bool IsPointerOverUIObject()
@@ -61,7 +62,7 @@ namespace Input
 
         private void TouchItemNotifier(InputAction.CallbackContext context)
         {
-            if (IsPointerOverUIObject() || _isInputOff)
+            if (IsPointerOverUIObject() || !_isInputOn)
                 return;
 
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);

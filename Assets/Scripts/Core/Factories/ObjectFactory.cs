@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using Core.Factories.Interface;
-using Core.Interface;
+using Core.Pools;
+using Core.Pools.Interface;
 using UnityEngine;
 
 namespace Core.Factories
@@ -13,6 +14,11 @@ namespace Core.Factories
 
         public IPool<T> Pool { get; private set; }
         
+        public void SetPool(int poolSize)
+        {
+            Pool = new ObjectPool<T>(ObjPrefab, ParentTr, poolSize);
+        }
+
         public virtual T CreateObj()
         {
             return Pool.Get() ?? Instantiate(ObjPrefab, ParentTr);

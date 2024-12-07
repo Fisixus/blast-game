@@ -3,6 +3,7 @@ using AYellowpaper.SerializedCollections;
 using Core.Enum;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
+using Core.Pools;
 using Core.ScriptableObjects;
 using UnityEngine;
 
@@ -19,7 +20,7 @@ namespace Core.Factories
 
         public void Awake()
         {
-            Pool.Initialize(ObjPrefab, ParentTr, 64); // Initialize the pool
+            SetPool(64);
             _allItems = new List<Item>(64);
         }
 

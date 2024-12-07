@@ -28,13 +28,13 @@ namespace MVP.Models
 
         private ItemType[,] _gridData;
         private const string LevelIndexStr = "LevelIndex";
-        
-        private void OnEnable()
+
+        public LevelModel()
         {
             GameEventSystem.AddListener<OnGameStartedEvent>(LoadLevel);
         }
 
-        private void OnDisable()
+        ~LevelModel()
         {
             GameEventSystem.RemoveListener<OnGameStartedEvent>(LoadLevel);
         }
