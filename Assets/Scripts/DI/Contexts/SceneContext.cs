@@ -1,6 +1,6 @@
 using UnityEngine;
 
-namespace DI
+namespace DI.Contexts
 {
     public class SceneContext : MonoBehaviour
     {

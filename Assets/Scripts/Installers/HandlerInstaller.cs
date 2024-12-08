@@ -9,11 +9,7 @@ namespace Installers
     {
         protected override void InstallBindings()
         {
-            Container.BindAsSingle(() => new LevelStateHandler
-            (Container.Resolve<IItemFactory>(), 
-            Container.Resolve<IBoosterFactory>(), 
-                Container.Resolve<IGridModel>())
-            );
+            Container.BindAsSingle(() => Container.Construct<LevelStateHandler>());
         }
     }
 }

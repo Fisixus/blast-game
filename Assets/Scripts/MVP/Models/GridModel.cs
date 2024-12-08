@@ -11,6 +11,7 @@ namespace MVP.Models
         public int ColumnCount { get; private set; }
         public int RowCount { get; private set; }
         
+        
         public void Initialize(List<BaseGridObject> gridObjs, int columns, int rows)
         {
             ColumnCount = columns;

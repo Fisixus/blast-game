@@ -31,7 +31,7 @@ namespace MVP.Models
 
         public LevelModel()
         {
-            Debug.Log("AS");
+            Debug.Log("SA");
             GameEventSystem.AddListener<OnGameStartedEvent>(LoadLevel);
         }
 
@@ -42,7 +42,6 @@ namespace MVP.Models
         
         public void LoadLevel(object args)
         {
-            Debug.Log("ANAN!");
             CurrentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
             if (CurrentLevelInfo is null)
             {

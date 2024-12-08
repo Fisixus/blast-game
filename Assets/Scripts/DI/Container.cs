@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using UnityEngine;
 
 namespace DI
 {
@@ -7,37 +8,46 @@ namespace DI
     {
         private readonly Dictionary<Type, Func<object>> _bindings = new();
 
-        // Bind a type as a Singleton
         public void BindAsSingle<T>(Func<T> factory) where T : class
         {
             T instance = null;
             _bindings[typeof(T)] = () => instance ??= factory();
         }
+
         public void BindAsSingleNonLazy<T>(Func<T> factory) where T : class
         {
             BindAsSingle(factory);
-            _bindings[typeof(T)].Invoke();
+            _bindings[typeof(T)].Invoke(); // Force creation now (non-lazy)
         }
-        // Bind a type as Transient
+
         public void BindAsTransient<T>(Func<T> factory) where T : class
         {
             _bindings[typeof(T)] = () => factory();
         }
 
-        // Resolve a type
         public T Resolve<T>() where T : class
         {
-            if (_bindings.TryGetValue(typeof(T), out var factory))
+            return Resolve(typeof(T)) as T;
+        }
+
+        public object Resolve(Type type)
+        {
+            if (_bindings.TryGetValue(type, out var factory))
             {
-                var instance = factory() as T;
-                if (instance is IPreInitializable preInit)
-                {
-                    preInit.PreInitialize();
-                }
+                var instance = factory();
+                InitializeIfPreInitializable(instance);
                 return instance;
             }
 
-            throw new Exception($"Type {typeof(T).Name} not bound in container.");
+            throw new Exception($"Type {type.Name} not bound in container.");
+        }
+
+        private void InitializeIfPreInitializable(object instance)
+        {
+            if (instance is IPreInitializable preInit)
+            {
+                preInit.PreInitialize();
+            }
         }
     }
 }

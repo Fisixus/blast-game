@@ -8,6 +8,7 @@ namespace MVP.Presenters
     {
         public GamePresenter()
         {
+            Debug.Log("AS");
             StartGame();
         }
         

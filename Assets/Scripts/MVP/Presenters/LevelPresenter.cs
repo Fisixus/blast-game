@@ -1,3 +1,4 @@
+using DI;
 using Events;
 using Events.Level;
 using MVP.Presenters.Handlers;
@@ -17,13 +18,11 @@ namespace MVP.Presenters
             _levelStateHandler = levelStateHandler;
             _gridView = gridView;
             GameEventSystem.AddListener<OnLevelLoadedEvent>(LevelLoaded);
-            //_gridView = DI.Resolve<IGridView>();
         }
 
         ~LevelPresenter()
         {
             GameEventSystem.RemoveListener<OnLevelLoadedEvent>(LevelLoaded);
-            //m_SignalBus.Unsubscribe<OnLevelRequestedSignal>(LevelRequested);
             //m_GoalHandler.OnLevelCompleted -= HandleLevelCompleted;
             //m_GoalHandler.OnLevelFailed -= HandleLevelFailed;
         }
@@ -48,7 +47,6 @@ namespace MVP.Presenters
         {
             Debug.Log("LevelLoaded");
             var levelInfo = (args as OnLevelLoadedEvent)?.LevelInfo;
-            Debug.Log(levelInfo);
             _gridView.CalculateGridSize(levelInfo.GridSize);
             _levelStateHandler.Initialize(levelInfo);
             //m_GoalHandler.Initialize(levelInfo);
