@@ -20,4 +20,4 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: b7cea823c82835c419a03916fe31181b, type: 3}
     - Key: 2
       Value: {fileID: 21300000, guid: f1766acea930b3f4f9490119f79ed359, type: 3}
-  <ItemWidthHeight>k__BackingField: {x: 0.5, y: 0.57}
+  <ItemWidthHeight>k__BackingField: {x: 1.1, y: 1.25}

@@ -1,3 +1,4 @@
+using Core.GridElements.GridPawns;
 using MVP.Views.Interface;
 using Unity.Mathematics;
 using UnityEngine;
@@ -47,6 +48,17 @@ namespace MVP.Views
             GridTopLeftTr.position = new Vector2(bounds.min.x, bounds.max.y) + GridTopLeftMargin;
         }
 
-
+        public void SetGridObjectLocation(BaseGridObject gridObject, Vector2Int? newCoord = null, bool isAnimOn = false,
+            float animationTime = 0f)
+        {
+            gridObject.SetWorldPosition(
+                CellSize,
+                GridTopLeftTr,
+                newCoord,
+                isAnimOn,
+                animationTime
+            );
+        }
+        
     }
 }

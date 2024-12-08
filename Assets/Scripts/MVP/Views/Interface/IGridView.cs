@@ -1,4 +1,5 @@
 
+using Core.GridElements.GridPawns;
 using UnityEngine;
 
 namespace MVP.Views.Interface
@@ -18,5 +19,7 @@ namespace MVP.Views.Interface
         public void CalculateGridSize(Vector2Int gridSize);
 
         public void ScaleGrid();
+        
+        public void SetGridObjectLocation(BaseGridObject gridObject, Vector2Int? newCoord = null, bool isAnimOn = false, float animationTime = 0f);
     }
 }

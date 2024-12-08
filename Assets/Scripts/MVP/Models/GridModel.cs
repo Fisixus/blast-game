@@ -1,5 +1,7 @@
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
+using Events;
+using Events.Grid;
 using MVP.Models.Interface;
 using UnityEngine;
 
@@ -21,7 +23,18 @@ namespace MVP.Models
             for (var j = 0; j < RowCount; j++)
             {
                 Grid[i, j] = gridObjs[i * RowCount + j];
-                //TODO: m_SignalBus.Fire(new OnGridObjectInitializedSignal() { InitializedBaseGridObject = Grid[i, j] });
+                GameEventSystem.Invoke<OnGridObjectInitializedEvent>
+                    (new OnGridObjectInitializedEvent() { GridObject = Grid[i, j] });
+            }
+        }
+        
+        public void UpdateGridObjects(List<BaseGridObject> newGridObjects, bool isAnimationOn)
+        {
+            foreach (var newGridObj in newGridObjects)
+            {
+                Grid[newGridObj.Coordinate.x, newGridObj.Coordinate.y] = newGridObj;
+                GameEventSystem.Invoke<OnGridObjectUpdatedEvent>
+                    (new OnGridObjectUpdatedEvent(){ GridObject = newGridObj, IsAnimationOn = isAnimationOn });
             }
         }
     }

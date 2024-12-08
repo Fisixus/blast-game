@@ -68,6 +68,7 @@ namespace Core.LevelSerialization
                         case "rand":
                             gridData[i, j] = ((ItemType[]) System.Enum.GetValues(typeof(ItemType)))[UnityEngine.Random.Range(1, 5)];
                             break;
+                        //Boosters
                         case "t":
                             gridData[i, j] = BoosterType.Bomb;
                             break;
