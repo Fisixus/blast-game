@@ -34,6 +34,13 @@ namespace MVP.Presenters.Handlers
         {
             //var longestCell = ItemHelper.FindLongestCell(_itemFactory.ItemDataDict);
             List<BaseGridObject> gridObjects = new List<BaseGridObject>(64);
+            // for (int i = 0; i < levelInfo.GridObjectTypes.GetLength(0); i++)
+            // {
+            //     for (int j = 0; j < levelInfo.GridObjectTypes.GetLength(1); j++)
+            //     {
+            //         Debug.Log(levelInfo.GridObjectTypes[i,j]);
+            //     }
+            // }
             var items = _itemFactory.GenerateItems(levelInfo.GridObjectTypes);
             gridObjects.AddRange(items);
             var boosters = _boosterFactory.GenerateBoosters(levelInfo.GridObjectTypes);

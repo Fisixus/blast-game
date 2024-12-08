@@ -3,6 +3,7 @@ using AYellowpaper.SerializedCollections;
 using Core.Enum;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
+using Core.Pools;
 using Core.ScriptableObjects;
 using UnityEngine;
 
@@ -16,9 +17,9 @@ namespace Core.Factories
 
         private List<Booster> _allBoosters;
         
-        public void Awake()
+        public override void PreInitialize()
         {
-            SetPool(8); // Initialize the pool
+            Pool = new ObjectPool<Booster>(ObjPrefab, ParentTr, 8);
             _allBoosters = new List<Booster>(8);
         }
         

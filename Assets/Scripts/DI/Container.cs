@@ -28,7 +28,14 @@ namespace DI
         public T Resolve<T>() where T : class
         {
             if (_bindings.TryGetValue(typeof(T), out var factory))
-                return factory() as T;
+            {
+                var instance = factory() as T;
+                if (instance is IPreInitializable preInit)
+                {
+                    preInit.PreInitialize();
+                }
+                return instance;
+            }
 
             throw new Exception($"Type {typeof(T).Name} not bound in container.");
         }

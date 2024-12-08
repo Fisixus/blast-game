@@ -18,12 +18,12 @@ namespace Core.Factories
 
         private List<Item> _allItems;
 
-        public void Awake()
+        public override void PreInitialize()
         {
-            SetPool(64);
+            Pool = new ObjectPool<Item>(ObjPrefab, ParentTr, 65);
             _allItems = new List<Item>(64);
         }
-
+        
         public BaseGridObject GenerateItem(Vector2Int itemCoordinate)
         {
             var itemType = Probability.PickRandomItemType();
@@ -48,7 +48,7 @@ namespace Core.Factories
 
             return _allItems;
         }
-
+        
         public override Item CreateObj()
         {
             var item = base.CreateObj();
