@@ -14,18 +14,18 @@ namespace Core.GridElements.GridPawns.Interface
         {
             public bool IsEmpty { get; set; }
             public bool IsStationary { get; set; }
-            public int DamageCount { get; set; }
+            public int HitCount { get; set; }
 
             public void SetAttributes(System.Enum type)
             {
                 IsEmpty = type is ItemType.None or BoosterType.None;
                 IsStationary = type is ItemType.SI_Box or ItemType.SI_Stone;
-                DamageCount = type is ItemType.SI_Vase ? 2 : 1;
+                HitCount = type is ItemType.SI_Vase ? 2 : 1;
             }
 
             public override string ToString()
             {
-                return $"IsEmpty: {IsEmpty}, IsStationary: {IsStationary}, DamageCount: {DamageCount}";
+                return $"IsEmpty: {IsEmpty}, IsStationary: {IsStationary}, HitCount: {HitCount}";
             }
         }
         public GridObjectAttributes Attributes { get; }

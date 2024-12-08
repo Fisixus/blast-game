@@ -1,3 +1,4 @@
+using System;
 using Core.Enum;
 using Core.GridElements.GridPawns.Effect;
 using Core.GridElements.GridPawns.Interface;
@@ -20,6 +21,11 @@ namespace Core.GridElements.GridPawns
         public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
         public IGridObject.GridObjectAttributes Attributes { get; private set; }
 
+
+        private void Start()
+        {
+            Attributes = new IGridObject.GridObjectAttributes();
+        }
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
             Vector2Int? coordinateOverride = null,
@@ -57,7 +63,6 @@ namespace Core.GridElements.GridPawns
             name = ToString();
 
             // Update the GridAttributes
-            Attributes = new IGridObject.GridObjectAttributes();
             Attributes.SetAttributes(type);
         }
 

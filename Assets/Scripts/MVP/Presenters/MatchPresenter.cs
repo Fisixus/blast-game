@@ -44,7 +44,7 @@ namespace MVP.Presenters
             switch (eventArgs.GridObject)
             {
                 case Item item:
-                    HandleItemTouch(item);
+                    ProcessItemTouch(item);
                     break;
                 case Booster booster:
                     //ProcessBoosterTouchAsync(booster).Forget();
@@ -52,7 +52,7 @@ namespace MVP.Presenters
             }
         }
         
-        private void HandleItemTouch(Item item)
+        private void ProcessItemTouch(Item item)
         {
             var matchedItems = _matchHandler.FindMatches(item);
             if (matchedItems.Count == 0)
@@ -61,7 +61,7 @@ namespace MVP.Presenters
                 return;
             }
 
-            //var (balloons, nonBalloons) = GridItemFinderHelper.SeparateBalloons(matchedItems);
+            var (obstacles, regularItems) = GridItemFinderHelper.SeparateRegularItems(matchedItems);
             // var boosterType = m_BoosterHandler.IsBoosterCreatable(nonBalloons);
             // if (boosterType != BoosterType.None)
             // {
