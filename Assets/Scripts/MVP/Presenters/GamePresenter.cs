@@ -1,6 +1,5 @@
 using Events;
 using Events.Game;
-using UnityEngine;
 
 namespace MVP.Presenters
 {
@@ -8,7 +7,6 @@ namespace MVP.Presenters
     {
         public GamePresenter()
         {
-            Debug.Log("AS");
             StartGame();
         }
         

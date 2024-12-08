@@ -8,13 +8,13 @@ using UnityEngine;
 
 namespace MVP.Presenters
 {
-    public class BlastPresenter
+    public class MatchPresenter
     {
         private readonly IGridView _gridView;
         private readonly MatchHandler _matchHandler;
 
 
-        public BlastPresenter(IGridView gridView, MatchHandler matchHandler)
+        public MatchPresenter(IGridView gridView, MatchHandler matchHandler)
         {
             _gridView = gridView;
             _matchHandler = matchHandler;
@@ -25,7 +25,7 @@ namespace MVP.Presenters
             GameEventSystem.AddListener<OnGridObjectUpdatedEvent>(GridObjectUpdatedInGrid);
         }
         
-        ~BlastPresenter()
+        ~MatchPresenter()
         {
             GameEventSystem.RemoveListener<OnGridObjectTouchedEvent>(OnTouch);
             GameEventSystem.RemoveListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
@@ -77,7 +77,7 @@ namespace MVP.Presenters
         
         private void ProcessNoMatch(BaseGridObject touchedGridObject)
         {
-            touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
+            //TODO:touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
         }
         
         private void GridObjectInitializedInGrid(object args)

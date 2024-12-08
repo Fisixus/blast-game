@@ -1,7 +1,9 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Enum;
 using Core.GridElements.GridPawns;
 using MVP.Presenters.Handlers.Strategies.Interface;
+using UnityEngine;
 
 namespace MVP.Presenters.Handlers
 {
@@ -39,6 +41,8 @@ namespace MVP.Presenters.Handlers
 
             if (_strategies.TryGetValue(MatchType.RegularItems, out var strategy))
             {
+                Debug.Log("G:"+_columnCount);
+
                 matchedItems.AddRange(strategy.FindMatches(item.Coordinate, item.ItemType, _grid, _visited,
                     _columnCount, _rowCount));
             }

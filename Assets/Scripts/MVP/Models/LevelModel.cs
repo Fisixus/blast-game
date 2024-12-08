@@ -31,7 +31,6 @@ namespace MVP.Models
 
         public LevelModel()
         {
-            Debug.Log("SA");
             GameEventSystem.AddListener<OnGameStartedEvent>(LoadLevel);
         }
 

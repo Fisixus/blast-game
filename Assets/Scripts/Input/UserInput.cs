@@ -64,10 +64,11 @@ namespace Input
         {
             if (IsPointerOverUIObject() || !_isInputOn)
                 return;
-
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);
             if (hit && hit.transform.TryGetComponent<BaseGridObject>(out var gridObject))
+            {
                 GameEventSystem.Invoke<OnGridObjectTouchedEvent>(new OnGridObjectTouchedEvent() { GridObject = gridObject });
+            }
         }
     }
 }

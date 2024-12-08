@@ -7,7 +7,9 @@ namespace DI
 {
     public class Container
     {
-        private readonly Dictionary<Type, List<Func<object>>> _bindings = new();
+        private readonly Dictionary<Type, List<Func<object>>> _bindings = new(); // Stores all factories
+        private readonly Dictionary<Type, object> _singletons = new();           // Caches singleton instances
+
 
         private void AddBinding(Type type, Func<object> factory)
         {
@@ -18,11 +20,23 @@ namespace DI
 
             _bindings[type].Add(factory);
         }
+        
+        // Bind as Singleton
         public void BindAsSingle<T>(Func<T> factory) where T : class
         {
-            AddBinding(typeof(T), () => factory());
-        }
+            AddBinding(typeof(T), () =>
+            {
+                // Check if singleton is already cached
+                if (_singletons.TryGetValue(typeof(T), out var instance))
+                    return instance;
 
+                // Create and cache the singleton instance
+                instance = factory();
+                _singletons[typeof(T)] = instance;
+                return instance;
+            });
+        }
+        
         public void BindAsSingleNonLazy<T>(Func<T> factory) where T : class
         {
             BindAsSingle(factory);

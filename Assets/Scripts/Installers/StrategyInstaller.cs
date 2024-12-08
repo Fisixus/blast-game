@@ -9,6 +9,8 @@ namespace Installers
         protected override void InstallBindings()
         {
             // Bind each MatchStrategy implementation
+            Container.BindAsSingle<IMatchStrategy>(()=> new ItemMatchStrategy());
+
         }
     }
 }

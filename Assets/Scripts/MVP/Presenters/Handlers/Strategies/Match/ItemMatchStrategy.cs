@@ -1,4 +1,5 @@
 using System.Collections.Generic;
+using System.Linq;
 using Core.Enum;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
@@ -35,9 +36,7 @@ namespace MVP.Presenters.Handlers.Strategies.Match
             _matchedItems.Clear();
             if (!IsMatchableType(clickedItemType))
                 return new List<Item>();
-
             FindMatchingItems(clickedPosition, clickedItemType, grid, visited, columnCount, rowCount);
-
             if (!IsValidMatch()) return new List<Item>();
 
             return _matchedItems;
@@ -52,7 +51,6 @@ namespace MVP.Presenters.Handlers.Strategies.Match
 
             // Exit if the position is invalid, already visited, or item type does not match
             if (!GridPositionHelper.IsPositionValid(x, y, columnCount, rowCount) || visited[x, y]) return;
-
             var currentItem = grid[x, y] as Item;
             if (currentItem == null || currentItem.ItemType != itemType) return;
 
