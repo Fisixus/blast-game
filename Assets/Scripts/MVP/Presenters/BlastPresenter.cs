@@ -1,6 +1,8 @@
 using Core.GridElements.GridPawns;
+using Core.GridElements.GridPawns.Effect;
 using Events;
 using Events.Grid;
+using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using UnityEngine;
 
@@ -9,10 +11,14 @@ namespace MVP.Presenters
     public class BlastPresenter
     {
         private readonly IGridView _gridView;
+        private readonly MatchHandler _matchHandler;
 
-        public BlastPresenter(IGridView gridView)
+
+        public BlastPresenter(IGridView gridView, MatchHandler matchHandler)
         {
             _gridView = gridView;
+            _matchHandler = matchHandler;
+            
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
             GameEventSystem.AddListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
             GameEventSystem.AddListener<OnGridObjectShiftedEvent>(GridObjectShiftedInGrid);
@@ -35,12 +41,43 @@ namespace MVP.Presenters
             switch (eventArgs.GridObject)
             {
                 case Item item:
-                    //HandleItemTouch(item);
+                    HandleItemTouch(item);
                     break;
                 case Booster booster:
                     //ProcessBoosterTouchAsync(booster).Forget();
                     break;
             }
+        }
+        
+        private void HandleItemTouch(Item item)
+        {
+            var matchedItems = _matchHandler.FindMatches(item);
+            foreach (var i in matchedItems)
+            {
+                Debug.Log(i);
+            }
+            if (matchedItems.Count == 0)
+            {
+                ProcessNoMatch(item);
+                return;
+            }
+
+            //var (balloons, nonBalloons) = GridItemFinderHelper.SeparateBalloons(matchedItems);
+            // var boosterType = m_BoosterHandler.IsBoosterCreatable(nonBalloons);
+            // if (boosterType != BoosterType.None)
+            // {
+            //     ProcessBoosterCreation(item, balloons, nonBalloons, boosterType);
+            // }
+            // else
+            // {
+            //     m_GoalHandler.UpdateMoves();
+            //     ProcessMatch(matchedItems);
+            // }
+        }
+        
+        private void ProcessNoMatch(BaseGridObject touchedGridObject)
+        {
+            touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
         }
         
         private void GridObjectInitializedInGrid(object args)
