@@ -3,6 +3,7 @@ using AYellowpaper.SerializedCollections;
 using Core.Enum;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
+using Core.GridElements.GridPawns.Effect;
 using Core.Pools;
 using Core.ScriptableObjects;
 using UnityEngine;
@@ -26,7 +27,7 @@ namespace Core.Factories
         public override void DestroyObj(Booster emptyBooster)
         {
             base.DestroyObj(emptyBooster);
-            emptyBooster.SetAttributes(-Vector2Int.one, BoosterType.None, true);
+            emptyBooster.SetAttributes(-Vector2Int.one, BoosterType.None);
             _allBoosters.Remove(emptyBooster);
         }
 
@@ -46,7 +47,7 @@ namespace Core.Factories
                 var boosterType = (BoosterType)boosterTypes[j, i];
                 
                 var booster = CreateObj();
-                booster.SetAttributes(new Vector2Int(i, j), boosterType, false);
+                booster.SetAttributes(new Vector2Int(i, j), boosterType);
                 booster.ApplyBoosterData(BoosterDataDict[boosterType]);
             }
 
@@ -63,8 +64,8 @@ namespace Core.Factories
         public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord)
         {
             var booster = CreateObj();
-            //TODO:booster.GetComponent<BoosterEffect>().PlayBoosterCreationParticle();
-            booster.SetAttributes(coord, boosterType, false);
+            booster.GetComponent<BoosterEffect>().PlayBoosterCreationParticle();
+            booster.SetAttributes(coord, boosterType);
             booster.ApplyBoosterData(BoosterDataDict[boosterType]);
             return booster;
         }

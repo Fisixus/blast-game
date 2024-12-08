@@ -18,8 +18,7 @@ namespace Core.GridElements.GridPawns
         [field: SerializeField] public Vector2Int Coordinate { get; set; }
 
         public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
-
-        public bool IsEmpty { get; set; } = false;
+        public IGridObject.GridObjectAttributes Attributes { get; private set; }
 
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
@@ -51,12 +50,15 @@ namespace Core.GridElements.GridPawns
         }
 
         // SetAttributes, leveraging IType and polymorphism
-        public virtual void SetAttributes(Vector2Int newCoord, System.Enum type, bool emptiness)
+        public void SetAttributes(Vector2Int newCoord, System.Enum type)
         {
             Coordinate = newCoord;
             Type = type;
-            IsEmpty = emptiness;
             name = ToString();
+
+            // Update the GridAttributes
+            Attributes = new IGridObject.GridObjectAttributes();
+            Attributes.SetAttributes(type);
         }
 
         public void SetSortingOrder(int order)

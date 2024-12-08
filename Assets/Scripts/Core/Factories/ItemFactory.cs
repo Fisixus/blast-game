@@ -28,7 +28,7 @@ namespace Core.Factories
         {
             var itemType = Probability.PickRandomItemType();
             var item = CreateObj();
-            item.SetAttributes(itemCoordinate, itemType, false);
+            item.SetAttributes(itemCoordinate, itemType);
             item.ApplyItemData(ItemDataDict[itemType]);
             return item;
         }
@@ -42,7 +42,7 @@ namespace Core.Factories
                 var itemType = (ItemType)itemTypes[j, i];
                 
                 var item = CreateObj();
-                item.SetAttributes(new Vector2Int(i, j), itemType, false);
+                item.SetAttributes(new Vector2Int(i, j), itemType);
                 item.ApplyItemData(ItemDataDict[itemType]);
             }
 
@@ -59,7 +59,7 @@ namespace Core.Factories
         public override void DestroyObj(Item emptyItem)
         {
             base.DestroyObj(emptyItem);
-            emptyItem.SetAttributes(-Vector2Int.one, ItemType.None, true);
+            emptyItem.SetAttributes(-Vector2Int.one, ItemType.None);
             _allItems.Remove(emptyItem);
         }
 

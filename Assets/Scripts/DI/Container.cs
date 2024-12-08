@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using UnityEngine;
 
 namespace DI
 {
@@ -9,8 +8,6 @@ namespace DI
     {
         private readonly Dictionary<Type, List<Func<object>>> _bindings = new(); // Stores all factories
         private readonly Dictionary<Type, object> _singletons = new();           // Caches singleton instances
-
-
         private void AddBinding(Type type, Func<object> factory)
         {
             if (!_bindings.ContainsKey(type))

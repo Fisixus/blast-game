@@ -15,10 +15,5 @@ namespace DI.Contexts
                 installer.Install(_sceneContainer);
             }
         }
-
-        public T Resolve<T>() where T : class
-        {
-            return _sceneContainer.Resolve<T>();
-        }
     }
 }

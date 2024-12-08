@@ -2,6 +2,7 @@ using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Events;
 using Events.Grid;
+using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using UnityEngine;
@@ -11,12 +12,14 @@ namespace MVP.Presenters
     public class MatchPresenter
     {
         private readonly IGridView _gridView;
+        private readonly IGridModel _gridModel;
         private readonly MatchHandler _matchHandler;
 
 
-        public MatchPresenter(IGridView gridView, MatchHandler matchHandler)
+        public MatchPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler)
         {
             _gridView = gridView;
+            _gridModel = gridModel;
             _matchHandler = matchHandler;
             
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
@@ -52,10 +55,6 @@ namespace MVP.Presenters
         private void HandleItemTouch(Item item)
         {
             var matchedItems = _matchHandler.FindMatches(item);
-            foreach (var i in matchedItems)
-            {
-                Debug.Log(i);
-            }
             if (matchedItems.Count == 0)
             {
                 ProcessNoMatch(item);
@@ -77,7 +76,7 @@ namespace MVP.Presenters
         
         private void ProcessNoMatch(BaseGridObject touchedGridObject)
         {
-            //TODO:touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
+            touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
         }
         
         private void GridObjectInitializedInGrid(object args)

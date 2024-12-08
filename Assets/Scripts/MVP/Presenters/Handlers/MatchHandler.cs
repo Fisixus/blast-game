@@ -39,12 +39,21 @@ namespace MVP.Presenters.Handlers
             ClearVisited(_visited, _columnCount, _rowCount);
             var matchedItems = new List<Item>();
 
-            if (_strategies.TryGetValue(MatchType.RegularItems, out var strategy))
+            if (_strategies.TryGetValue(MatchType.RegularItems, out var strategyItem))
             {
-                Debug.Log("G:"+_columnCount);
-
-                matchedItems.AddRange(strategy.FindMatches(item.Coordinate, item.ItemType, _grid, _visited,
+                matchedItems.AddRange(strategyItem.FindMatches(item.Coordinate, item.ItemType, _grid, _visited,
                     _columnCount, _rowCount));
+            }
+            
+            if (_strategies.TryGetValue(MatchType.Box, out var strategyBox))
+            {
+                var boxes = new List<Item>();
+                foreach (var matchedItem in matchedItems)
+                {
+                    boxes.AddRange(strategyBox.FindMatches(matchedItem.Coordinate, matchedItem.ItemType, _grid,
+                        _visited, _columnCount, _rowCount));
+                }
+                matchedItems.AddRange(boxes);
             }
             
 
