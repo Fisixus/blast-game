@@ -15,9 +15,9 @@ namespace Core.GridElements.GridPawns
             protected set => ItemType = (ItemType)value;
         }
 
-        private Dictionary<HintType, Sprite> _hintSprites = new();
+        private Dictionary<BoosterType, Sprite> _hintSprites = new();
 
-        public void ApplyHintSprite(HintType hintType)
+        public void ApplyHintSprite(BoosterType hintType)
         {
             SpriteRenderer.sprite = _hintSprites[hintType];
         }
@@ -25,7 +25,7 @@ namespace Core.GridElements.GridPawns
         public void ApplyItemData(ItemDataSO itemData)
         {
             _hintSprites = itemData.HintSprites;
-            ApplyHintSprite(HintType.Default);
+            ApplyHintSprite(BoosterType.None);
             var itemWidthHeight = itemData.ItemWidthHeight;
             SpriteRenderer.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
             BoxCollider.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);

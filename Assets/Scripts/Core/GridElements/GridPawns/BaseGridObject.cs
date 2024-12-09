@@ -19,13 +19,8 @@ namespace Core.GridElements.GridPawns
         [field: SerializeField] public Vector2Int Coordinate { get; set; }
 
         public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
-        public IGridObject.GridObjectAttributes Attributes { get; private set; }
 
-
-        private void Start()
-        {
-            Attributes = new IGridObject.GridObjectAttributes();
-        }
+        public IGridObject.GridObjectAttributes Attributes { get; private set; } = new();
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
             Vector2Int? coordinateOverride = null,

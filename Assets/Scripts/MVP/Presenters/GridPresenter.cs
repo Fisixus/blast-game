@@ -16,14 +16,16 @@ namespace MVP.Presenters
         private readonly IGridView _gridView;
         private readonly IGridModel _gridModel;
         private readonly MatchHandler _matchHandler;
+        private readonly HintHandler _hintHandler;
         private readonly GridShiftHandler _gridShiftHandler;
 
 
-        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, GridShiftHandler gridShiftHandler)
+        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, HintHandler hintHandler, GridShiftHandler gridShiftHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
             _matchHandler = matchHandler;
+            _hintHandler = hintHandler;
             _gridShiftHandler = gridShiftHandler;
             
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);

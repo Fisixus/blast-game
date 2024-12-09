@@ -17,6 +17,6 @@ namespace Core.ScriptableObjects
         [field: SerializeField]
         public int MaxItemsNeeded{ get; private set; }
         [field: SerializeField]
-        public float WaitingTimeForEachItemDestroyed{ get; private set; }
+        public float WaitingTimeForEachDestruction{ get; private set; }
     }
 }

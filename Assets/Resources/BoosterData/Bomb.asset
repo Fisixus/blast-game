@@ -14,7 +14,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ItemSprite>k__BackingField: {fileID: 21300000, guid: 8d738497361950a48b4bbcafbe8b5f89, type: 3}
   <ItemWidthHeight>k__BackingField: {x: 0.55, y: 0.55}
-  <BoosterParents>k__BackingField: 
-  <MinItemsNeeded>k__BackingField: 8
-  <MaxItemsNeeded>k__BackingField: 10000
-  <WaitingTimeForEachItemDestroyed>k__BackingField: 0.01
+  <MinItemsNeeded>k__BackingField: 5
+  <MaxItemsNeeded>k__BackingField: 7
+  <WaitingTimeForEachDestruction>k__BackingField: 0.01
