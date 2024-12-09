@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Enum;
@@ -33,33 +34,42 @@ namespace MVP.Presenters.Handlers
             _visited = new bool[_columnCount, _rowCount];
         }
         
-        // Finds regular matches and nearby balloons
-        public List<Item> FindMatches(Item item)
+        public List<BaseGridObject> FindGridObjectMatches(BaseGridObject gridObject)
         {
             ClearVisited(_visited, _columnCount, _rowCount);
-            var matchedItems = new List<Item>();
+            var matchedObjs = new List<BaseGridObject>();
 
-            if (_strategies.TryGetValue(MatchType.RegularItems, out var strategyItem))
+            if (_strategies.TryGetValue(MatchType.GridObject, out var strategyItem))
             {
-                matchedItems.AddRange(strategyItem.FindMatches(item.Coordinate, item.ItemType, _grid, _visited,
+                matchedObjs.AddRange(strategyItem.FindMatches(gridObject.Coordinate, gridObject.Type, _grid, _visited,
                     _columnCount, _rowCount));
             }
             
-            if (_strategies.TryGetValue(MatchType.Box, out var strategyBox))
-            {
-                var boxes = new List<Item>();
-                foreach (var matchedItem in matchedItems)
-                {
-                    boxes.AddRange(strategyBox.FindMatches(matchedItem.Coordinate, matchedItem.ItemType, _grid,
-                        _visited, _columnCount, _rowCount));
-                }
-                matchedItems.AddRange(boxes);
-            }
-            
-
-            return matchedItems;
+            return matchedObjs;
         }
-        
+
+        public List<BaseGridObject> FindObstacles(List<BaseGridObject> matchedObjs)
+        {
+            var obstacles = new List<BaseGridObject>();
+            var matchTypesToHandle = new[] { MatchType.Box, MatchType.Stone, MatchType.Vase };
+            foreach (var matchType in matchTypesToHandle)
+            {
+                if (!_strategies.TryGetValue(matchType, out var strategy)) continue;
+                
+                foreach (var matchedItem in matchedObjs)
+                {
+                    obstacles.AddRange(strategy.FindMatches(
+                        matchedItem.Coordinate,
+                        matchedItem.Type,
+                        _grid,
+                        _visited,
+                        _columnCount,
+                        _rowCount));
+                }
+            }
+            return obstacles;
+        }
+
         private void ClearVisited(bool[,] visited, int columnCount, int rowCount)
         {
             for (var i = 0; i < columnCount; i++)

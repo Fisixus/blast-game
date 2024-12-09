@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Enum;
 using Core.GridElements.GridPawns;
@@ -11,9 +12,9 @@ namespace MVP.Presenters.Handlers.Strategies.Match
     {
         public MatchType MatchType => MatchType.Box;
 
-        public List<Item> FindMatches(
+        public List<BaseGridObject> FindMatches(
             Vector2Int clickedPosition,
-            ItemType clickedItemType,
+            Enum clickedType,
             BaseGridObject[,] grid,
             bool[,] visited,
             int columnCount,
@@ -21,7 +22,7 @@ namespace MVP.Presenters.Handlers.Strategies.Match
         )
         {
             // Boxes are always found adjacent to other matched items, not as standalone matches.
-            var matchedBoxes = new List<Item>();
+            var matchedBoxes = new List<BaseGridObject>();
 
             // Explore all directions around the clicked position for adjacent boxes.
             foreach (var direction in new[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right })
@@ -32,8 +33,8 @@ namespace MVP.Presenters.Handlers.Strategies.Match
                 if (!GridPositionHelper.IsPositionValid(adjacentPosition.x, adjacentPosition.y, columnCount, rowCount))
                     continue;
 
-                var adjacentItem = grid[adjacentPosition.x, adjacentPosition.y] as Item;
-                if (adjacentItem == null || adjacentItem.ItemType != ItemType.SI_Box) continue;
+                var adjacentItem = grid[adjacentPosition.x, adjacentPosition.y];
+                if (adjacentItem == null || !adjacentItem.Type.Equals(ItemType.SI_Box)) continue;
             
                 matchedBoxes.Add(adjacentItem);
                 visited[adjacentPosition.x, adjacentPosition.y] = true;

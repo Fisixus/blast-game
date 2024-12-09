@@ -1,3 +1,5 @@
+using System.Collections.Generic;
+using System.Linq;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Events;
@@ -9,18 +11,20 @@ using UnityEngine;
 
 namespace MVP.Presenters
 {
-    public class MatchPresenter
+    public class GridPresenter
     {
         private readonly IGridView _gridView;
         private readonly IGridModel _gridModel;
         private readonly MatchHandler _matchHandler;
+        private readonly GridShiftHandler _gridShiftHandler;
 
 
-        public MatchPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler)
+        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, GridShiftHandler gridShiftHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
             _matchHandler = matchHandler;
+            _gridShiftHandler = gridShiftHandler;
             
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
             GameEventSystem.AddListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
@@ -28,7 +32,7 @@ namespace MVP.Presenters
             GameEventSystem.AddListener<OnGridObjectUpdatedEvent>(GridObjectUpdatedInGrid);
         }
         
-        ~MatchPresenter()
+        ~GridPresenter()
         {
             GameEventSystem.RemoveListener<OnGridObjectTouchedEvent>(OnTouch);
             GameEventSystem.RemoveListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
@@ -54,14 +58,13 @@ namespace MVP.Presenters
         
         private void ProcessItemTouch(Item item)
         {
-            var matchedItems = _matchHandler.FindMatches(item);
+            var matchedItems = _matchHandler.FindGridObjectMatches(item);
             if (matchedItems.Count == 0)
             {
                 ProcessNoMatch(item);
                 return;
             }
 
-            var (obstacles, regularItems) = GridItemFinderHelper.SeparateRegularItems(matchedItems);
             // var boosterType = m_BoosterHandler.IsBoosterCreatable(nonBalloons);
             // if (boosterType != BoosterType.None)
             // {
@@ -77,6 +80,31 @@ namespace MVP.Presenters
         private void ProcessNoMatch(BaseGridObject touchedGridObject)
         {
             touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
+        }
+        
+        private void ProcessMatch(IEnumerable<BaseGridObject> matchedObjs, bool shouldUpdateGoals = true)
+        {
+            var baseGridObjects = matchedObjs.ToList();
+            // if (shouldUpdateGoals)
+            // {
+            //     var itemsOnly = baseGridObjects.OfType<Item>().ToList();
+            //     m_GoalHandler.UpdateGoals(itemsOnly);
+            // }
+            ShiftAndReplaceGridObjects(baseGridObjects);
+            baseGridObjects.Clear();
+        }
+        
+        private void ShiftAndReplaceGridObjects(List<BaseGridObject> matchedGridObjects)
+        {
+            // Perform shifting and replacement
+            var newItems = _gridShiftHandler.ShiftAndReplace(
+                _gridModel.Grid,
+                _gridModel.ColumnCount,
+                _gridModel.RowCount,
+                matchedGridObjects
+            );
+            // Update the grid with new items
+            _gridModel.UpdateGridObjects(newItems, true);
         }
         
         private void GridObjectInitializedInGrid(object args)

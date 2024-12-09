@@ -19,7 +19,7 @@ namespace Installers
             Container.BindAsSingle<IGridView>(() => _gridView);
 
             Container.BindAsSingleNonLazy(() => Container.Construct<LevelPresenter>());
-            Container.BindAsSingleNonLazy(() => Container.Construct<MatchPresenter>());
+            Container.BindAsSingleNonLazy(() => Container.Construct<GridPresenter>());
             Container.BindAsSingleNonLazy<ILevelModel>(() => Container.Construct<LevelModel>());
             Container.BindAsSingleNonLazy(() => Container.Construct<GamePresenter>());
 

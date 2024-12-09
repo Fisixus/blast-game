@@ -9,5 +9,6 @@ namespace MVP.Models.Interface
         public int ColumnCount { get; }
         public int RowCount { get; }
         public void Initialize(List<BaseGridObject> gridObjs, int columns, int rows);
+        public void UpdateGridObjects(List<BaseGridObject> newGridObjects, bool isAnimationOn);
     }
 }

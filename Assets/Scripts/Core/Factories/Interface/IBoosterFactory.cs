@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Core.Factories.Interface
 {
-    public interface IBoosterFactory
+    public interface IBoosterFactory: IFactory<Booster>
     {
         public SerializedDictionary<BoosterType, BoosterDataSO> BoosterDataDict { get; }
         public List<Booster> GenerateBoosters(System.Enum[,] boosterTypes);

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Enum;
@@ -10,23 +11,23 @@ namespace MVP.Presenters.Handlers.Strategies.Match
 {
     public class ItemMatchStrategy : IMatchStrategy
     {
-        public MatchType MatchType => MatchType.RegularItems;
+        public MatchType MatchType => MatchType.GridObject;
 
         private const int MinMatchCount = 2;
 
-        private readonly List<ItemType> _matchableTypes = new()
-        {
-            ItemType.RI_Red,
-            ItemType.RI_Green,
-            ItemType.RI_Blue,
-            ItemType.RI_Yellow
-        };
+        // private readonly List<ItemType> _matchableTypes = new()
+        // {
+        //     ItemType.RI_Red,
+        //     ItemType.RI_Green,
+        //     ItemType.RI_Blue,
+        //     ItemType.RI_Yellow
+        // };
 
-        private readonly List<Item> _matchedItems = new();
+        private readonly List<BaseGridObject> _matchedItems = new();
 
-        public List<Item> FindMatches(
+        public List<BaseGridObject> FindMatches(
             Vector2Int clickedPosition,
-            ItemType clickedItemType,
+            Enum clickedType,
             BaseGridObject[,] grid,
             bool[,] visited,
             int columnCount,
@@ -34,16 +35,16 @@ namespace MVP.Presenters.Handlers.Strategies.Match
         )
         {
             _matchedItems.Clear();
-            if (!IsMatchableType(clickedItemType))
-                return new List<Item>();
-            FindMatchingItems(clickedPosition, clickedItemType, grid, visited, columnCount, rowCount);
-            if (!IsValidMatch()) return new List<Item>();
+            //if (!IsMatchableType(clickedType))
+                //return new List<BaseGridObject>();
+            FindMatchingItems(clickedPosition, clickedType, grid, visited, columnCount, rowCount);
+            if (!IsValidMatch()) return new List<BaseGridObject>();
 
             return _matchedItems;
         }
 
         // Recursive function to find all adjacent matching items
-        private void FindMatchingItems(Vector2Int position, ItemType itemType, BaseGridObject[,] grid, bool[,] visited,
+        private void FindMatchingItems(Vector2Int position, Enum itemType, BaseGridObject[,] grid, bool[,] visited,
             int columnCount, int rowCount)
         {
             var x = position.x;
@@ -52,7 +53,7 @@ namespace MVP.Presenters.Handlers.Strategies.Match
             // Exit if the position is invalid, already visited, or item type does not match
             if (!GridPositionHelper.IsPositionValid(x, y, columnCount, rowCount) || visited[x, y]) return;
             var currentItem = grid[x, y] as Item;
-            if (currentItem == null || currentItem.ItemType != itemType) return;
+            if (currentItem == null || !currentItem.ItemType.Equals(itemType)) return;
 
             // Mark the current cell as visited and add it to matched items
             visited[x, y] = true;
@@ -66,7 +67,7 @@ namespace MVP.Presenters.Handlers.Strategies.Match
             }
         }
 
-        private bool IsMatchableType(ItemType itemType) => _matchableTypes.Contains(itemType);
+        //private bool IsMatchableType(Enum itemType) => _matchableTypes.Contains(itemType);
 
         private bool IsValidMatch() => _matchedItems.Count >= MinMatchCount;
     }

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Enum;
 using Core.GridElements.GridPawns;
@@ -9,9 +10,9 @@ namespace MVP.Presenters.Handlers.Strategies.Interface
     {
         public MatchType MatchType { get; }
 
-        List<Item> FindMatches(
+        List<BaseGridObject> FindMatches(
             Vector2Int clickedPosition,
-            ItemType clickedItemType,
+            Enum clickedType,
             BaseGridObject[,] grid,
             bool[,] visited,
             int columnCount,

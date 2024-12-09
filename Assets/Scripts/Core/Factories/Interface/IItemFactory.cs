@@ -7,7 +7,7 @@ using UnityEngine;
 
 namespace Core.Factories.Interface
 {
-    public interface IItemFactory
+    public interface IItemFactory: IFactory<Item>
     {
         public ItemSpawnProbabilityDistributionSO Probability { get; }
         public SerializedDictionary<ItemType, ItemDataSO> ItemDataDict { get; }

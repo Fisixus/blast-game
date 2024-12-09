@@ -1,33 +1,33 @@
-using System;
-using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using Core.Enum;
 using Core.GridElements.GridPawns;
 using UnityEngine;
 
-public static class GridItemFinderHelper
+namespace Core.Helpers.GridHelpers
 {
-    public static List<BaseGridObject> GetFirstXEmptyGridObjectsByRow(BaseGridObject[,] grid, int matchCount)
+    public static class GridItemFinderHelper
     {
-        var baseGridObjects = new List<BaseGridObject>(matchCount);
-
-        for (var i = 0; i < grid.GetLength(1); i++)
-        for (var j = 0; j < grid.GetLength(0); j++)
+        public static List<BaseGridObject> GetFirstXEmptyGridObjectsByRow(BaseGridObject[,] grid, int matchCount)
         {
-            if (grid[j, i].Attributes.IsEmpty)
+            var baseGridObjects = new List<BaseGridObject>(matchCount);
+
+            for (var i = 0; i < grid.GetLength(1); i++)
+            for (var j = 0; j < grid.GetLength(0); j++)
             {
-                baseGridObjects.Add(grid[j, i]);
-                matchCount--;
+                if (grid[j, i].Attributes.IsEmpty)
+                {
+                    baseGridObjects.Add(grid[j, i]);
+                    matchCount--;
+                }
+
+                if (matchCount == 0) return baseGridObjects;
             }
 
-            if (matchCount == 0) return baseGridObjects;
+            return baseGridObjects;
         }
-
-        return baseGridObjects;
-    }
     
-    public static List<BaseGridObject>
+        public static List<BaseGridObject>
             FindItemsOnHorizontal(BaseGridObject[,] grid, Vector2Int coordinate)
         {
             var gridObjects = new List<BaseGridObject>();
@@ -116,4 +116,5 @@ public static class GridItemFinderHelper
             var groupedItems = matchedItems.ToLookup(i => i.ItemType is ItemType.SI_Box or ItemType.SI_Stone or ItemType.SI_Vase);
             return (groupedItems[true].ToList(), groupedItems[false].ToList());
         }
+    }
 }
