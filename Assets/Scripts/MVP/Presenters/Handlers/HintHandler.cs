@@ -8,9 +8,13 @@ namespace MVP.Presenters.Handlers
 {
     public class HintHandler
     {
+        private readonly MatchHandler _matchHandler;
+        private readonly BoosterHandler _boosterHandler;
+        
         private BaseGridObject[,] _grid;
-        private MatchHandler _matchHandler;
-        private BoosterHandler _boosterHandler;
+        private int _rowCount;
+        private int _columnCount;
+        
         
 
         private List<List<BaseGridObject>> _allMatchableObjs;
@@ -23,6 +27,8 @@ namespace MVP.Presenters.Handlers
         public void Initialize(BaseGridObject[,] grid)
         {
             _grid = grid;
+            _columnCount = _grid.GetLength(0);
+            _rowCount = _grid.GetLength(1);
             DetectAndSetHints();
         }
 
@@ -31,9 +37,9 @@ namespace MVP.Presenters.Handlers
             _allMatchableObjs = new List<List<BaseGridObject>>();
             var visited = new HashSet<Vector2Int>();
 
-            for (var col = 0; col < _grid.GetLength(0); col++)
+            for (var col = 0; col < _columnCount; col++)
             {
-                for (var row = 0; row < _grid.GetLength(1); row++)
+                for (var row = 0; row < _rowCount; row++)
                 {
                     var coord = new Vector2Int(col, row);
 

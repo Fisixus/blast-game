@@ -40,10 +40,10 @@ namespace MVP.Presenters.Handlers
             );
 
             // Set up match and effect handlers
-            _hintHandler.Initialize(_gridModel.Grid);
             _matchHandler.Initialize(_gridModel.Grid);
-            
             //m_BoosterHandler.Initialize(m_GridModel.Grid);
+            _hintHandler.Initialize(_gridModel.Grid);
+            
         }
 
         // public void CompleteLevel()

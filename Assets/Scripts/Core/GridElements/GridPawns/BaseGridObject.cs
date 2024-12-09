@@ -56,12 +56,12 @@ namespace Core.GridElements.GridPawns
             Coordinate = newCoord;
             Type = type;
             name = ToString();
-
+            SetSortingOrder(-newCoord.y);
             // Update the GridAttributes
             Attributes.SetAttributes(type);
         }
 
-        public void SetSortingOrder(int order)
+        private void SetSortingOrder(int order)
         {
             SpriteRenderer.sortingOrder = order;
         }
