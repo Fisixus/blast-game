@@ -42,7 +42,7 @@ namespace MVP.Presenters.Handlers
 
                 for (var row = rowCount - 1; row >= 0; row--)
                 {
-                    if (!grid[col, row].Attributes.IsEmpty)
+                    if (!grid[col, row].IsEmpty)
                     {
                         var baseGridObject = grid[col, row];
                         GridItemModifierHelper.SwapItems(grid, col, emptyRow, col, row);
@@ -61,6 +61,7 @@ namespace MVP.Presenters.Handlers
 
             return emptyItems;
         }
+        //TODO:
         private List<BaseGridObject> GenerateNewItems(List<BaseGridObject> emptyItems)
         {
             var newItems = new List<BaseGridObject>();

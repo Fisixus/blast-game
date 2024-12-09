@@ -1,13 +1,16 @@
 using System.Collections.Generic;
 using System.Linq;
+using Core.Enum;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Events;
 using Events.Grid;
+using Events.Input;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using UnityEngine;
+using OnGridObjectTouchedEvent = Events.Grid.OnGridObjectTouchedEvent;
 
 namespace MVP.Presenters
 {
@@ -16,15 +19,17 @@ namespace MVP.Presenters
         private readonly IGridView _gridView;
         private readonly IGridModel _gridModel;
         private readonly MatchHandler _matchHandler;
+        private readonly BoosterHandler _boosterHandler;
         private readonly HintHandler _hintHandler;
         private readonly GridShiftHandler _gridShiftHandler;
 
 
-        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, HintHandler hintHandler, GridShiftHandler gridShiftHandler)
+        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, HintHandler hintHandler, GridShiftHandler gridShiftHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
             _matchHandler = matchHandler;
+            _boosterHandler = boosterHandler;
             _hintHandler = hintHandler;
             _gridShiftHandler = gridShiftHandler;
             
@@ -55,29 +60,52 @@ namespace MVP.Presenters
                 case Booster booster:
                     //ProcessBoosterTouchAsync(booster).Forget();
                     break;
+                case Obstacle obstacle:
+                    ProcessNoMatch(obstacle);
+                    break;
             }
         }
         
         private void ProcessItemTouch(Item item)
         {
-            // var matchedItems = _matchHandler.FindGridObjectMatches(item);
-            // if (matchedItems.Count == 0)
-            // {
-            //     ProcessNoMatch(item);
-            //     return;
-            // }
-
-            // var boosterType = m_BoosterHandler.IsBoosterCreatable(nonBalloons);
-            // if (boosterType != BoosterType.None)
-            // {
-            //     ProcessBoosterCreation(item, balloons, nonBalloons, boosterType);
-            // }
-            // else
-            // {
-            //     m_GoalHandler.UpdateMoves();
-            //     ProcessMatch(matchedItems);
-            // }
+            var matchedItems = _hintHandler.GetSelectedMatchedItems(item).ToList();
+            if (matchedItems.Count == 0)
+            {
+                ProcessNoMatch(item);
+                return;
+            }
+            var boosterType = item.HintType;
+            var effectedObstacles = _matchHandler.FindObstacles(matchedItems);
+            if (boosterType != BoosterType.None)
+            {
+                //ProcessBoosterCreation(item, matchedItems, effectedObstacles, boosterType);
+            }
+            else
+            {
+                // m_GoalHandler.UpdateMoves();
+                //ProcessMatch(matchedItems);
+            }
         }
+        
+        private void ProcessBoosterCreation(Item item, List<BaseGridObject> regularItems, List<BaseGridObject> nonRegularItems, BoosterType boosterType)
+        {
+            //balloons.ForEach(balloon => balloon.gameObject.SetActive(false));
+            //m_GoalHandler.UpdateGoals(balloons);
+            //GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = false});
+        
+            // _boosterHandler.AnimateBoosterCreation(
+            //     item,
+            //     nonBalloons,
+            //     (centerItem) =>
+            //     {
+            //         CreateBoosterAndReplaceItem(centerItem, boosterType);
+            //         m_GoalHandler.UpdateMoves();
+            //         ProcessMatch(nonBalloons, true);
+            //         ProcessMatch(balloons, false);
+            //         m_SignalBus.Fire(new OnInputStateChangedSignal { IsInputOn = true });
+            //     });
+        }
+
         
         private void ProcessNoMatch(BaseGridObject touchedGridObject)
         {

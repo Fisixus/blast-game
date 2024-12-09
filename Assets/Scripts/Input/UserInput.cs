@@ -1,10 +1,11 @@
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
 using Events;
-using Events.Grid;
+using Events.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
+using OnGridObjectTouchedEvent = Events.Grid.OnGridObjectTouchedEvent;
 
 namespace Input
 {
@@ -23,18 +24,21 @@ namespace Input
             
             _cam = Camera.main;
             _eventSystem = EventSystem.current;
+            
+            GameEventSystem.AddListener<OnInputStateChangedEvent>(SetInputState);
         }
 
-        private void OnDisable()
+        private void OnDestroy()
         {
-            //m_SignalBus.Unsubscribe<OnInputStateChangedSignal>(SetInputState);
+            GameEventSystem.RemoveListener<OnInputStateChangedEvent>(SetInputState);
         }
 
 
-        // private void SetInputState(OnInputStateChangedSignal args)
-        // {
-        //     _isInputOn = args.IsInputOn;
-        // }
+        private void SetInputState(object args)
+        {
+            var argsEvent = (OnInputStateChangedEvent)args;
+            _isInputOn = argsEvent.IsInputOn;
+        }
 
         private bool IsPointerOverUIObject()
         {

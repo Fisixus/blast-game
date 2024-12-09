@@ -510,12 +510,6 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 967bfc0205b08bb468736eb6430b012a, type: 2}
     - Key: 4
       Value: {fileID: 11400000, guid: 5f993a6efe3ace4408c7d6fc5fa5aabc, type: 2}
-    - Key: 100
-      Value: {fileID: 11400000, guid: edf98f9c102fc2443adad744efe4bd44, type: 2}
-    - Key: 101
-      Value: {fileID: 11400000, guid: 546011aeaae7b2748a04fc1a03f4f121, type: 2}
-    - Key: 102
-      Value: {fileID: 11400000, guid: 187dafca60cbb444ba06f120d6732522, type: 2}
 --- !u!1 &492856771
 GameObject:
   m_ObjectHideFlags: 0
@@ -1209,6 +1203,7 @@ Transform:
   m_Children:
   - {fileID: 396297757}
   - {fileID: 1898547101}
+  - {fileID: 1730674586}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557328243
@@ -1276,6 +1271,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemFactory: {fileID: 396297758}
   _boosterFactory: {fileID: 1898547102}
+  _obstacleFactory: {fileID: 1730674587}
 --- !u!114 &1557328247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1517,6 +1513,62 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1687335501}
   m_CullTransparentMesh: 1
+--- !u!1 &1730674585
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1730674586}
+  - component: {fileID: 1730674587}
+  m_Layer: 0
+  m_Name: ObstacleFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &1730674586
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730674585}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1551572823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &1730674587
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1730674585}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1cb522a3aac9c84469c6388198452c95, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ObjPrefab>k__BackingField: {fileID: 8208822954847421033, guid: c831f4c44ea6cc941bfc575ab9e4d577, type: 3}
+  <ParentTr>k__BackingField: {fileID: 125976778}
+  <ObstacleDataDict>k__BackingField:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 0}
+    - Key: 1
+      Value: {fileID: 11400000, guid: ef02eb8086bd3354c972c949a60e6b9b, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 1f1dec26a7b6fac4882a23fa0c192568, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 214856d68bef29e46a1c6d4aeb634ccf, type: 2}
 --- !u!1 &1748139725
 GameObject:
   m_ObjectHideFlags: 0

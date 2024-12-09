@@ -41,29 +41,29 @@ namespace Core.LevelSerialization
                     {
                         // Obstacles
                         case "bo":
-                            gridData[i, j] = ItemType.SI_Box;
+                            gridData[i, j] = ObstacleType.Box;
                             ++numberOfBoxes;
                             break;
                         case "s":
-                            gridData[i, j] = ItemType.SI_Stone;
+                            gridData[i, j] = ObstacleType.Stone;
                             ++numberOfStones;
                             break;
                         case "v":
-                            gridData[i, j] = ItemType.SI_Vase;
+                            gridData[i, j] = ObstacleType.Vase;
                            ++numberOfVases;
                             break;
                         // Cubes
                         case "b":
-                            gridData[i, j] = ItemType.RI_Blue;
+                            gridData[i, j] = ItemType.Blue;
                             break;
                         case "g":
-                            gridData[i, j] = ItemType.RI_Green;
+                            gridData[i, j] = ItemType.Green;
                             break;
                         case "r":
-                            gridData[i, j] = ItemType.RI_Red;
+                            gridData[i, j] = ItemType.Red;
                             break;
                         case "y":
-                            gridData[i, j] = ItemType.RI_Yellow;
+                            gridData[i, j] = ItemType.Yellow;
                             break;
                         case "rand":
                             gridData[i, j] = ((ItemType[]) System.Enum.GetValues(typeof(ItemType)))[UnityEngine.Random.Range(1, 5)];
@@ -80,9 +80,9 @@ namespace Core.LevelSerialization
 
             // Set the goals data
             var goals = new List<LevelGoal>();
-            if (numberOfBoxes != 0) goals.Add(new LevelGoal { ItemType = ItemType.SI_Box, Count = numberOfBoxes });
-            if (numberOfStones != 0) goals.Add(new LevelGoal { ItemType = ItemType.SI_Stone, Count = numberOfStones });
-            if (numberOfVases != 0) goals.Add(new LevelGoal { ItemType = ItemType.SI_Vase, Count = numberOfVases });
+            if (numberOfBoxes != 0) goals.Add(new LevelGoal { ObstacleType = ObstacleType.Box, Count = numberOfBoxes });
+            if (numberOfStones != 0) goals.Add(new LevelGoal { ObstacleType = ObstacleType.Stone, Count = numberOfStones });
+            if (numberOfVases != 0) goals.Add(new LevelGoal { ObstacleType = ObstacleType.Vase, Count = numberOfVases });
 
             return (gridData, goals);
         }

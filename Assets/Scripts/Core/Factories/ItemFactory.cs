@@ -20,7 +20,7 @@ namespace Core.Factories
 
         public override void PreInitialize()
         {
-            Pool = new ObjectPool<Item>(ObjPrefab, ParentTr, 65);
+            Pool = new ObjectPool<Item>(ObjPrefab, ParentTr, 64);
             _allItems = new List<Item>(64);
         }
         

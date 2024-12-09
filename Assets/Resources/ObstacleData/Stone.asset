@@ -9,11 +9,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: d269b4b4b1cf0384888364842fdbaa81, type: 3}
+  m_Script: {fileID: 11500000, guid: b265f2608079ece4190d1e50bd7093ef, type: 3}
   m_Name: Stone
   m_EditorClassIdentifier: 
-  <HintSprites>k__BackingField:
-    _serializedList:
-    - Key: 0
-      Value: {fileID: 21300000, guid: 4dd553f37113885429cd9fbfcd6186b4, type: 3}
-  <ItemWidthHeight>k__BackingField: {x: 1.1, y: 1.25}
+  <ObstacleWidthHeight>k__BackingField: {x: 1.1, y: 1.25}

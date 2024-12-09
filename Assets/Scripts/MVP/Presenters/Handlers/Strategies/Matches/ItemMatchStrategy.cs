@@ -13,15 +13,7 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
         public MatchType MatchType => MatchType.GridObject;
 
         private const int MinMatchCount = 2;
-
-        // private readonly List<ItemType> _matchableTypes = new()
-        // {
-        //     ItemType.RI_Red,
-        //     ItemType.RI_Green,
-        //     ItemType.RI_Blue,
-        //     ItemType.RI_Yellow
-        // };
-
+        
         private readonly List<BaseGridObject> _matchedItems = new();
 
         public List<BaseGridObject> FindMatches(
@@ -34,11 +26,12 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
         )
         {
             _matchedItems.Clear();
-            //if (!IsMatchableType(clickedType))
-                //return new List<BaseGridObject>();
+            if (clickedType is ObstacleType)
+            {
+                return new List<BaseGridObject>();
+            }
             FindMatchingItems(clickedPosition, clickedType, grid, visited, columnCount, rowCount);
             if (!IsValidMatch()) return new List<BaseGridObject>();
-
             return _matchedItems;
         }
 
@@ -65,8 +58,6 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
                 FindMatchingItems(newPosition, itemType, grid, visited, columnCount, rowCount);
             }
         }
-
-        //private bool IsMatchableType(Enum itemType) => _matchableTypes.Contains(itemType);
 
         private bool IsValidMatch() => _matchedItems.Count >= MinMatchCount;
     }

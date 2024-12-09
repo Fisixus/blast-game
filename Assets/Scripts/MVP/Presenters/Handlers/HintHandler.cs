@@ -41,6 +41,9 @@ namespace MVP.Presenters.Handlers
             {
                 for (var row = 0; row < _rowCount; row++)
                 {
+                    if(_grid[col,row] is Obstacle or Booster)
+                        continue;
+                    
                     var coord = new Vector2Int(col, row);
 
                     // Skip if this coordinate has already been visited
@@ -48,7 +51,6 @@ namespace MVP.Presenters.Handlers
 
                     // Find matches for the current grid object
                     var matchedObjs = _matchHandler.FindGridObjectMatches(_grid[col, row]);
-
                     if (matchedObjs != null && matchedObjs.Count > 0)
                     {
                         _allMatchableObjs.Add(matchedObjs);
@@ -70,7 +72,7 @@ namespace MVP.Presenters.Handlers
             }
         }
 
-        public IEnumerable<BaseGridObject> GetSelectedMatchedItems(BaseGridObject touchedItem)
+        public IEnumerable<BaseGridObject> GetSelectedMatchedItems(Item touchedItem)
         {
             foreach (var listObjs in _allMatchableObjs)
             {
@@ -82,7 +84,7 @@ namespace MVP.Presenters.Handlers
                     }
                 }
             }
-            return null;
+            return new List<BaseGridObject>();
         }
 
         

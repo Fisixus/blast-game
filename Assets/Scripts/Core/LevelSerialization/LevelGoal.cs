@@ -12,7 +12,7 @@ namespace Core.LevelSerialization
     public class LevelGoal
     {
         [field: SerializeField] public int Count { get; set; }
-        [field: SerializeField] public ItemType ItemType { get; set; }
+        [field: SerializeField] public ObstacleType ObstacleType { get; set; }
 
         [NonSerialized] public Vector3 WorldPos;
         public event EventHandler<int> OnUIGoalUpdated;
@@ -29,7 +29,7 @@ namespace Core.LevelSerialization
         {
             return new LevelGoal
             {
-                ItemType = ItemType,
+                ObstacleType = ObstacleType,
                 Count = Count
             };
         }

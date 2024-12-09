@@ -9,6 +9,7 @@ namespace Core.GridElements.GridPawns
     public class Item : BaseGridObject
     {
         [field: SerializeField] public ItemType ItemType { get; set; }
+        public BoosterType HintType { get; private set; }
         public override System.Enum Type
         {
             get => ItemType;
@@ -16,9 +17,11 @@ namespace Core.GridElements.GridPawns
         }
 
         private Dictionary<BoosterType, Sprite> _hintSprites = new();
+        
 
         public void ApplyHintSprite(BoosterType hintType)
         {
+            HintType = hintType;
             SpriteRenderer.sprite = _hintSprites[hintType];
         }
 

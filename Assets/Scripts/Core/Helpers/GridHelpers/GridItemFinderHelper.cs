@@ -15,7 +15,7 @@ namespace Core.Helpers.GridHelpers
             for (var i = 0; i < grid.GetLength(1); i++)
             for (var j = 0; j < grid.GetLength(0); j++)
             {
-                if (grid[j, i].Attributes.IsEmpty)
+                if (grid[j, i].IsEmpty)
                 {
                     baseGridObjects.Add(grid[j, i]);
                     matchCount--;
@@ -111,10 +111,10 @@ namespace Core.Helpers.GridHelpers
             return effectedObjects;
         }
         
-        public static (List<Item> Obstacles, List<Item> RegularItems) SeparateRegularItems(List<Item> matchedItems)
-        {
-            var groupedItems = matchedItems.ToLookup(i => i.ItemType is ItemType.SI_Box or ItemType.SI_Stone or ItemType.SI_Vase);
-            return (groupedItems[true].ToList(), groupedItems[false].ToList());
-        }
+        // public static (List<Item> Obstacles, List<Item> RegularItems) SeparateRegularItems(List<Item> matchedItems)
+        // {
+        //     var groupedItems = matchedItems.ToLookup(i => i.ItemType is ItemType.SI_Box or ItemType.SI_Stone or ItemType.SI_Vase);
+        //     return (groupedItems[true].ToList(), groupedItems[false].ToList());
+        // }
     }
 }

@@ -11,8 +11,7 @@ namespace Core.Helpers.GridHelpers
         {
             foreach (var baseGridObject in matchedItems)
             {
-                var attributes = baseGridObject.Attributes;
-                attributes.IsEmpty = true;
+                baseGridObject.IsEmpty = true;
                 switch (baseGridObject)
                 {
                     case Item item:

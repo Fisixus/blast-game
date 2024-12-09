@@ -34,7 +34,7 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
                     continue;
 
                 var adjacentItem = grid[adjacentPosition.x, adjacentPosition.y];
-                if (adjacentItem == null || !adjacentItem.Type.Equals(ItemType.SI_Box)) continue;
+                if (adjacentItem == null || !adjacentItem.Type.Equals(ObstacleType.Box)) continue;
             
                 matchedBoxes.Add(adjacentItem);
                 visited[adjacentPosition.x, adjacentPosition.y] = true;
