@@ -23,13 +23,14 @@ namespace MVP.Presenters.Handlers
         public void Initialize(BaseGridObject[,] grid)
         {
             _grid = grid;
+            DetectAndSetHints();
         }
 
-        public void DetectAllMatchedGridObjects()
+        public void DetectAndSetHints()
         {
             _allMatchableObjs = new List<List<BaseGridObject>>();
             var visited = new HashSet<Vector2Int>();
-            
+
             for (var col = 0; col < _grid.GetLength(0); col++)
             {
                 for (var row = 0; row < _grid.GetLength(1); row++)
@@ -46,9 +47,16 @@ namespace MVP.Presenters.Handlers
                     {
                         _allMatchableObjs.Add(matchedObjs);
 
-                        // Mark all matched coordinates as visited
+                        // Determine booster type for the current match
+                        var boosterType = _boosterHandler.IsBoosterCreatable(matchedObjs);
+
+                        // Apply hint sprites and mark matched coordinates as visited
                         foreach (var matchedObj in matchedObjs)
                         {
+                            if (matchedObj is Item item)
+                            {
+                                item.ApplyHintSprite(boosterType);
+                            }
                             visited.Add(matchedObj.Coordinate);
                         }
                     }
@@ -71,20 +79,7 @@ namespace MVP.Presenters.Handlers
             return null;
         }
 
-        public void SetHintSprites()
-        {
-            foreach (var listObjs in _allMatchableObjs)
-            {
-                var boosterType = _boosterHandler.IsBoosterCreatable(listObjs);
-                foreach (var gridObj in listObjs)
-                {
-                    if (gridObj is Item item)
-                    {
-                        item.ApplyHintSprite(boosterType); 
-                    }
-                }
-            }
-        }
+        
         
     }
 }

@@ -9,6 +9,8 @@ namespace Installers
         {
             Container.BindAsSingle(() => Container.Construct<LevelStateHandler>());
             Container.BindAsSingle(() => Container.Construct<MatchHandler>());
+            Container.BindAsSingle(() => Container.Construct<BoosterHandler>());
+            Container.BindAsSingle(() => Container.Construct<HintHandler>());
             Container.BindAsSingle(() => Container.Construct<GridShiftHandler>());
         }
     }

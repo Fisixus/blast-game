@@ -1,13 +1,12 @@
 using System;
 using System.Collections.Generic;
-using System.Linq;
 using Core.Enum;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
 using MVP.Presenters.Handlers.Strategies.Interface;
 using UnityEngine;
 
-namespace MVP.Presenters.Handlers.Strategies.Match
+namespace MVP.Presenters.Handlers.Strategies.Matches
 {
     public class ItemMatchStrategy : IMatchStrategy
     {

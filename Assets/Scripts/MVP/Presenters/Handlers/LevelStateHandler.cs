@@ -13,14 +13,16 @@ namespace MVP.Presenters.Handlers
         private readonly IItemFactory _itemFactory;
         private readonly IBoosterFactory _boosterFactory;
         private readonly IGridModel _gridModel;
+        private readonly HintHandler _hintHandler;
         private readonly MatchHandler _matchHandler;
         
         public LevelStateHandler(IItemFactory itemFactory, IBoosterFactory boosterFactory, IGridModel gridModel,
-            MatchHandler matchHandler)
+            HintHandler hintHandler, MatchHandler matchHandler)
         {
             _itemFactory = itemFactory;
             _boosterFactory = boosterFactory;
             _gridModel = gridModel;
+            _hintHandler = hintHandler;
             _matchHandler = matchHandler;
         }
 
@@ -38,6 +40,7 @@ namespace MVP.Presenters.Handlers
             );
 
             // Set up match and effect handlers
+            _hintHandler.Initialize(_gridModel.Grid);
             _matchHandler.Initialize(_gridModel.Grid);
             
             //m_BoosterHandler.Initialize(m_GridModel.Grid);

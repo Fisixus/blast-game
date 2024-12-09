@@ -1,10 +1,9 @@
-﻿using Core.Pools.Interface;
+﻿using System.Collections.Generic;
+using Core.Factories.Pools.Interface;
+using UnityEngine;
 
-namespace Core.Pools
+namespace Core.Factories.Pools
 {
-    using System.Collections.Generic;
-    using UnityEngine;
-
     public class ObjectPool<T> : IPool<T> where T : Component
     {
         private readonly Queue<T> _pool = new();

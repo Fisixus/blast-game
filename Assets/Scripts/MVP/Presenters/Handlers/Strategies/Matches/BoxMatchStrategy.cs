@@ -6,7 +6,7 @@ using Core.Helpers.GridHelpers;
 using MVP.Presenters.Handlers.Strategies.Interface;
 using UnityEngine;
 
-namespace MVP.Presenters.Handlers.Strategies.Match
+namespace MVP.Presenters.Handlers.Strategies.Matches
 {
     public class BoxMatchStrategy : IMatchStrategy
     {

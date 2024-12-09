@@ -1,6 +1,4 @@
-﻿using UnityEngine;
-
-namespace Core.Pools.Interface
+﻿namespace Core.Factories.Pools.Interface
 {
     public interface IPool<T>
     {

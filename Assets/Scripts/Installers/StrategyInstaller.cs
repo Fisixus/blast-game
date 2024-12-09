@@ -1,6 +1,7 @@
 using DI;
+using MVP.Presenters.Handlers.Strategies.Boosters;
 using MVP.Presenters.Handlers.Strategies.Interface;
-using MVP.Presenters.Handlers.Strategies.Match;
+using MVP.Presenters.Handlers.Strategies.Matches;
 
 namespace Installers
 {
@@ -10,7 +11,8 @@ namespace Installers
         {
             // Bind each MatchStrategy implementation
             Container.BindAsSingle<IMatchStrategy>(()=> new ItemMatchStrategy());
-
+            // Bind each BoosterStrategy implementation
+            Container.BindAsSingle<IBoosterStrategy>(() => Container.Construct<BombStrategy>());
         }
     }
 }

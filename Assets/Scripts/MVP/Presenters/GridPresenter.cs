@@ -60,12 +60,12 @@ namespace MVP.Presenters
         
         private void ProcessItemTouch(Item item)
         {
-            var matchedItems = _matchHandler.FindGridObjectMatches(item);
-            if (matchedItems.Count == 0)
-            {
-                ProcessNoMatch(item);
-                return;
-            }
+            // var matchedItems = _matchHandler.FindGridObjectMatches(item);
+            // if (matchedItems.Count == 0)
+            // {
+            //     ProcessNoMatch(item);
+            //     return;
+            // }
 
             // var boosterType = m_BoosterHandler.IsBoosterCreatable(nonBalloons);
             // if (boosterType != BoosterType.None)

@@ -1,7 +1,6 @@
 ﻿using System.Collections.Generic;
 using Core.Factories.Interface;
-using Core.Pools;
-using Core.Pools.Interface;
+using Core.Factories.Pools.Interface;
 using DI;
 using UnityEngine;
 
