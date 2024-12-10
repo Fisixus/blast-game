@@ -41,7 +41,7 @@ namespace MVP.Presenters.Handlers
             {
                 for (var row = 0; row < _rowCount; row++)
                 {
-                    if(_grid[col,row] is Obstacle or Booster)
+                    if(_grid[col,row] is Obstacle)
                         continue;
                     
                     var coord = new Vector2Int(col, row);

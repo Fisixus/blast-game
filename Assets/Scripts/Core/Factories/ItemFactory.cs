@@ -24,7 +24,7 @@ namespace Core.Factories
             _allItems = new List<Item>(64);
         }
         
-        public BaseGridObject GenerateItem(Vector2Int itemCoordinate)
+        public Item GenerateRandItem(Vector2Int itemCoordinate)
         {
             var itemType = Probability.PickRandomItemType();
             var item = CreateObj();
@@ -33,22 +33,14 @@ namespace Core.Factories
             return item;
         }
 
-        public List<Item> GenerateItems(System.Enum[,] itemTypes)
+        public Item GenerateItem(ItemType itemType, Vector2Int itemCoordinate)
         {
-            for (var i = 0; i < itemTypes.GetLength(1); i++)
-            for (var j = 0; j < itemTypes.GetLength(0); j++)
-            {
-                if (itemTypes[j, i] is not ItemType) continue;
-                var itemType = (ItemType)itemTypes[j, i];
-                
-                var item = CreateObj();
-                item.SetAttributes(new Vector2Int(i, j), itemType);
-                item.ApplyItemData(ItemDataDict[itemType]);
-            }
-
-            return _allItems;
+            var item = CreateObj();
+            item.SetAttributes(itemCoordinate, itemType);
+            item.ApplyItemData(ItemDataDict[itemType]);
+            return item;
         }
-        
+
         public override Item CreateObj()
         {
             var item = base.CreateObj();

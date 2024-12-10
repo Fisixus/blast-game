@@ -22,23 +22,15 @@ namespace Core.Factories
             Pool = new ObjectPool<Obstacle>(ObjPrefab, ParentTr, 32);
             _allObstacles = new List<Obstacle>(32);
         }
-        
-        public List<Obstacle> GenerateObstacles(System.Enum[,] itemTypes)
-        {
-            for (var i = 0; i < itemTypes.GetLength(1); i++)
-            for (var j = 0; j < itemTypes.GetLength(0); j++)
-            {
-                if (itemTypes[j, i] is not ObstacleType) continue;
-                var obstacleType = (ObstacleType)itemTypes[j, i];
-                
-                var obstacle = CreateObj();
-                obstacle.SetAttributes(new Vector2Int(i, j), obstacleType);
-                obstacle.ApplyObstacleData(ObstacleDataDict[obstacleType]);
-            }
 
-            return _allObstacles;
+        public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate)
+        {
+            var obstacle = CreateObj();
+            obstacle.SetAttributes(obstacleCoordinate, obstacleType);
+            obstacle.ApplyObstacleData(ObstacleDataDict[obstacleType]);
+            return obstacle;
         }
-        
+
         public override Obstacle CreateObj()
         {
             var item = base.CreateObj();

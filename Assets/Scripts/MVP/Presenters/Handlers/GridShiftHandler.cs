@@ -68,7 +68,7 @@ namespace MVP.Presenters.Handlers
 
             foreach (var emptyItem in emptyItems)
             {
-                newItems.Add(_itemFactory.GenerateItem(emptyItem.Coordinate));
+                newItems.Add(_itemFactory.GenerateRandItem(emptyItem.Coordinate));
                 switch (emptyItem)
                 {
                     case Item item:

@@ -10,8 +10,7 @@ namespace Core.Factories.Interface
     public interface IBoosterFactory: IFactory<Booster>
     {
         public SerializedDictionary<BoosterType, BoosterDataSO> BoosterDataDict { get; }
-        public List<Booster> GenerateBoosters(System.Enum[,] boosterTypes);
-        public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord);
+        public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord, bool isEffectOn=false);
         public void DestroyAllBoosters();
         
     }

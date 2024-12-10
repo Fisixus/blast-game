@@ -10,7 +10,8 @@ namespace Core.Factories.Interface
     public interface IObstacleFactory: IFactory<Obstacle>
     {
         public SerializedDictionary<ObstacleType, ObstacleDataSO> ObstacleDataDict { get; }
-        public List<Obstacle> GenerateObstacles(System.Enum[,] itemTypes);
+        public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate);
+
         public void DestroyAllObstacles();
     }
 }

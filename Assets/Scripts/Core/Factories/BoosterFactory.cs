@@ -37,21 +37,15 @@ namespace Core.Factories
             _allBoosters.Add(booster);
             return booster;
         }
-        
-        public List<Booster> GenerateBoosters(System.Enum[,] boosterTypes)
-        {
-            for (var i = 0; i < boosterTypes.GetLength(1); i++)
-            for (var j = 0; j < boosterTypes.GetLength(0); j++)
-            {
-                if (boosterTypes[j, i] is not BoosterType) continue;
-                var boosterType = (BoosterType)boosterTypes[j, i];
-                
-                var booster = CreateObj();
-                booster.SetAttributes(new Vector2Int(i, j), boosterType);
-                booster.ApplyBoosterData(BoosterDataDict[boosterType]);
-            }
 
-            return _allBoosters;
+        public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord, bool isEffectOn = false)
+        {
+            var booster = CreateObj();
+            if(isEffectOn)
+                booster.GetComponent<BoosterEffect>().PlayBoosterCreationParticle();
+            booster.SetAttributes(coord, boosterType);
+            booster.ApplyBoosterData(BoosterDataDict[boosterType]);
+            return booster;
         }
 
         public void DestroyAllBoosters()
@@ -60,14 +54,6 @@ namespace Core.Factories
             base.DestroyObjs(boostersToDestroy);
             _allBoosters.Clear();
         }
-
-        public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord)
-        {
-            var booster = CreateObj();
-            booster.GetComponent<BoosterEffect>().PlayBoosterCreationParticle();
-            booster.SetAttributes(coord, boosterType);
-            booster.ApplyBoosterData(BoosterDataDict[boosterType]);
-            return booster;
-        }
+        
     }
 }
