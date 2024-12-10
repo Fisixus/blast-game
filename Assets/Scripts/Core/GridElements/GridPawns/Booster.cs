@@ -16,8 +16,8 @@ namespace Core.GridElements.GridPawns
 
         public void ApplyBoosterData(BoosterDataSO boosterData)
         {
-            SpriteRenderer.sprite = boosterData.ItemSprite;
-            var itemWidthHeight = boosterData.ItemWidthHeight;
+            SpriteRenderer.sprite = boosterData.BoosterSprite;
+            var itemWidthHeight = boosterData.BoosterWidthHeight;
             SpriteRenderer.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
             BoxCollider.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
         }

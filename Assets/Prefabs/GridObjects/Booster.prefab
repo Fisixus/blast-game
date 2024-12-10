@@ -100,7 +100,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4c0b201097a4b7c4b931600d7341211e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_BoosterCreationParticle: {fileID: 2700038178242433304}
+  _boosterCreationParticle: {fileID: 2700038178242433304}
 --- !u!114 &303541561191937471
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -115,7 +115,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BoxCollider>k__BackingField: {fileID: 7880025156976360200}
   <SpriteRenderer>k__BackingField: {fileID: 2309107132203466770}
-  <BaseGridObjectEffect>k__BackingField: {fileID: 0}
+  <BaseGridObjectEffect>k__BackingField: {fileID: 3107812033852353125}
   <Coordinate>k__BackingField: {x: 0, y: 0}
   <BoosterType>k__BackingField: 0
 --- !u!61 &7880025156976360200

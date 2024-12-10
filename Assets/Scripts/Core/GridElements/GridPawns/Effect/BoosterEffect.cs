@@ -4,11 +4,11 @@ namespace Core.GridElements.GridPawns.Effect
 {
     public class BoosterEffect : BaseGridObjectEffect
     {
-        [SerializeField] private ParticleSystem m_BoosterCreationParticle;
+        [SerializeField] private ParticleSystem _boosterCreationParticle;
 
         public void PlayBoosterCreationParticle()
         {
-            m_BoosterCreationParticle.Play();
+            _boosterCreationParticle.Play();
         }
     }
 }

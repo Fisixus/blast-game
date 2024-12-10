@@ -34,7 +34,7 @@ namespace MVP.Views
         public void ScaleGrid()
         {
             var ratio = (float)Screen.width / Screen.height;
-            var refRatio = math.remap(0.45f, 0.75f, 0.5f, 0.8f, ratio);
+            var refRatio = math.remap(0.45f, 0.75f, 0.56f, 0.8f, ratio);
             //const float refRatio = 9f / 12f;
 
             var newScale = ratio / refRatio;

@@ -70,6 +70,13 @@ namespace MVP.Presenters.Handlers
 
             return newItems;
         }
+        
+        public Booster CreateBoosterAndDestroyOldItem(Item item, BoosterType boosterType)
+        {
+            var booster = _boosterFactory.GenerateBooster(boosterType, item.Coordinate, true);
+            _itemFactory.DestroyObj(item);
+            return booster;
+        }
         private BaseGridObject CreateGridObject(Enum gridType, Vector2Int coordinate)
         {
             switch (gridType)

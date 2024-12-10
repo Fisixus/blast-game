@@ -62,7 +62,7 @@ namespace Core.GridElements.GridPawns
 
         }
 
-        private void SetSortingOrder(int order)
+        public void SetSortingOrder(int order)
         {
             SpriteRenderer.sortingOrder = order;
         }

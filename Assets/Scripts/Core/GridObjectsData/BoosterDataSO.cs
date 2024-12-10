@@ -7,9 +7,9 @@ namespace Core.GridObjectsData
     public class BoosterDataSO : ScriptableObject
     {
         [field: SerializeField]
-        public Sprite ItemSprite { get; private set; }
+        public Sprite BoosterSprite { get; private set; }
         [field: SerializeField]
-        public Vector2 ItemWidthHeight { get; private set; }
+        public Vector2 BoosterWidthHeight { get; private set; }
         //[field: SerializeField]
         //public List<BoosterType> BoosterParents{ get; private set; }
         [field: SerializeField]

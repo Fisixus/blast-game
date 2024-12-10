@@ -24,10 +24,12 @@ namespace MVP.Presenters
         private readonly HintHandler _hintHandler;
         private readonly BlastEffectHandler _blastEffectHandler;
         private readonly GridShiftHandler _gridShiftHandler;
+        private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
+        
 
 
         public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, 
-            HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler)
+            HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
@@ -36,6 +38,7 @@ namespace MVP.Presenters
             _hintHandler = hintHandler;
             _blastEffectHandler = blastEffectHandler;
             _gridShiftHandler = gridShiftHandler;
+            _gridObjectFactoryHandler = gridObjectFactoryHandler;
             
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
             GameEventSystem.AddListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
@@ -72,45 +75,46 @@ namespace MVP.Presenters
         
         private void ProcessItemTouch(Item item)
         {
-            var matchedItems = _hintHandler.GetSelectedMatchedItems(item).ToList();
-            if (matchedItems.Count == 0)
+            var matchedGridObjects = _hintHandler.GetSelectedMatchedItems(item).ToList();
+            if (matchedGridObjects.Count == 0)
             {
                 ProcessNoMatch(item);
                 return;
             }
             var boosterType = item.HintType;
-            var effectedObstacles = _matchHandler.FindObstacles(matchedItems);
-            Debug.Log("Count:" + effectedObstacles.Count);
+            var effectedObstacles = _matchHandler.FindObstacles(matchedGridObjects);
             if (boosterType != BoosterType.None)
             {
-                //ProcessBoosterCreation(item, matchedItems, effectedObstacles, boosterType);
+                ProcessBoosterCreation(item, matchedGridObjects, boosterType);
             }
             else
             {
                 // m_GoalHandler.UpdateMoves();
-                matchedItems.AddRange(effectedObstacles);
-                _blastEffectHandler.PlayBlastParticles(matchedItems); //TODO:
-                ProcessMatch(matchedItems);
+                matchedGridObjects.AddRange(effectedObstacles);
+                _blastEffectHandler.PlayBlastParticles(matchedGridObjects); //TODO:
+                ProcessMatch(matchedGridObjects);
             }
         }
         
-        private void ProcessBoosterCreation(Item item, List<BaseGridObject> regularItems, List<BaseGridObject> nonRegularItems, BoosterType boosterType)
+        private void ProcessBoosterCreation(Item item, List<BaseGridObject> gridObjects, BoosterType boosterType)
         {
             //balloons.ForEach(balloon => balloon.gameObject.SetActive(false));
             //m_GoalHandler.UpdateGoals(balloons);
-            //GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = false});
+            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = false});
         
-            // _boosterHandler.AnimateBoosterCreation(
-            //     item,
-            //     nonBalloons,
-            //     (centerItem) =>
-            //     {
-            //         CreateBoosterAndReplaceItem(centerItem, boosterType);
-            //         m_GoalHandler.UpdateMoves();
-            //         ProcessMatch(nonBalloons, true);
-            //         ProcessMatch(balloons, false);
-            //         m_SignalBus.Fire(new OnInputStateChangedSignal { IsInputOn = true });
-            //     });
+            _boosterHandler.AnimateBoosterCreation(
+                item,
+                gridObjects,
+                (centerItem) =>
+                {
+                    var booster = _gridObjectFactoryHandler.CreateBoosterAndDestroyOldItem(centerItem, boosterType);
+                    _gridModel.UpdateGridObjects(new List<BaseGridObject> { booster }, false);
+
+                    //m_GoalHandler.UpdateMoves();
+                    ProcessMatch(gridObjects, false);
+                    //ProcessMatch(balloons, true);
+                    GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = true});
+                });
         }
 
         

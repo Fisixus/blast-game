@@ -34,6 +34,7 @@ namespace Core.GridElements.GridPawns
 
         public void ApplyObstacleData(ObstacleDataSO obstacleData)
         {
+            SpriteRenderer.sprite = obstacleData.ObstacleSprite;
             var obstacleWidthHeight = obstacleData.ObstacleWidthHeight;
             SpriteRenderer.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);
             BoxCollider.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);

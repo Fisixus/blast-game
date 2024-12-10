@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 546ba988ee855fb4ca8fe37c0769aff0, type: 3}
   m_Name: RocketVertical
   m_EditorClassIdentifier: 
-  <ItemSprite>k__BackingField: {fileID: 21300000, guid: 9c02f82711cc02c45bf7159eee748f88, type: 3}
-  <ItemWidthHeight>k__BackingField: {x: 0.9, y: 1.1}
+  <BoosterSprite>k__BackingField: {fileID: 0}
+  <BoosterWidthHeight>k__BackingField: {x: 1.05, y: 1.05}
   <MinItemsNeeded>k__BackingField: 101
   <MaxItemsNeeded>k__BackingField: 1000
   <WaitingTimeForEachDestruction>k__BackingField: 0.06
