@@ -498,6 +498,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <ObjPrefab>k__BackingField: {fileID: 8520804064433371801, guid: ef5da6fbbda8af741a0bd81b5deb1546, type: 3}
   <ParentTr>k__BackingField: {fileID: 125976778}
+  <Probability>k__BackingField: {fileID: 11400000, guid: 05a7782ce17f92449aadcf0089820b26, type: 2}
   <ItemDataDict>k__BackingField:
     _serializedList:
     - Key: 0

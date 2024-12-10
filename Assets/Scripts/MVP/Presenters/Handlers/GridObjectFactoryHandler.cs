@@ -46,6 +46,30 @@ namespace MVP.Presenters.Handlers
             _boosterFactory.DestroyAllBoosters();
             _obstacleFactory.DestroyAllObstacles();
         }
+        
+        public List<BaseGridObject> GenerateNewItems(List<BaseGridObject> emptyItems)
+        {
+            var newItems = new List<BaseGridObject>();
+
+            foreach (var emptyItem in emptyItems)
+            {
+                newItems.Add(_itemFactory.GenerateRandItem(emptyItem.Coordinate));
+                switch (emptyItem)
+                {
+                    case Item item:
+                        _itemFactory.DestroyObj(item);
+                        break;
+                    case Booster booster:
+                        _boosterFactory.DestroyObj(booster);
+                        break;
+                    case Obstacle obstacle:
+                        _obstacleFactory.DestroyObj(obstacle);
+                        break;
+                }
+            }
+
+            return newItems;
+        }
         private BaseGridObject CreateGridObject(Enum gridType, Vector2Int coordinate)
         {
             switch (gridType)

@@ -12,9 +12,10 @@ namespace Core.Factories
     public class ItemFactory : ObjectFactory<Item>, IItemFactory
     {
         [field: SerializeField]
+        public ItemSpawnProbabilityDistributionSO Probability { get; private set; }
+        [field: SerializeField]
         [SerializedDictionary("Item Type", "Item Data")]
         public SerializedDictionary<ItemType, ItemDataSO> ItemDataDict { get; private set; }
-        public ItemSpawnProbabilityDistributionSO Probability { get; private set; }
 
         private List<Item> _allItems;
 

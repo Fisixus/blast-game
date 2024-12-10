@@ -20,6 +20,9 @@ namespace Core.Helpers.GridHelpers
                     case Booster booster:
                         booster.BoosterType = BoosterType.None;
                         break;
+                    case Obstacle obstacle:
+                        obstacle.ObstacleType = ObstacleType.None;
+                        break;
                 }
             }
         }

@@ -9,13 +9,11 @@ namespace MVP.Presenters.Handlers
 {
     public class GridShiftHandler
     {
-        private readonly IItemFactory _itemFactory;
-        private readonly IBoosterFactory _boosterFactory;
+        private GridObjectFactoryHandler _gridObjectFactoryHandler;
 
-        public GridShiftHandler(IItemFactory itemFactory, IBoosterFactory boosterFactory)
+        public GridShiftHandler(GridObjectFactoryHandler gridObjectFactoryHandler)
         {
-            _itemFactory = itemFactory;
-            _boosterFactory = boosterFactory;
+            _gridObjectFactoryHandler = gridObjectFactoryHandler;
         }
         
         public List<BaseGridObject> ShiftAndReplace(BaseGridObject[,] grid, int columnCount, int rowCount, List<BaseGridObject> matchedGridObjects)
@@ -27,7 +25,7 @@ namespace MVP.Presenters.Handlers
             var emptyItems = ShiftItems(grid, columnCount, rowCount);
 
             // Generate new items to fill empty slots
-            var newItems = GenerateNewItems(emptyItems);
+            var newItems = _gridObjectFactoryHandler.GenerateNewItems(emptyItems);
 
             return newItems;
         }
@@ -47,8 +45,8 @@ namespace MVP.Presenters.Handlers
                         var baseGridObject = grid[col, row];
                         GridItemModifierHelper.SwapItems(grid, col, emptyRow, col, row);
                         
-                        //TODO:GameEventSystem.Invoke<OnGridObjectInitializedEvent>
-                            //(new OnGridObjectShiftedEvent() { GridObject = baseGridObject });
+                        GameEventSystem.Invoke<OnGridObjectShiftedEvent>
+                            (new OnGridObjectShiftedEvent(){ GridObject = baseGridObject});
                         
                         emptyRow--;
                     }
@@ -61,26 +59,6 @@ namespace MVP.Presenters.Handlers
 
             return emptyItems;
         }
-        //TODO:
-        private List<BaseGridObject> GenerateNewItems(List<BaseGridObject> emptyItems)
-        {
-            var newItems = new List<BaseGridObject>();
 
-            foreach (var emptyItem in emptyItems)
-            {
-                newItems.Add(_itemFactory.GenerateRandItem(emptyItem.Coordinate));
-                switch (emptyItem)
-                {
-                    case Item item:
-                        _itemFactory.DestroyObj(item);
-                        break;
-                    case Booster booster:
-                        _boosterFactory.DestroyObj(booster);
-                        break;
-                }
-            }
-
-            return newItems;
-        }
     }
 }

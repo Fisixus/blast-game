@@ -83,7 +83,7 @@ namespace MVP.Presenters
             else
             {
                 // m_GoalHandler.UpdateMoves();
-                //ProcessMatch(matchedItems);
+                ProcessMatch(matchedItems);
             }
         }
         
@@ -121,6 +121,7 @@ namespace MVP.Presenters
             //     m_GoalHandler.UpdateGoals(itemsOnly);
             // }
             ShiftAndReplaceGridObjects(baseGridObjects);
+            _hintHandler.DetectAndSetHints();
             baseGridObjects.Clear();
         }
         
@@ -152,8 +153,9 @@ namespace MVP.Presenters
         private void GridObjectUpdatedInGrid(object args)
         {
             var eventArgs = (OnGridObjectUpdatedEvent)args;
-            _gridView.SetGridObjectLocation(eventArgs.GridObject, newCoord:new Vector2Int(), isAnimOn: false); //TODO:
-            _gridView.SetGridObjectLocation(eventArgs.GridObject, isAnimOn: eventArgs.IsAnimationOn, animationTime: 0.6f);
+            var newItem = eventArgs.GridObject;
+            _gridView.SetGridObjectLocation(newItem, newCoord:new Vector2Int(newItem.Coordinate.x, newItem.Coordinate.y - _gridModel.ColumnCount), isAnimOn: false);
+            _gridView.SetGridObjectLocation(newItem, isAnimOn: eventArgs.IsAnimationOn, animationTime: 0.6f);
         }
     }
 }
