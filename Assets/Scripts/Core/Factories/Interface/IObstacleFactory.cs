@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Core.Enum;
 using Core.GridElements.GridPawns;
-using Core.ScriptableObjects;
+using Core.GridObjectsData;
 using UnityEngine;
 
 namespace Core.Factories.Interface

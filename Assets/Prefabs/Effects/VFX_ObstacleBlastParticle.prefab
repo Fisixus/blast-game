@@ -11,8 +11,9 @@ GameObject:
   - component: {fileID: 221754041697278166}
   - component: {fileID: 642688248392770376}
   - component: {fileID: 1723634992213174247}
+  - component: {fileID: 466151494598951345}
   m_Layer: 0
-  m_Name: VFX_BlastParticle
+  m_Name: VFX_ObstacleBlastParticle
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -287,7 +288,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.1
+      scalar: 0.4
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -980,7 +981,7 @@ ParticleSystem:
       countCurve:
         serializedVersion: 2
         minMaxState: 0
-        scalar: 15
+        scalar: 5
         minScalar: 30
         maxCurve:
           serializedVersion: 2
@@ -1545,8 +1546,7 @@ ParticleSystem:
     uvChannelMask: -1
     rowMode: 1
     sprites:
-    - sprite: {fileID: 21300000, guid: 6204a2149ea36704981a657d7e3c0481, type: 3}
-    - sprite: {fileID: 21300000, guid: 4ed48003245d13742b30c63c3dc849f8, type: 3}
+    - sprite: {fileID: 21300000, guid: ca91cd54121662347b9035e47298f6d1, type: 3}
     flipU: 0
     flipV: 0
   VelocityModule:
@@ -4887,3 +4887,16 @@ ParticleSystemRenderer:
   m_MeshWeighting2: 1
   m_MeshWeighting3: 1
   m_MaskInteraction: 0
+--- !u!114 &466151494598951345
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8270587096148737613}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 85ee1515602fa2b47984073138696707, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <BlastParticleSystem>k__BackingField: {fileID: 642688248392770376}

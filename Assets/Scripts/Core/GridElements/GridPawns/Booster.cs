@@ -1,5 +1,5 @@
 using Core.Enum;
-using Core.ScriptableObjects;
+using Core.GridObjectsData;
 using UnityEngine;
 
 namespace Core.GridElements.GridPawns

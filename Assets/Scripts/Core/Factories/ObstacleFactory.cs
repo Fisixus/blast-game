@@ -4,7 +4,7 @@ using Core.Enum;
 using Core.Factories.Interface;
 using Core.Factories.Pools;
 using Core.GridElements.GridPawns;
-using Core.ScriptableObjects;
+using Core.GridObjectsData;
 using UnityEngine;
 
 namespace Core.Factories

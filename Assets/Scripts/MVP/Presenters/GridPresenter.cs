@@ -8,6 +8,7 @@ using Events.Grid;
 using Events.Input;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
+using MVP.Presenters.Handlers.Effects;
 using MVP.Views.Interface;
 using UnityEngine;
 using OnGridObjectTouchedEvent = Events.Grid.OnGridObjectTouchedEvent;
@@ -21,16 +22,19 @@ namespace MVP.Presenters
         private readonly MatchHandler _matchHandler;
         private readonly BoosterHandler _boosterHandler;
         private readonly HintHandler _hintHandler;
+        private readonly BlastEffectHandler _blastEffectHandler;
         private readonly GridShiftHandler _gridShiftHandler;
 
 
-        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, HintHandler hintHandler, GridShiftHandler gridShiftHandler)
+        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, 
+            HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
             _matchHandler = matchHandler;
             _boosterHandler = boosterHandler;
             _hintHandler = hintHandler;
+            _blastEffectHandler = blastEffectHandler;
             _gridShiftHandler = gridShiftHandler;
             
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
@@ -83,6 +87,7 @@ namespace MVP.Presenters
             else
             {
                 // m_GoalHandler.UpdateMoves();
+                _blastEffectHandler.PlayBlastParticles(matchedItems);
                 ProcessMatch(matchedItems);
             }
         }

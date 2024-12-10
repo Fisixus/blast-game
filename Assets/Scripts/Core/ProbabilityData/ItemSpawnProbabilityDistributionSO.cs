@@ -3,9 +3,9 @@ using Core.Enum;
 using UnityEngine;
 using UnityEngine.Serialization;
 
-namespace Core.ScriptableObjects
+namespace Core.ProbabilityData
 {
-    [CreateAssetMenu(fileName = "ProbabilityDistribution_00", menuName = "Scriptable Objects/New Distribution")]
+    [CreateAssetMenu(fileName = "ProbabilityDistribution_00", menuName = "Probabilities/New Item Distribution")]
     public class ItemSpawnProbabilityDistributionSO : ScriptableObject
     {
         [FormerlySerializedAs("m_ItemDataDict")] [SerializeField] [SerializedDictionary("Item Type", "Ratio")]

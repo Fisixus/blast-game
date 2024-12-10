@@ -10,7 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4368075546075439361}
   - component: {fileID: 6190560708012353627}
-  - component: {fileID: 9091533507980260399}
+  - component: {fileID: 6712343522467358285}
   - component: {fileID: 8208822954847421033}
   - component: {fileID: 2947437323224371222}
   m_Layer: 0
@@ -87,7 +87,7 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
---- !u!114 &9091533507980260399
+--- !u!114 &6712343522467358285
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -96,7 +96,7 @@ MonoBehaviour:
   m_GameObject: {fileID: 925028561041353760}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: c4620c9f6b5e2d04482a1f28b49b40b9, type: 3}
+  m_Script: {fileID: 11500000, guid: d53542e67342d0b48909a7e10dd69293, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!114 &8208822954847421033
@@ -113,7 +113,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BoxCollider>k__BackingField: {fileID: 2947437323224371222}
   <SpriteRenderer>k__BackingField: {fileID: 6190560708012353627}
-  <BaseGridObjectEffect>k__BackingField: {fileID: 9091533507980260399}
+  <BaseGridObjectEffect>k__BackingField: {fileID: 6712343522467358285}
   <Coordinate>k__BackingField: {x: 0, y: 0}
   <ObstacleType>k__BackingField: 0
 --- !u!61 &2947437323224371222

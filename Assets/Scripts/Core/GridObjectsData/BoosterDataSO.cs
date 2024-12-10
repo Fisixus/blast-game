@@ -1,9 +1,9 @@
 
 using UnityEngine;
 
-namespace Core.ScriptableObjects
+namespace Core.GridObjectsData
 {
-    [CreateAssetMenu(fileName = "BoosterData_00", menuName = "Scriptable Objects/New BoosterData")]
+    [CreateAssetMenu(fileName = "BoosterData_00", menuName = "Grid Objects/New BoosterData")]
     public class BoosterDataSO : ScriptableObject
     {
         [field: SerializeField]
