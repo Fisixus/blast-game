@@ -1,4 +1,4 @@
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.GridObjectsData;
 using UnityEngine;
 
@@ -15,7 +15,7 @@ namespace Core.GridElements.GridPawns
 
             public void SetAttributes(System.Enum type)
             {
-                IsStationary = type is ObstacleType.Box or Enum.ObstacleType.Stone;
+                IsStationary = type is ObstacleType.Box or ObstacleType.Stone;
                 HitCount = type is ObstacleType.Vase ? 2 : 1;
             }
 

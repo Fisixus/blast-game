@@ -1,7 +1,7 @@
 
 using System.Collections.Generic;
 using System.Linq;
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using MVP.Presenters.Handlers.Strategies.Interface;
 using UnityEngine;

@@ -1,6 +1,6 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Events;
@@ -80,6 +80,7 @@ namespace MVP.Presenters
             }
             var boosterType = item.HintType;
             var effectedObstacles = _matchHandler.FindObstacles(matchedItems);
+            Debug.Log("Count:" + effectedObstacles.Count);
             if (boosterType != BoosterType.None)
             {
                 //ProcessBoosterCreation(item, matchedItems, effectedObstacles, boosterType);
@@ -87,7 +88,8 @@ namespace MVP.Presenters
             else
             {
                 // m_GoalHandler.UpdateMoves();
-                _blastEffectHandler.PlayBlastParticles(matchedItems);
+                matchedItems.AddRange(effectedObstacles);
+                _blastEffectHandler.PlayBlastParticles(matchedItems); //TODO:
                 ProcessMatch(matchedItems);
             }
         }

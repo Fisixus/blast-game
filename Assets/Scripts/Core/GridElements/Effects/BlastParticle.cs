@@ -11,11 +11,6 @@ namespace Core.GridElements.Effects
             var textureSheetAnimation = BlastParticleSystem.textureSheetAnimation;
             textureSheetAnimation.enabled = true;
             
-            // Clear existing sprites by setting empty sprites
-            for (int i = 0; i < textureSheetAnimation.spriteCount; i++)
-            {
-                textureSheetAnimation.SetSprite(i, null);
-            }
             for (int i = 0; i < animationSprites.Length; i++)
             {
                 textureSheetAnimation.SetSprite(i, animationSprites[i]);

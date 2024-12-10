@@ -1,8 +1,8 @@
 using AYellowpaper.SerializedCollections;
-using Core.Enum;
 using Core.Factories.Interface;
 using Core.Factories.Pools;
 using Core.GridElements.Effects;
+using Core.GridElements.Enums;
 using Core.GridObjectsData.Effects;
 using UnityEngine;
 

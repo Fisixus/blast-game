@@ -1,6 +1,6 @@
 using System.Collections.Generic;
-using Core.Enum;
 using Core.Factories.Interface;
+using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
 using MVP.Presenters.Handlers.Strategies.Interface;

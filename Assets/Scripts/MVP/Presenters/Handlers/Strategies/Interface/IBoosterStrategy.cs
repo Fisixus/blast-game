@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 
 namespace MVP.Presenters.Handlers.Strategies.Interface

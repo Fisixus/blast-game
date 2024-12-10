@@ -1,5 +1,5 @@
 
-namespace Core.Enum
+namespace Core.GridElements.Enums
 {
     public enum BoosterType
     {

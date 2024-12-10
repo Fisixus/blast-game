@@ -1,5 +1,5 @@
 using System;
-using Core.Enum;
+using Core.GridElements.Enums;
 using UnityEngine;
 
 namespace Core.LevelSerialization

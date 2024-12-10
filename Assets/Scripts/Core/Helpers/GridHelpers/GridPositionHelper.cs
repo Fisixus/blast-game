@@ -1,4 +1,4 @@
-using Core.Enum;
+using Core.Helpers.Enums;
 using UnityEngine;
 
 namespace Core.Helpers.GridHelpers

@@ -1,4 +1,4 @@
-﻿namespace Core.Enum
+﻿namespace Core.Helpers.Enums
 {
     public enum Direction
     {

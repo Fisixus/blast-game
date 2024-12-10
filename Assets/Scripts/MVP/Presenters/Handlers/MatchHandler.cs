@@ -1,8 +1,8 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.Enum;
 using Core.GridElements.GridPawns;
+using MVP.Presenters.Handlers.Strategies.Enums;
 using MVP.Presenters.Handlers.Strategies.Interface;
 using UnityEngine;
 
@@ -55,7 +55,6 @@ namespace MVP.Presenters.Handlers
             foreach (var matchType in matchTypesToHandle)
             {
                 if (!_strategies.TryGetValue(matchType, out var strategy)) continue;
-                
                 foreach (var matchedItem in matchedObjs)
                 {
                     obstacles.AddRange(strategy.FindMatches(

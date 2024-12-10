@@ -1,5 +1,5 @@
 using AYellowpaper.SerializedCollections;
-using Core.Enum;
+using Core.GridElements.Enums;
 using UnityEngine;
 using UnityEngine.Serialization;
 

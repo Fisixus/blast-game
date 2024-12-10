@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
-using Core.Enum;
 using Core.GridElements.GridPawns;
+using MVP.Presenters.Handlers.Strategies.Enums;
 using UnityEngine;
 
 namespace MVP.Presenters.Handlers.Strategies.Interface

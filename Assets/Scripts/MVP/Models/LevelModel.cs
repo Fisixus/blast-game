@@ -1,5 +1,5 @@
 using System;
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.LevelSerialization;
 using Events;
 using Events.Game;

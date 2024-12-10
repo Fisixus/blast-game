@@ -1,4 +1,4 @@
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.GridElements.GridPawns.Effect;
 using Core.GridElements.GridPawns.Interface;
 using Core.Helpers.GridHelpers;

@@ -10,9 +10,11 @@ namespace Installers
         protected override void InstallBindings()
         {
             // Bind each MatchStrategy implementation
-            Container.BindAsSingle<IMatchStrategy>(()=> new ItemMatchStrategy());
+            Container.BindAsTransient<IMatchStrategy>(()=> new ItemMatchStrategy());
+            Container.BindAsTransient<IMatchStrategy>(()=> new BoxMatchStrategy());
+            
             // Bind each BoosterStrategy implementation
-            Container.BindAsSingle<IBoosterStrategy>(() => Container.Construct<BombStrategy>());
+            Container.BindAsTransient<IBoosterStrategy>(() => Container.Construct<BombStrategy>());
         }
     }
 }

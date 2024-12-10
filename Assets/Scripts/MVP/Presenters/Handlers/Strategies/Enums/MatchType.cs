@@ -1,4 +1,4 @@
-﻿namespace Core.Enum
+﻿namespace MVP.Presenters.Handlers.Strategies.Enums
 {
     public enum MatchType
     {

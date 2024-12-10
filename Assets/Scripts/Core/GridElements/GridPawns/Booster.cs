@@ -1,4 +1,4 @@
-using Core.Enum;
+using Core.GridElements.Enums;
 using Core.GridObjectsData;
 using UnityEngine;
 
