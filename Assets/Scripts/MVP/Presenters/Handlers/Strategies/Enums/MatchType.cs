@@ -4,7 +4,6 @@
     {
         GridObject,
         Box,
-        Stone,
         Vase
     }
 }

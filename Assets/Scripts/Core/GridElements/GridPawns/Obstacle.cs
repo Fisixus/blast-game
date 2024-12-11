@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using Core.GridElements.Enums;
 using Core.GridObjectsData;
 using UnityEngine;
@@ -7,34 +8,31 @@ namespace Core.GridElements.GridPawns
     public class Obstacle : BaseGridObject
     {
         [field: SerializeField] public ObstacleType ObstacleType { get; set; }
+        private ObstacleDataSO.ObstacleAttributes Attributes { get; set;}
+        private Dictionary<int, Sprite>  ObstacleSpritesPerLife { get; set; }
 
-        public struct ObstacleAttributes
-        {
-            public bool IsStationary { get; set; }
-            public int HitCount { get; set; }
-
-            public void SetAttributes(System.Enum type)
-            {
-                IsStationary = type is ObstacleType.Box or ObstacleType.Stone;
-                HitCount = type is ObstacleType.Vase ? 2 : 1;
-            }
-
-            public override string ToString()
-            {
-                return $"IsStationary: {IsStationary}, HitCount: {HitCount}";
-            }
-        }
-        public ObstacleAttributes Attributes { get; }
-        
         public override System.Enum Type
         {
             get => ObstacleType;
             protected set => ObstacleType = (ObstacleType)value;
         }
-
+        
+        public int TakeDamage()
+        {
+            Attributes.Life--;
+            if (Attributes.Life == 0) 
+                return 0;
+            
+            SpriteRenderer.sprite = ObstacleSpritesPerLife[Attributes.Life];
+            return Attributes.Life;
+        }
+        
         public void ApplyObstacleData(ObstacleDataSO obstacleData)
         {
-            SpriteRenderer.sprite = obstacleData.ObstacleSprite;
+            Attributes = obstacleData.Attributes;
+            ObstacleSpritesPerLife = obstacleData.ObstacleSpritesPerLife;
+            SpriteRenderer.sprite = ObstacleSpritesPerLife[Attributes.Life];
+            
             var obstacleWidthHeight = obstacleData.ObstacleWidthHeight;
             SpriteRenderer.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);
             BoxCollider.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);

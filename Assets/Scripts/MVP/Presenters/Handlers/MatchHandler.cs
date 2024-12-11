@@ -51,13 +51,13 @@ namespace MVP.Presenters.Handlers
         public List<BaseGridObject> FindObstacles(List<BaseGridObject> matchedObjs)
         {
             var obstacles = new List<BaseGridObject>();
-            var matchTypesToHandle = new[] { MatchType.Box, MatchType.Stone, MatchType.Vase };
-            foreach (var matchType in matchTypesToHandle)
+            var matchTypesToHandle = new[] { MatchType.Box, MatchType.Vase };
+
+            foreach (var matchedItem in matchedObjs)
             {
-                if (!_strategies.TryGetValue(matchType, out var strategy)) continue;
-                foreach (var matchedItem in matchedObjs)
+                if (_strategies.TryGetValue(MatchType.Box, out var strategy))
                 {
-                    obstacles.AddRange(strategy.FindMatches(
+                    matchedObjs.AddRange(strategy.FindMatches(
                         matchedItem.Coordinate,
                         matchedItem.Type,
                         _grid,
@@ -66,6 +66,7 @@ namespace MVP.Presenters.Handlers
                         _rowCount));
                 }
             }
+            
             return obstacles;
         }
 

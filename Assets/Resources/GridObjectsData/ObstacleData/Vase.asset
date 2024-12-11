@@ -12,5 +12,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b265f2608079ece4190d1e50bd7093ef, type: 3}
   m_Name: Vase
   m_EditorClassIdentifier: 
-  <ObstacleSprite>k__BackingField: {fileID: 21300000, guid: 89db1db6c4a3e634f92347b587c3ecb7, type: 3}
+  <ObstacleSpritesPerLife>k__BackingField:
+    _serializedList:
+    - Key: 1
+      Value: {fileID: 21300000, guid: 4e0d77ca71bf4c54ab65cf97dd3a5d60, type: 3}
+    - Key: 2
+      Value: {fileID: 21300000, guid: 89db1db6c4a3e634f92347b587c3ecb7, type: 3}
+  <Attributes>k__BackingField:
+    <IsStationary>k__BackingField: 0
+    <Life>k__BackingField: 2
   <ObstacleWidthHeight>k__BackingField: {x: 1.1, y: 1.25}

@@ -1,3 +1,6 @@
+using System;
+using AYellowpaper.SerializedCollections;
+using Core.GridElements.GridPawns;
 using UnityEngine;
 
 namespace Core.GridObjectsData
@@ -6,8 +9,19 @@ namespace Core.GridObjectsData
     public class ObstacleDataSO : ScriptableObject
     {
         [field: SerializeField]
-        public Sprite ObstacleSprite { get; private set; }
+        public SerializedDictionary<int, Sprite>  ObstacleSpritesPerLife { get; private set; }
+
+        [field: SerializeField]
+        public ObstacleAttributes Attributes { get; private set; }
+        
         [field: SerializeField] 
         public Vector2 ObstacleWidthHeight { get; private set; }
+        
+        [Serializable]
+        public class ObstacleAttributes
+        {
+            [field: SerializeField]public bool IsStationary { get; set; }
+            [field: SerializeField]public int Life { get; set; }
+        }
     }
 }
