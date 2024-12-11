@@ -9,6 +9,7 @@ namespace Installers
         protected override void InstallBindings()
         {
             Container.BindAsSingle(() => Container.Construct<GridObjectFactoryHandler>());
+            Container.BindAsSingle(() => Container.Construct<BombEffectHandler>());
             Container.BindAsSingle(() => Container.Construct<BlastEffectHandler>());
             Container.BindAsSingle(() => Container.Construct<LevelStateHandler>());
             Container.BindAsSingle(() => Container.Construct<MatchHandler>());

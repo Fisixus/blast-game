@@ -3,6 +3,7 @@ using Core.Factories.Interface;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
+using MVP.Presenters.Handlers.Effects;
 using MVP.Presenters.Handlers.Strategies.Interface;
 
 namespace MVP.Presenters.Handlers.Strategies.Boosters
@@ -10,11 +11,13 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
     public class BombStrategy : IBoosterStrategy
     {
         private readonly IBoosterFactory _boosterFactory;
+        private readonly BombEffectHandler _bombEffectHandler;
         public BoosterType BoosterType => BoosterType.Bomb;
 
-        public BombStrategy(IBoosterFactory boosterFactory)
+        public BombStrategy(IBoosterFactory boosterFactory, BombEffectHandler bombEffectHandler)
         {
             _boosterFactory = boosterFactory;
+            _bombEffectHandler = bombEffectHandler;
         }
 
         public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, Booster booster)
@@ -25,7 +28,7 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
 
         public void PlayExplosionEffect(Booster booster)
         {
-            //m_BombEffectHandler.PlayBombParticle(booster);
+            _bombEffectHandler.PlayBombParticle(booster);
         }
 
         public float GetWaitTime()

@@ -179,6 +179,52 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 2d173ffc88992d243bacddfdfc51c53c, type: 2}
     - Key: 3
       Value: {fileID: 11400000, guid: e8a5a7608af1fc4458332a3edda0ff35, type: 2}
+--- !u!1 &27155016
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 27155017}
+  - component: {fileID: 27155018}
+  m_Layer: 0
+  m_Name: BombEffectFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &27155017
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27155016}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1551572823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &27155018
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 27155016}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10d9a64598f36d34f8faccbdde7f8836, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ObjPrefab>k__BackingField: {fileID: 5533784467222154417, guid: dd42f7272c34248459cb5eb134b812dc, type: 3}
+  <ParentTr>k__BackingField: {fileID: 199402874}
 --- !u!1 &83611671
 GameObject:
   m_ObjectHideFlags: 0
@@ -265,6 +311,7 @@ Transform:
   - {fileID: 125976778}
   - {fileID: 1469300221}
   - {fileID: 874327160}
+  - {fileID: 199402874}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &125976777
@@ -510,6 +557,37 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 147200451}
   m_CullTransparentMesh: 1
+--- !u!1 &199402873
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 199402874}
+  m_Layer: 0
+  m_Name: BombParticlesParent
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &199402874
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 199402873}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 83611673}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &396297756
 GameObject:
   m_ObjectHideFlags: 0
@@ -1385,6 +1463,7 @@ Transform:
   - {fileID: 1730674586}
   - {fileID: 918790282}
   - {fileID: 10092207}
+  - {fileID: 27155017}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557328243
@@ -1452,6 +1531,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _itemBlastEffectFactory: {fileID: 918790283}
   _obstacleBlastEffectFactory: {fileID: 10092208}
+  _bombEffectFactory: {fileID: 27155018}
   _itemFactory: {fileID: 396297758}
   _boosterFactory: {fileID: 1898547102}
   _obstacleFactory: {fileID: 1730674587}

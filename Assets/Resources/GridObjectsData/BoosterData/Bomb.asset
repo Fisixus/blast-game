@@ -17,4 +17,4 @@ MonoBehaviour:
   <BoosterSprite>k__BackingField: {fileID: 21300000, guid: 8d738497361950a48b4bbcafbe8b5f89, type: 3}
   <MinItemsNeeded>k__BackingField: 5
   <MaxItemsNeeded>k__BackingField: 100
-  <WaitingTimeForEachDestruction>k__BackingField: 0.2
+  <WaitingTimeForEachDestruction>k__BackingField: 0

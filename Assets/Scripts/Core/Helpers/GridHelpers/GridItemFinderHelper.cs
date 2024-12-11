@@ -92,18 +92,21 @@ namespace Core.Helpers.GridHelpers
             var maxX = grid.GetLength(0) - 1;
             var maxY = grid.GetLength(1) - 1;
 
-            // Iterate over a square area centered at the bomb
-            for (int x = coord.x - bombRadius; x <= coord.x + bombRadius; x++)
+            // Process from radius 0 to bombRadius
+            for (int radius = 0; radius <= bombRadius; radius++)
             {
-                for (int y = coord.y - bombRadius; y <= coord.y + bombRadius; y++)
+                for (int x = coord.x - radius; x <= coord.x + radius; x++)
                 {
-                    // Ensure the coordinates are within grid bounds
-                    if (x >= 0 && x <= maxX && y >= 0 && y <= maxY)
+                    for (int y = coord.y - radius; y <= coord.y + radius; y++)
                     {
-                        var gridObject = grid[x, y];
-                        if (gridObject != null && !affectedObjects.Contains(gridObject))
+                        // Ensure the coordinates are within grid bounds
+                        if (x >= 0 && x <= maxX && y >= 0 && y <= maxY)
                         {
-                            affectedObjects.Add(gridObject);
+                            var gridObject = grid[x, y];
+                            if (gridObject != null && !affectedObjects.Contains(gridObject))
+                            {
+                                affectedObjects.Add(gridObject);
+                            }
                         }
                     }
                 }
@@ -111,6 +114,8 @@ namespace Core.Helpers.GridHelpers
 
             return affectedObjects;
         }
+
+
         
         // public static (List<Item> Obstacles, List<Item> RegularItems) SeparateRegularItems(List<Item> matchedItems)
         // {
