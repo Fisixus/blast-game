@@ -19,8 +19,8 @@ namespace Core.GridElements.GridPawns
         [field: SerializeField] public Vector2Int Coordinate { get; set; }
 
         public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
-
         public bool IsEmpty { get; set; } = false;
+        public bool IsStationary { get; set; } = false;
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
             Vector2Int? coordinateOverride = null,
@@ -67,7 +67,14 @@ namespace Core.GridElements.GridPawns
         {
             SpriteRenderer.sortingOrder = order;
         }
-        public abstract void ApplyData(BaseGridObjectDataSO data);
+
+        public virtual void ApplyData(BaseGridObjectDataSO data)
+        {
+            IsStationary = data.IsStationary;
+            var gridObjectWidthHeight = data.GridObjectWidthHeight;
+            SpriteRenderer.size = new Vector2(gridObjectWidthHeight.x, gridObjectWidthHeight.y);
+            BoxCollider.size = new Vector2(gridObjectWidthHeight.x, gridObjectWidthHeight.y);
+        }
         public abstract override string ToString();
     }
 }

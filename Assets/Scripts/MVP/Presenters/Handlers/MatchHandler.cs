@@ -53,17 +53,20 @@ namespace MVP.Presenters.Handlers
             var obstacles = new List<BaseGridObject>();
             var matchTypesToHandle = new[] { MatchType.Box, MatchType.Vase };
 
-            foreach (var matchedItem in matchedObjs)
+            foreach (var matchedObj in matchedObjs)
             {
-                if (_strategies.TryGetValue(MatchType.Box, out var strategy))
+                foreach (var matchType in matchTypesToHandle)
                 {
-                    matchedObjs.AddRange(strategy.FindMatches(
-                        matchedItem.Coordinate,
-                        matchedItem.Type,
-                        _grid,
-                        _visited,
-                        _columnCount,
-                        _rowCount));
+                    if (_strategies.TryGetValue(matchType, out var strategy))
+                    {
+                        obstacles.AddRange(strategy.FindMatches(
+                            matchedObj.Coordinate,
+                            matchedObj.Type,
+                            _grid,
+                            _visited,
+                            _columnCount,
+                            _rowCount));
+                    }
                 }
             }
             

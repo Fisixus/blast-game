@@ -27,6 +27,7 @@ namespace Core.GridElements.GridPawns
         
         public override void ApplyData(BaseGridObjectDataSO data)
         {
+            base.ApplyData(data);
             var itemData = data as ItemDataSO;
             if(itemData is null)
             {
@@ -35,9 +36,7 @@ namespace Core.GridElements.GridPawns
             
             _hintSprites = itemData.HintSprites;
             ApplyHintSprite(BoosterType.None);
-            var itemWidthHeight = itemData.GridObjectWidthHeight;
-            SpriteRenderer.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
-            BoxCollider.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
+            
         }
 
         public override string ToString()

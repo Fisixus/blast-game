@@ -16,15 +16,12 @@ namespace Core.GridElements.GridPawns
         }
         public override void ApplyData(BaseGridObjectDataSO data)
         {
+            base.ApplyData(data);
             var boosterData = data as BoosterDataSO;
             if(boosterData is null)
             {
                 throw new InvalidOperationException("Invalid data type provided!");
             }
-            SpriteRenderer.sprite = boosterData.BoosterSprite;
-            var boosterWidthHeight = boosterData.GridObjectWidthHeight;
-            SpriteRenderer.size = new Vector2(boosterWidthHeight.x, boosterWidthHeight.y);
-            BoxCollider.size = new Vector2(boosterWidthHeight.x, boosterWidthHeight.y);
         }
 
         public override string ToString()

@@ -9,7 +9,7 @@ namespace Core.GridElements.GridPawns
     public class Obstacle : BaseGridObject
     {
         [field: SerializeField] public ObstacleType ObstacleType { get; set; }
-        private ObstacleDataSO.ObstacleAttributes Attributes { get; set;}
+        private int Life { get; set;}
         private Dictionary<int, Sprite>  ObstacleSpritesPerLife { get; set; }
 
         public override System.Enum Type
@@ -20,28 +20,26 @@ namespace Core.GridElements.GridPawns
         
         public int TakeDamage()
         {
-            Attributes.Life--;
-            if (Attributes.Life == 0) 
+            Life--;
+            if (Life == 0) 
                 return 0;
             
-            SpriteRenderer.sprite = ObstacleSpritesPerLife[Attributes.Life];
-            return Attributes.Life;
+            SpriteRenderer.sprite = ObstacleSpritesPerLife[Life];
+            return Life;
         }
         public override void ApplyData(BaseGridObjectDataSO data)
         {
+            base.ApplyData(data);
+            
             var obstacleData = data as ObstacleDataSO;
             if(obstacleData is null)
             {
                 throw new InvalidOperationException("Invalid data type provided!");
             }
-
-            Attributes = obstacleData.Attributes;
-            ObstacleSpritesPerLife = obstacleData.ObstacleSpritesPerLife;
-            SpriteRenderer.sprite = ObstacleSpritesPerLife[Attributes.Life];
             
-            var obstacleWidthHeight = obstacleData.GridObjectWidthHeight;
-            SpriteRenderer.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);
-            BoxCollider.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);
+            Life = obstacleData.Life;
+            ObstacleSpritesPerLife = obstacleData.ObstacleSpritesPerLife;
+            SpriteRenderer.sprite = ObstacleSpritesPerLife[Life];
         }
 
         public override string ToString()

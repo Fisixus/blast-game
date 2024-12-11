@@ -13,12 +13,11 @@ MonoBehaviour:
   m_Name: Vase
   m_EditorClassIdentifier: 
   <GridObjectWidthHeight>k__BackingField: {x: 1.1, y: 1.25}
+  <IsStationary>k__BackingField: 0
   <ObstacleSpritesPerLife>k__BackingField:
     _serializedList:
     - Key: 1
       Value: {fileID: 21300000, guid: 4e0d77ca71bf4c54ab65cf97dd3a5d60, type: 3}
     - Key: 2
       Value: {fileID: 21300000, guid: 89db1db6c4a3e634f92347b587c3ecb7, type: 3}
-  <Attributes>k__BackingField:
-    <IsStationary>k__BackingField: 0
-    <Life>k__BackingField: 2
+  <Life>k__BackingField: 2
