@@ -3,6 +3,7 @@ using System.Linq;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
+using Cysharp.Threading.Tasks;
 using Events;
 using Events.Grid;
 using Events.Input;
@@ -65,7 +66,7 @@ namespace MVP.Presenters
                     ProcessItemTouch(item);
                     break;
                 case Booster booster:
-                    //ProcessBoosterTouchAsync(booster).Forget();
+                    ProcessBoosterTouchAsync(booster).Forget();
                     break;
                 case Obstacle obstacle:
                     ProcessNoMatch(obstacle);
@@ -115,6 +116,21 @@ namespace MVP.Presenters
                     //ProcessMatch(balloons, true);
                     GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = true});
                 });
+        }
+        
+        private async UniTaskVoid ProcessBoosterTouchAsync(Booster booster)
+        {
+            // TODO: Handle booster merge logic here if required.
+            //var (finalBooster, mergedBoosters) = _boosterHandler.MergeBoosters(booster);
+            //ProcessMatch(mergedBoosters);//TODO:
+            ///////////////////////////////////////////////////////////////////////////////////////////
+
+            var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(booster);
+            // Update moves after applying the boost
+            //TODO:m_GoalHandler.UpdateMoves();
+
+            // Process matches after boosting is complete
+            ProcessMatch(effectedGridObjects, false);
         }
 
         

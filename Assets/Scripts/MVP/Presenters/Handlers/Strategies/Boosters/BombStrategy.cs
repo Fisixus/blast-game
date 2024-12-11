@@ -19,7 +19,7 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
 
         public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, Booster booster)
         {
-            var affectedObjects = GridItemFinderHelper.FindItemsInCircleRange(grid, booster.Coordinate, 5);
+            var affectedObjects = GridItemFinderHelper.FindItemsInRadiusRange(grid, booster.Coordinate, 2);
             return affectedObjects;
         }
 

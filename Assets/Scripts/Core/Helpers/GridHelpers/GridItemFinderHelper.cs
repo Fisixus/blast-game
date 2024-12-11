@@ -1,6 +1,8 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.GridElements.GridPawns;
+using Core.Helpers.Enums;
 using UnityEngine;
 
 namespace Core.Helpers.GridHelpers
@@ -84,30 +86,30 @@ namespace Core.Helpers.GridHelpers
             return gridObjects;
         }
 
-        public static List<BaseGridObject> FindItemsInCircleRange(BaseGridObject[,] grid, Vector2Int coord, int bombRadius)
+        public static List<BaseGridObject> FindItemsInRadiusRange(BaseGridObject[,] grid, Vector2Int coord, int bombRadius)
         {
-            var effectedObjects = new List<BaseGridObject>();
-            var maxX = grid.GetLength(0) - 1; // Maximum X index
-            var maxY = grid.GetLength(1) - 1; // Maximum Y index
+            var affectedObjects = new List<BaseGridObject>();
+            var maxX = grid.GetLength(0) - 1;
+            var maxY = grid.GetLength(1) - 1;
 
-            // Calculate bounds of the explosion area
-            var startX = Mathf.Max(0, coord.x - bombRadius);
-            var endX = Mathf.Min(maxX, coord.x + bombRadius);
-            var startY = Mathf.Max(0, coord.y - bombRadius);
-            var endY = Mathf.Min(maxY, coord.y + bombRadius);
-
-            // Iterate through the NxN area
-            for (var x = startX; x <= endX; x++)
+            // Iterate over a square area centered at the bomb
+            for (int x = coord.x - bombRadius; x <= coord.x + bombRadius; x++)
             {
-                for (var y = startY; y <= endY; y++)
+                for (int y = coord.y - bombRadius; y <= coord.y + bombRadius; y++)
                 {
-                    if (grid[x, y] != null && !effectedObjects.Contains(grid[x, y]))
+                    // Ensure the coordinates are within grid bounds
+                    if (x >= 0 && x <= maxX && y >= 0 && y <= maxY)
                     {
-                        effectedObjects.Add(grid[x, y]);
+                        var gridObject = grid[x, y];
+                        if (gridObject != null && !affectedObjects.Contains(gridObject))
+                        {
+                            affectedObjects.Add(gridObject);
+                        }
                     }
                 }
             }
-            return effectedObjects;
+
+            return affectedObjects;
         }
         
         // public static (List<Item> Obstacles, List<Item> RegularItems) SeparateRegularItems(List<Item> matchedItems)
