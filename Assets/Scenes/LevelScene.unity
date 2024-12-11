@@ -172,7 +172,7 @@ MonoBehaviour:
   <BlastEffectDataDict>k__BackingField:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: e55cf08ec6377654790d8237c62448c7, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: a640cf9ead96a964299f8f6e1c7c1ca2, type: 2}
     - Key: 2
@@ -638,7 +638,7 @@ MonoBehaviour:
   <ItemDataDict>k__BackingField:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 1267aa149fe45fd40846e345eccc902e, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: 6d6fac75a56600445a911a87aebc9ce9, type: 2}
     - Key: 2
@@ -1144,7 +1144,7 @@ MonoBehaviour:
   <BlastEffectDataDict>k__BackingField:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 151cab50e4269aa49b278945b8981841, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: f2ffdae78e2a9aa4782605dc08084be2, type: 2}
     - Key: 2
@@ -1825,7 +1825,7 @@ MonoBehaviour:
   <ObstacleDataDict>k__BackingField:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 1e6712fda479bb641b525fc421050729, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: ef02eb8086bd3354c972c949a60e6b9b, type: 2}
     - Key: 2
@@ -2121,7 +2121,7 @@ MonoBehaviour:
   <BoosterDataDict>k__BackingField:
     _serializedList:
     - Key: 0
-      Value: {fileID: 0}
+      Value: {fileID: 11400000, guid: 111e443db59d26049a319af0b753fbda, type: 2}
     - Key: 1
       Value: {fileID: 11400000, guid: bf37a38405520ff4899cb9df9d7d7897, type: 2}
     - Key: 2

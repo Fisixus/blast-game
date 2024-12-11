@@ -1,0 +1,19 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 546ba988ee855fb4ca8fe37c0769aff0, type: 3}
+  m_Name: None
+  m_EditorClassIdentifier: 
+  <GridObjectWidthHeight>k__BackingField: {x: 1.05, y: 1.05}
+  <BoosterSprite>k__BackingField: {fileID: 0}
+  <MinItemsNeeded>k__BackingField: 101
+  <MaxItemsNeeded>k__BackingField: 1000
+  <WaitingTimeForEachDestruction>k__BackingField: 0.05

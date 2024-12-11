@@ -21,7 +21,7 @@ namespace Core.GridElements.GridPawns
         public int TakeDamage()
         {
             Life--;
-            if (Life == 0) 
+            if (Life <= 0) 
                 return 0;
             
             SpriteRenderer.sprite = ObstacleSpritesPerLife[Life];

@@ -50,6 +50,20 @@ namespace Core.GridElements.GridPawns
                 scaleNormalizing);
         }
 
+        private void SetInteraction()
+        {
+            if (IsEmpty)
+            {
+                SpriteRenderer.enabled = false;
+                BoxCollider.enabled = false;
+            }
+            else
+            {
+                SpriteRenderer.enabled = true;
+                BoxCollider.enabled = true;
+            }
+        }
+        
         // SetAttributes, leveraging IType and polymorphism
         public void SetAttributes(Vector2Int newCoord, System.Enum type)
         {
@@ -60,8 +74,10 @@ namespace Core.GridElements.GridPawns
             
             // Update the GridAttributes
             IsEmpty = Type is ItemType.None or BoosterType.None or ObstacleType.None;
-
+            SetInteraction();
         }
+        
+        
 
         public void SetSortingOrder(int order)
         {

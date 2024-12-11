@@ -20,20 +20,27 @@ namespace MVP.Presenters.Handlers
             _boosterFactory = boosterFactory;
         }
 
-        public void Initialize(Enum[,] gridObjectTypes, List<BaseGridObject> gridObjects)
+        public void PopulateGridWithObjects(Enum[,] gridObjectTypes, List<BaseGridObject> gridObjects)
         {
+            //var isStationaryObjectExist = false;
+            
             // Process the grid with column-to-row traversal
             for (int i = 0; i < gridObjectTypes.GetLength(1); i++) // Columns
             {
+                ///isStationaryObjectExist = false;
                 for (int j = 0; j < gridObjectTypes.GetLength(0); j++) // Rows
                 {
                     Vector2Int coordinate = new Vector2Int(i, j);
                     var gridType = gridObjectTypes[j, i];
 
+                    //if (isStationaryObjectExist)
+                        //gridType = ItemType.None;
                     // Encapsulated factory logic
                     var gridObject = CreateGridObject(gridType, coordinate);
                     if (gridObject != null)
                     {
+                        //if (gridObject.IsStationary)
+                            //isStationaryObjectExist = true;
                         gridObjects.Add(gridObject);
                     }
                 }
@@ -45,6 +52,37 @@ namespace MVP.Presenters.Handlers
             _itemFactory.DestroyAllItems();
             _boosterFactory.DestroyAllBoosters();
             _obstacleFactory.DestroyAllObstacles();
+        }
+
+        public void DestroyOldItems(List<BaseGridObject> emptyItems)
+        {
+            foreach (var emptyItem in emptyItems)
+            {
+                switch (emptyItem)
+                {
+                    case Item item:
+                        _itemFactory.DestroyObj(item);
+                        break;
+                    case Booster booster:
+                        _boosterFactory.DestroyObj(booster);
+                        break;
+                    case Obstacle obstacle:
+                        _obstacleFactory.DestroyObj(obstacle);
+                        break;
+                }
+            }
+        }
+        
+        public List<BaseGridObject> CreateNewItems(List<BaseGridObject> emptyItems)
+        {
+            var newItems = new List<BaseGridObject>();
+
+            foreach (var emptyItem in emptyItems)
+            {
+                newItems.Add(_itemFactory.GenerateRandItem(emptyItem.Coordinate));
+            }
+
+            return newItems;
         }
         
         public List<BaseGridObject> GenerateNewItems(List<BaseGridObject> emptyItems)

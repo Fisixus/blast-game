@@ -86,7 +86,7 @@ namespace MVP.Presenters
             var effectedObstacles = _matchHandler.FindObstacles(matchedGridObjects);
             if (boosterType != BoosterType.None)
             {
-                ProcessBoosterCreation(item, matchedGridObjects, boosterType);
+                ProcessBoosterCreation(item, matchedGridObjects, effectedObstacles, boosterType);
             }
             else
             {
@@ -97,23 +97,25 @@ namespace MVP.Presenters
             }
         }
         
-        private void ProcessBoosterCreation(Item item, List<BaseGridObject> gridObjects, BoosterType boosterType)
+        private void ProcessBoosterCreation(Item item, List<BaseGridObject> matchedObjects, List<BaseGridObject> effectedObstacles, BoosterType boosterType)
         {
-            //balloons.ForEach(balloon => balloon.gameObject.SetActive(false));
-            //m_GoalHandler.UpdateGoals(balloons);
+            effectedObstacles.ForEach(obstacle => obstacle.gameObject.SetActive(false));//TODO:
+            _blastEffectHandler.PlayBlastParticles(effectedObstacles);//TODO:
+            //TODO: m_GoalHandler.UpdateGoals(effectedObstacles);
             GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = false});
         
             _boosterHandler.AnimateBoosterCreation(
                 item,
-                gridObjects,
+                matchedObjects,
                 (centerItem) =>
                 {
                     var booster = _gridObjectFactoryHandler.CreateBoosterAndDestroyOldItem(centerItem, boosterType);
                     _gridModel.UpdateGridObjects(new List<BaseGridObject> { booster }, false);
 
                     //m_GoalHandler.UpdateMoves();
-                    ProcessMatch(gridObjects, false);
-                    //ProcessMatch(balloons, true);
+                    matchedObjects.AddRange(effectedObstacles);
+                    ProcessMatch(matchedObjects, false);
+                    ProcessMatch(effectedObstacles, true);
                     GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = true});
                 });
         }
@@ -161,6 +163,7 @@ namespace MVP.Presenters
                 _gridModel.RowCount,
                 matchedGridObjects
             );
+            
             // Update the grid with new items
             _gridModel.UpdateGridObjects(newItems, true);
         }
