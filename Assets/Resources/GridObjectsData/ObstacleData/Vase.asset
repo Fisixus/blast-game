@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: b265f2608079ece4190d1e50bd7093ef, type: 3}
   m_Name: Vase
   m_EditorClassIdentifier: 
+  <GridObjectWidthHeight>k__BackingField: {x: 1.1, y: 1.25}
   <ObstacleSpritesPerLife>k__BackingField:
     _serializedList:
     - Key: 1
@@ -21,4 +22,3 @@ MonoBehaviour:
   <Attributes>k__BackingField:
     <IsStationary>k__BackingField: 0
     <Life>k__BackingField: 2
-  <ObstacleWidthHeight>k__BackingField: {x: 1.1, y: 1.25}

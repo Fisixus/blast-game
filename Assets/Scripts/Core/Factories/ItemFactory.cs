@@ -29,17 +29,14 @@ namespace Core.Factories
         public Item GenerateRandItem(Vector2Int itemCoordinate)
         {
             var itemType = Probability.PickRandomItemType();
-            var item = CreateObj();
-            item.SetAttributes(itemCoordinate, itemType);
-            item.ApplyItemData(ItemDataDict[itemType]);
-            return item;
+            return GenerateItem(itemType, itemCoordinate);
         }
 
         public Item GenerateItem(ItemType itemType, Vector2Int itemCoordinate)
         {
             var item = CreateObj();
             item.SetAttributes(itemCoordinate, itemType);
-            item.ApplyItemData(ItemDataDict[itemType]);
+            item.ApplyData(ItemDataDict[itemType]);
             return item;
         }
 

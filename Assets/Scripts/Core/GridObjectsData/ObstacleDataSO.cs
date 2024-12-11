@@ -6,16 +6,13 @@ using UnityEngine;
 namespace Core.GridObjectsData
 {
     [CreateAssetMenu(fileName = "ObstacleData_00", menuName = "Grid Objects/New ObstacleData")]
-    public class ObstacleDataSO : ScriptableObject
+    public class ObstacleDataSO : BaseGridObjectDataSO
     {
         [field: SerializeField]
         public SerializedDictionary<int, Sprite>  ObstacleSpritesPerLife { get; private set; }
 
         [field: SerializeField]
         public ObstacleAttributes Attributes { get; private set; }
-        
-        [field: SerializeField] 
-        public Vector2 ObstacleWidthHeight { get; private set; }
         
         [Serializable]
         public class ObstacleAttributes

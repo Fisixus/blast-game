@@ -24,15 +24,22 @@ namespace Core.GridElements.GridPawns
             HintType = hintType;
             SpriteRenderer.sprite = _hintSprites[hintType];
         }
-
-        public void ApplyItemData(ItemDataSO itemData)
+        
+        public override void ApplyData(BaseGridObjectDataSO data)
         {
+            var itemData = data as ItemDataSO;
+            if(itemData is null)
+            {
+                throw new InvalidOperationException("Invalid data type provided!");
+            }
+            
             _hintSprites = itemData.HintSprites;
             ApplyHintSprite(BoosterType.None);
-            var itemWidthHeight = itemData.ItemWidthHeight;
+            var itemWidthHeight = itemData.GridObjectWidthHeight;
             SpriteRenderer.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
             BoxCollider.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
         }
+
         public override string ToString()
         {
             return $"Column{Coordinate.x},Row{Coordinate.y},Type:{ItemType}";

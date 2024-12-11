@@ -4,12 +4,10 @@ using UnityEngine;
 namespace Core.GridObjectsData
 {
     [CreateAssetMenu(fileName = "BoosterData_00", menuName = "Grid Objects/New BoosterData")]
-    public class BoosterDataSO : ScriptableObject
+    public class BoosterDataSO : BaseGridObjectDataSO
     {
         [field: SerializeField]
         public Sprite BoosterSprite { get; private set; }
-        [field: SerializeField]
-        public Vector2 BoosterWidthHeight { get; private set; }
         //[field: SerializeField]
         //public List<BoosterType> BoosterParents{ get; private set; }
         [field: SerializeField]

@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.GridElements.Enums;
 using Core.GridObjectsData;
@@ -26,14 +27,19 @@ namespace Core.GridElements.GridPawns
             SpriteRenderer.sprite = ObstacleSpritesPerLife[Attributes.Life];
             return Attributes.Life;
         }
-        
-        public void ApplyObstacleData(ObstacleDataSO obstacleData)
+        public override void ApplyData(BaseGridObjectDataSO data)
         {
+            var obstacleData = data as ObstacleDataSO;
+            if(obstacleData is null)
+            {
+                throw new InvalidOperationException("Invalid data type provided!");
+            }
+
             Attributes = obstacleData.Attributes;
             ObstacleSpritesPerLife = obstacleData.ObstacleSpritesPerLife;
             SpriteRenderer.sprite = ObstacleSpritesPerLife[Attributes.Life];
             
-            var obstacleWidthHeight = obstacleData.ObstacleWidthHeight;
+            var obstacleWidthHeight = obstacleData.GridObjectWidthHeight;
             SpriteRenderer.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);
             BoxCollider.size = new Vector2(obstacleWidthHeight.x, obstacleWidthHeight.y);
         }

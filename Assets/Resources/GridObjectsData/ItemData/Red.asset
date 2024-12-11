@@ -12,6 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d269b4b4b1cf0384888364842fdbaa81, type: 3}
   m_Name: Red
   m_EditorClassIdentifier: 
+  <GridObjectWidthHeight>k__BackingField: {x: 1.1, y: 1.25}
   <HintSprites>k__BackingField:
     _serializedList:
     - Key: 0
@@ -22,4 +23,3 @@ MonoBehaviour:
       Value: {fileID: 21300000, guid: 39ab78ce1b708ba4998ea99af3efc06d, type: 3}
     - Key: 3
       Value: {fileID: 21300000, guid: 39ab78ce1b708ba4998ea99af3efc06d, type: 3}
-  <ItemWidthHeight>k__BackingField: {x: 1.1, y: 1.25}

@@ -27,7 +27,7 @@ namespace Core.Factories
         {
             var obstacle = CreateObj();
             obstacle.SetAttributes(obstacleCoordinate, obstacleType);
-            obstacle.ApplyObstacleData(ObstacleDataDict[obstacleType]);
+            obstacle.ApplyData(ObstacleDataDict[obstacleType]);
             return obstacle;
         }
 

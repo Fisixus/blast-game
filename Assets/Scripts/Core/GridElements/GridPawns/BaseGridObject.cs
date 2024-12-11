@@ -1,6 +1,7 @@
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns.Effect;
 using Core.GridElements.GridPawns.Interface;
+using Core.GridObjectsData;
 using Core.Helpers.GridHelpers;
 using DG.Tweening;
 using UnityEngine;
@@ -58,7 +59,7 @@ namespace Core.GridElements.GridPawns
             SetSortingOrder(-newCoord.y);
             
             // Update the GridAttributes
-            IsEmpty = type is ItemType.None or BoosterType.None or ObstacleType.None;
+            IsEmpty = Type is ItemType.None or BoosterType.None or ObstacleType.None;
 
         }
 
@@ -66,7 +67,7 @@ namespace Core.GridElements.GridPawns
         {
             SpriteRenderer.sortingOrder = order;
         }
-
+        public abstract void ApplyData(BaseGridObjectDataSO data);
         public abstract override string ToString();
     }
 }

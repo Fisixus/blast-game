@@ -44,7 +44,7 @@ namespace Core.Factories
             if(isEffectOn)
                 booster.GetComponent<BoosterEffect>().PlayBoosterCreationParticle();
             booster.SetAttributes(coord, boosterType);
-            booster.ApplyBoosterData(BoosterDataDict[boosterType]);
+            booster.ApplyData(BoosterDataDict[boosterType]);
             return booster;
         }
 

@@ -1,3 +1,4 @@
+using System;
 using Core.GridElements.Enums;
 using Core.GridObjectsData;
 using UnityEngine;
@@ -13,15 +14,18 @@ namespace Core.GridElements.GridPawns
             get => BoosterType;
             protected set => BoosterType = (BoosterType)value;
         }
-
-        public void ApplyBoosterData(BoosterDataSO boosterData)
+        public override void ApplyData(BaseGridObjectDataSO data)
         {
+            var boosterData = data as BoosterDataSO;
+            if(boosterData is null)
+            {
+                throw new InvalidOperationException("Invalid data type provided!");
+            }
             SpriteRenderer.sprite = boosterData.BoosterSprite;
-            var itemWidthHeight = boosterData.BoosterWidthHeight;
-            SpriteRenderer.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
-            BoxCollider.size = new Vector2(itemWidthHeight.x, itemWidthHeight.y);
+            var boosterWidthHeight = boosterData.GridObjectWidthHeight;
+            SpriteRenderer.size = new Vector2(boosterWidthHeight.x, boosterWidthHeight.y);
+            BoxCollider.size = new Vector2(boosterWidthHeight.x, boosterWidthHeight.y);
         }
-
 
         public override string ToString()
         {
