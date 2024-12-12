@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.Enums;
@@ -12,7 +13,8 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
     {
         private readonly IBoosterFactory _boosterFactory;
         private readonly BombEffectHandler _bombEffectHandler;
-        public BoosterType BoosterType => BoosterType.Bomb;
+        public Enum Type => BoosterType.Bomb;
+
 
         public BombStrategy(IBoosterFactory boosterFactory, BombEffectHandler bombEffectHandler)
         {
@@ -20,26 +22,28 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
             _bombEffectHandler = bombEffectHandler;
         }
 
-        public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, Booster booster)
+        public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, BaseGridObject booster)
         {
             var affectedObjects = GridItemFinderHelper.FindItemsInRadiusRange(grid, booster.Coordinate, 2);
             return affectedObjects;
         }
 
-        public void PlayExplosionEffect(Booster booster)
+        public void PlayExplosionEffect(BaseGridObject booster)
         {
             _bombEffectHandler.PlayBombParticle(booster, 1f);
         }
 
         public float GetWaitTime()
         {
-            return _boosterFactory.BoosterDataDict[BoosterType].WaitingTimeForEachDestruction;
+            BoosterType boosterType = (BoosterType)Type;
+            return _boosterFactory.BoosterDataDict[boosterType].WaitingTimeForEachDestruction;
         }
 
         private (int, int) GetMinMaxItemRequirement()
         {
-            return (_boosterFactory.BoosterDataDict[BoosterType].MinItemsNeeded
-                , _boosterFactory.BoosterDataDict[BoosterType].MaxItemsNeeded);
+            BoosterType boosterType = (BoosterType)Type;
+            return (_boosterFactory.BoosterDataDict[boosterType].MinItemsNeeded
+                , _boosterFactory.BoosterDataDict[boosterType].MaxItemsNeeded);
         }
 
         public bool CanCreateBooster(int itemCount)

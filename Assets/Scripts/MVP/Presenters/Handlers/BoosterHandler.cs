@@ -17,14 +17,14 @@ namespace MVP.Presenters.Handlers
     public class BoosterHandler
     {
         private BaseGridObject[,] _grid;
-        private readonly Dictionary<BoosterType, IBoosterStrategy> _boosterStrategies = new();
+        private readonly Dictionary<Enum, IBoosterStrategy> _boosterStrategies = new();
         
         public BoosterHandler(IEnumerable<IBoosterStrategy> boosterStrategies)
         {
             // Register strategies
             foreach (var strategy in boosterStrategies)
             {
-                _boosterStrategies[strategy.BoosterType] = strategy;
+                _boosterStrategies[strategy.Type] = strategy;
             }
         }
         
@@ -38,7 +38,7 @@ namespace MVP.Presenters.Handlers
             foreach (var strategy in _boosterStrategies.Values.Where(strategy =>
                          strategy.CanCreateBooster(matchedObjs.Count)))
             {
-                return strategy.BoosterType;
+                return (BoosterType)strategy.Type;
             }
 
             return BoosterType.None;
@@ -83,17 +83,17 @@ namespace MVP.Presenters.Handlers
                 });
         }
         
-        public async UniTask<List<BaseGridObject>> ApplyBoostAsync(Booster finalBooster)
+        public async UniTask<List<BaseGridObject>> ApplyBoostAsync(BaseGridObject finalBooster)
         {
             var effectedGridObjects = new List<BaseGridObject>();
             await ProcessBoostersAsync(finalBooster, effectedGridObjects);
             return effectedGridObjects;
         }
 
-        private async UniTask ProcessBoostersAsync(Booster finalBooster, List<BaseGridObject> effectedGridObjects)
+        private async UniTask ProcessBoostersAsync(BaseGridObject finalBooster, List<BaseGridObject> effectedGridObjects)
         {
             if (finalBooster == null) return;
-            if (!_boosterStrategies.TryGetValue(finalBooster.BoosterType, out var strategy))
+            if (!_boosterStrategies.TryGetValue(finalBooster.Type, out var strategy))
                 return;
 
             strategy.PlayExplosionEffect(finalBooster);

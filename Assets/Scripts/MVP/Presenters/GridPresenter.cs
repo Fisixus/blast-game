@@ -22,6 +22,7 @@ namespace MVP.Presenters
         private readonly IGridModel _gridModel;
         private readonly MatchHandler _matchHandler;
         private readonly BoosterHandler _boosterHandler;
+        private readonly ComboHandler _comboHandler;
         private readonly HintHandler _hintHandler;
         private readonly BlastEffectHandler _blastEffectHandler;
         private readonly GridShiftHandler _gridShiftHandler;
@@ -29,13 +30,14 @@ namespace MVP.Presenters
         
 
 
-        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, 
+        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
             HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
             _matchHandler = matchHandler;
             _boosterHandler = boosterHandler;
+            _comboHandler = comboHandler;
             _hintHandler = hintHandler;
             _blastEffectHandler = blastEffectHandler;
             _gridShiftHandler = gridShiftHandler;
@@ -122,12 +124,13 @@ namespace MVP.Presenters
         
         private async UniTaskVoid ProcessBoosterTouchAsync(Booster booster)
         {
-            // TODO: Handle booster merge logic here if required.
-            //var (finalBooster, mergedBoosters) = _boosterHandler.MergeBoosters(booster);
-            //ProcessMatch(mergedBoosters);//TODO:
-            ///////////////////////////////////////////////////////////////////////////////////////////
+            var boosters = _matchHandler.FindBoosterMatches(booster).Cast<Booster>().ToList();
+            var combo = _comboHandler.MergeBoosters(boosters, booster.Coordinate);
+            //finalBooster.BoosterType = BoosterType.BombBomb;
+            Debug.Log(combo);
+            //ProcessMatch(boosters, false);
 
-            var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(booster);
+            var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
             // Update moves after applying the boost
             //TODO:m_GoalHandler.UpdateMoves();
 

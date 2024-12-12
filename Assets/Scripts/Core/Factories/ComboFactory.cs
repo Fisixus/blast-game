@@ -3,6 +3,7 @@ using Core.Factories.Interface;
 using Core.Factories.Pools;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns.Combo;
+using Core.GridObjectsData;
 using UnityEngine;
 
 namespace Core.Factories
@@ -11,19 +12,19 @@ namespace Core.Factories
     {
         [field: SerializeField]
         [SerializedDictionary("Combo Type", "Combo Data")]
-        public SerializedDictionary<BoosterType, ComboDataSO> ComboDataDict { get; private set; }
+        public SerializedDictionary<ComboType, ComboDataSO> ComboDataDict { get; private set; }
 
         
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Combo>(ObjPrefab, ParentTr, 2);
         }
-        
-        public Combo GenerateCombo(BoosterType boosterType, Vector2Int coord)
+
+        public Combo GenerateCombo(ComboType comboType, Vector2Int coord)
         {
             var combo = CreateObj();
-            combo.SetAttributes(coord, boosterType);
-            combo.ApplyData(ComboDataDict[boosterType]);
+            combo.SetAttributes(coord, comboType);
+            combo.ApplyData(ComboDataDict[comboType]);
             return combo;
         }
     }

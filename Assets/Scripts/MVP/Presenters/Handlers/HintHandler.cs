@@ -49,16 +49,16 @@ namespace MVP.Presenters.Handlers
                     if (visited.Contains(coord)) continue;
 
                     // Find matches for the current grid object
-                    var matchedObjs = _matchHandler.FindGridObjectMatches(_grid[col, row]);
-                    if (matchedObjs != null && matchedObjs.Count > 0)
+                    var matchedItems = _matchHandler.FindItemMatches(_grid[col, row]);
+                    if (matchedItems != null && matchedItems.Count > 0)
                     {
-                        _allMatchableObjs.Add(matchedObjs);
+                        _allMatchableObjs.Add(matchedItems);
 
                         // Determine booster type for the current match
-                        var boosterType = _boosterHandler.IsBoosterCreatable(matchedObjs);
+                        var boosterType = _boosterHandler.IsBoosterCreatable(matchedItems);
 
                         // Apply hint sprites and mark matched coordinates as visited
-                        foreach (var matchedObj in matchedObjs)
+                        foreach (var matchedObj in matchedItems)
                         {
                             if (matchedObj is Item item)
                             {

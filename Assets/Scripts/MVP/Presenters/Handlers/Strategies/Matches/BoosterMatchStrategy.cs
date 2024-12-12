@@ -10,13 +10,13 @@ using UnityEngine;
 
 namespace MVP.Presenters.Handlers.Strategies.Matches
 {
-    public class ItemMatchStrategy : IMatchStrategy
+    public class BoosterMatchStrategy : IMatchStrategy
     {
-        public MatchType MatchType => MatchType.Item;
+        public MatchType MatchType => MatchType.Booster;
 
         private const int MinMatchCount = 2;
         
-        private readonly List<BaseGridObject> _matchedItems = new();
+        private readonly List<BaseGridObject> _matchedBoosters = new();
 
         public List<BaseGridObject> FindMatches(
             Vector2Int clickedPosition,
@@ -27,18 +27,18 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
             int rowCount
         )
         {
-            _matchedItems.Clear();
-            if (clickedType is not ItemType)
+            _matchedBoosters.Clear();
+            if (clickedType is not BoosterType)
             {
                 return new List<BaseGridObject>();
             }
-            FindMatchingItems(clickedPosition, clickedType, grid, visited, columnCount, rowCount);
+            FindMatchingBoosters(clickedPosition, grid, visited, columnCount, rowCount);
             if (!IsValidMatch()) return new List<BaseGridObject>();
-            return _matchedItems;
+            return _matchedBoosters;
         }
 
         // Recursive function to find all adjacent matching items
-        private void FindMatchingItems(Vector2Int position, Enum itemType, BaseGridObject[,] grid, bool[,] visited,
+        private void FindMatchingBoosters(Vector2Int position, BaseGridObject[,] grid, bool[,] visited,
             int columnCount, int rowCount)
         {
             var x = position.x;
@@ -46,21 +46,21 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
 
             // Exit if the position is invalid, already visited, or item type does not match
             if (!GridPositionHelper.IsPositionValid(x, y, columnCount, rowCount) || visited[x, y]) return;
-            var currentItem = grid[x, y] as Item;
-            if (currentItem == null || !currentItem.ItemType.Equals(itemType)) return;
+            var currentBooster = grid[x, y] as Booster;
+            if (currentBooster == null) return;
 
             // Mark the current cell as visited and add it to matched items
             visited[x, y] = true;
-            _matchedItems.Add(currentItem);
+            _matchedBoosters.Add(currentBooster);
 
             // Explore valid neighboring cells
             foreach (var direction in new[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right })
             {
                 var newPosition = GridPositionHelper.GetNewPositionByDirection(x, y, direction);
-                FindMatchingItems(newPosition, itemType, grid, visited, columnCount, rowCount);
+                FindMatchingBoosters(newPosition, grid, visited, columnCount, rowCount);
             }
         }
 
-        private bool IsValidMatch() => _matchedItems.Count >= MinMatchCount;
+        private bool IsValidMatch() => _matchedBoosters.Count >= MinMatchCount;
     }
 }

@@ -11,6 +11,7 @@ namespace Installers
         {
             // Bind each MatchStrategy implementation
             Container.BindAsTransient<IMatchStrategy>(()=> new ItemMatchStrategy());
+            Container.BindAsTransient<IMatchStrategy>(()=> new BoosterMatchStrategy());
             Container.BindAsTransient<IMatchStrategy>(()=> new BoxMatchStrategy());
             Container.BindAsTransient<IMatchStrategy>(()=> new VaseMatchStrategy());
             

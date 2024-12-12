@@ -1,7 +1,8 @@
+using System;
 using System.Collections.Generic;
 using Core.Factories.Interface;
-using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
+using Core.GridElements.GridPawns.Combo;
 using Core.Helpers.GridHelpers;
 using MVP.Presenters.Handlers.Effects;
 using MVP.Presenters.Handlers.Strategies.Interface;
@@ -12,7 +13,7 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
     {
         private readonly IComboFactory _comboFactory;
         private readonly BombEffectHandler _bombEffectHandler;
-        public BoosterType BoosterType => BoosterType.BombBomb;
+        public Enum Type => ComboType.BombBomb;
 
         public BombBombStrategy(IComboFactory comboFactory, BombEffectHandler bombEffectHandler)
         {
@@ -20,20 +21,21 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
             _bombEffectHandler = bombEffectHandler;
         }
 
-        public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, Booster booster)
+        public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, BaseGridObject booster)
         {
             var affectedObjects = GridItemFinderHelper.FindItemsInRadiusRange(grid, booster.Coordinate, 3);
             return affectedObjects;
         }
 
-        public void PlayExplosionEffect(Booster booster)
+        public void PlayExplosionEffect(BaseGridObject booster)
         {
             _bombEffectHandler.PlayBombParticle(booster, 1.5f);
         }
 
         public float GetWaitTime()
         {
-            return _comboFactory.ComboDataDict[BoosterType].WaitingTimeForEachDestruction;
+            ComboType comboType = (ComboType)Type;
+            return _comboFactory.ComboDataDict[comboType].WaitingTimeForEachDestruction;
         }
 
         public bool CanCreateBooster(int itemCount)

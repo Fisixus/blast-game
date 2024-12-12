@@ -15,7 +15,7 @@ namespace MVP.Presenters.Handlers.Effects
             _bombEffectFactory = factory;
         }
 
-        public void PlayBombParticle(Booster booster, float size)
+        public void PlayBombParticle(BaseGridObject booster, float size)
         {
             var bombEffect = _bombEffectFactory.CreateObj();
             

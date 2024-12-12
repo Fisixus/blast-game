@@ -34,12 +34,26 @@ namespace MVP.Presenters.Handlers
             _visited = new bool[_columnCount, _rowCount];
         }
         
-        public List<BaseGridObject> FindGridObjectMatches(BaseGridObject gridObject)
+        public List<BaseGridObject> FindItemMatches(BaseGridObject gridObject)
         {
             ClearVisited(_visited, _columnCount, _rowCount);
             var matchedObjs = new List<BaseGridObject>();
 
-            if (_strategies.TryGetValue(MatchType.GridObject, out var strategyItem))
+            if (_strategies.TryGetValue(MatchType.Item, out var strategyItem))
+            {
+                matchedObjs.AddRange(strategyItem.FindMatches(gridObject.Coordinate, gridObject.Type, _grid, _visited,
+                    _columnCount, _rowCount));
+            }
+            
+            return matchedObjs;
+        }
+        
+        public List<BaseGridObject> FindBoosterMatches(BaseGridObject gridObject)
+        {
+            ClearVisited(_visited, _columnCount, _rowCount);
+            var matchedObjs = new List<BaseGridObject>();
+
+            if (_strategies.TryGetValue(MatchType.Booster, out var strategyItem))
             {
                 matchedObjs.AddRange(strategyItem.FindMatches(gridObject.Coordinate, gridObject.Type, _grid, _visited,
                     _columnCount, _rowCount));

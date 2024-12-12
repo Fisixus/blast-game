@@ -15,5 +15,5 @@ MonoBehaviour:
   <GridObjectWidthHeight>k__BackingField: {x: 1.7, y: 1.7}
   <IsStationary>k__BackingField: 1
   <ComboSprite>k__BackingField: {fileID: 21300000, guid: 8d738497361950a48b4bbcafbe8b5f89, type: 3}
-  <BoosterParents>k__BackingField: 0300000003000000
+  <BoosterIngredients>k__BackingField: 0300000003000000
   <WaitingTimeForEachDestruction>k__BackingField: 0

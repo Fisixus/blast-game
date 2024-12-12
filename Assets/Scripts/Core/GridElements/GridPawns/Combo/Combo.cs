@@ -1,10 +1,18 @@
 using System;
 using Core.GridObjectsData;
+using UnityEngine;
 
 namespace Core.GridElements.GridPawns.Combo
 {
-    public class Combo : Booster
+    public class Combo : BaseGridObject
     {
+        [field: SerializeField] public ComboType ComboType { get; set; }
+
+        public override Enum Type
+        {
+            get => ComboType;
+            protected set => ComboType = (ComboType)value;
+        }
         public override void ApplyData(BaseGridObjectDataSO data)
         {
             base.ApplyData(data);
@@ -13,6 +21,11 @@ namespace Core.GridElements.GridPawns.Combo
             {
                 throw new InvalidOperationException("Invalid data type provided!");
             }
+        }
+
+        public override string ToString()
+        {
+            return $"Column{Coordinate.x},Row{Coordinate.y},Type:{ComboType}";
         }
     }
 }

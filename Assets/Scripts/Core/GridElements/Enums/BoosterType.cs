@@ -8,8 +8,5 @@ namespace Core.GridElements.Enums
         RocketHorizontal = 1,
         RocketVertical = 2,
         Bomb = 3,
-        
-        //Combos
-        BombBomb = 4
     }
 }

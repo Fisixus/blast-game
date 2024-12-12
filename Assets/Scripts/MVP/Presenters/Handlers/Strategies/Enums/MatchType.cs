@@ -2,7 +2,8 @@
 {
     public enum MatchType
     {
-        GridObject,
+        Item,
+        Booster,
         Box,
         Vase
     }

@@ -1446,9 +1446,7 @@ MonoBehaviour:
   <ParentTr>k__BackingField: {fileID: 125976778}
   <ComboDataDict>k__BackingField:
     _serializedList:
-    - Key: 0
-      Value: {fileID: 11400000, guid: 199fe825a738a8146b19bdffa29d229c, type: 2}
-    - Key: 4
+    - Key: 1
       Value: {fileID: 11400000, guid: b761c2a9031387048a5e1ac9f9f8e58c, type: 2}
 --- !u!1 &1469300220
 GameObject:
