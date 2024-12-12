@@ -47,6 +47,9 @@ TagManager:
   - name: Items
     uniqueID: 1093187297
     locked: 0
+  - name: Combos
+    uniqueID: 3132826539
+    locked: 0
   - name: Particles
     uniqueID: 4117212399
     locked: 0

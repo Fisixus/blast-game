@@ -8,8 +8,7 @@ namespace Core.GridObjectsData
     {
         [field: SerializeField]
         public Sprite BoosterSprite { get; private set; }
-        //[field: SerializeField]
-        //public List<BoosterType> BoosterParents{ get; private set; }
+
         [field: SerializeField]
         public int MinItemsNeeded{ get; private set; }
         [field: SerializeField]

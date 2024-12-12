@@ -10,7 +10,6 @@ namespace MVP.Presenters.Handlers.Strategies.Interface
         public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, Booster booster);
         public void PlayExplosionEffect(Booster booster);
         public float GetWaitTime();
-        public (int, int) GetMinMaxItemRequirement();
         public bool CanCreateBooster(int itemCount);
     }
 }

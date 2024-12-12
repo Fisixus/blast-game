@@ -16,6 +16,7 @@ namespace Installers
             
             // Bind each BoosterStrategy implementation
             Container.BindAsTransient<IBoosterStrategy>(() => Container.Construct<BombStrategy>());
+            Container.BindAsTransient<IBoosterStrategy>(() => Container.Construct<BombBombStrategy>());
         }
     }
 }

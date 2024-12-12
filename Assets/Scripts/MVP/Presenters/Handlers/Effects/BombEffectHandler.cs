@@ -15,16 +15,20 @@ namespace MVP.Presenters.Handlers.Effects
             _bombEffectFactory = factory;
         }
 
-        public void PlayBombParticle(Booster booster)
+        public void PlayBombParticle(Booster booster, float size)
         {
-            //if (!_bombEffectFactory.BombEffectDataDict.TryGetValue(item.ItemType, out var blastEffectData))
-                //return;
-
             var bombEffect = _bombEffectFactory.CreateObj();
-            //TODO:SetSize
+            
+            var defaultSize = bombEffect.transform.localScale;
+            bombEffect.transform.localScale *= size;
+            
             var duration = bombEffect.PlayParticle();
             bombEffect.transform.position = booster.transform.position;
-            UTask.Wait(duration).Do(() => { _bombEffectFactory.DestroyObj(bombEffect); });
+            UTask.Wait(duration).Do(() =>
+            {
+                bombEffect.transform.localScale = defaultSize;
+                _bombEffectFactory.DestroyObj(bombEffect);
+            });
         }
     }
 }

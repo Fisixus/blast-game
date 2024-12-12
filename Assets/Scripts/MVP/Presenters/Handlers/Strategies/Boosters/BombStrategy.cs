@@ -28,7 +28,7 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
 
         public void PlayExplosionEffect(Booster booster)
         {
-            _bombEffectHandler.PlayBombParticle(booster);
+            _bombEffectHandler.PlayBombParticle(booster, 1f);
         }
 
         public float GetWaitTime()
@@ -36,7 +36,7 @@ namespace MVP.Presenters.Handlers.Strategies.Boosters
             return _boosterFactory.BoosterDataDict[BoosterType].WaitingTimeForEachDestruction;
         }
 
-        public (int, int) GetMinMaxItemRequirement()
+        private (int, int) GetMinMaxItemRequirement()
         {
             return (_boosterFactory.BoosterDataDict[BoosterType].MinItemsNeeded
                 , _boosterFactory.BoosterDataDict[BoosterType].MaxItemsNeeded);
