@@ -16,6 +16,7 @@ namespace Installers
         [SerializeField] private BoosterFactory _boosterFactory;
         [SerializeField] private ObstacleFactory _obstacleFactory;
         [SerializeField] private ComboFactory _comboFactory;
+        [SerializeField] private GoalUIFactory _goalUIFactory;
 
         protected override void InstallBindings()
         {
@@ -26,6 +27,7 @@ namespace Installers
             Container.BindAsSingle<IBoosterFactory>(() => _boosterFactory);
             Container.BindAsSingle<IObstacleFactory>(() => _obstacleFactory);
             Container.BindAsSingle<IComboFactory>(() => _comboFactory);
+            Container.BindAsSingle<IGoalUIFactory>(() => _goalUIFactory);
         }
     }
 }

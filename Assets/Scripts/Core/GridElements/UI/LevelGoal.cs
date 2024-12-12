@@ -2,7 +2,7 @@ using System;
 using Core.GridElements.Enums;
 using UnityEngine;
 
-namespace Core.LevelSerialization
+namespace Core.GridElements.UI
 {
     /// <summary>
     /// The LevelGoal class represents a goal for a specific level in the game. 
@@ -14,7 +14,7 @@ namespace Core.LevelSerialization
         [field: SerializeField] public int Count { get; set; }
         [field: SerializeField] public ObstacleType ObstacleType { get; set; }
 
-        [NonSerialized] public Vector3 WorldPos;
+        public Vector3 WorldPos { get; set; }
         public event EventHandler<int> OnUIGoalUpdated;
 
 

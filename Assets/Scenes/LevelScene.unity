@@ -5956,12 +5956,12 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 156.2
+  m_fontSize: 128
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
   m_fontSizeMin: 16
-  m_fontSizeMax: 156.2
+  m_fontSizeMax: 128
   m_fontStyle: 1
   m_HorizontalAlignment: 2
   m_VerticalAlignment: 512
@@ -6432,6 +6432,62 @@ MonoBehaviour:
       Value: {fileID: 11400000, guid: 48ce572664f55564dade749eb7cd499e, type: 2}
     - Key: 4
       Value: {fileID: 11400000, guid: a4d7eac3c6203464db43b24bb96b0864, type: 2}
+--- !u!1 &954020781
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 954020782}
+  - component: {fileID: 954020783}
+  m_Layer: 0
+  m_Name: GoalUIFactory
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &954020782
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954020781}
+  serializedVersion: 2
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_ConstrainProportionsScale: 0
+  m_Children: []
+  m_Father: {fileID: 1551572823}
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &954020783
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 954020781}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5abe779994971754590be4ea50d2a8c3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  <ObjPrefab>k__BackingField: {fileID: 1987896355260436940, guid: d5862c68c5f5ce2479d3e34727aa3884, type: 3}
+  <ParentTr>k__BackingField: {fileID: 1570871148}
+  <GoalUIDataDict>k__BackingField:
+    _serializedList:
+    - Key: 0
+      Value: {fileID: 11400000, guid: c09c4e963182650478c29da808537b25, type: 2}
+    - Key: 1
+      Value: {fileID: 11400000, guid: 29f02ff69ac39bf46a62c2c56f58a224, type: 2}
+    - Key: 2
+      Value: {fileID: 11400000, guid: 3794bd57b8c02e14ca1180d7ed161469, type: 2}
+    - Key: 3
+      Value: {fileID: 11400000, guid: 9669aab497b1e714d93ca7934c429096, type: 2}
 --- !u!1 &1023909592
 GameObject:
   m_ObjectHideFlags: 0
@@ -7034,6 +7090,7 @@ Transform:
   - {fileID: 918790282}
   - {fileID: 10092207}
   - {fileID: 27155017}
+  - {fileID: 954020782}
   m_Father: {fileID: 0}
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1557328243
@@ -7106,6 +7163,7 @@ MonoBehaviour:
   _boosterFactory: {fileID: 1898547102}
   _obstacleFactory: {fileID: 1730674587}
   _comboFactory: {fileID: 1328159057}
+  _goalUIFactory: {fileID: 954020783}
 --- !u!114 &1557328247
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7131,6 +7189,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _gridView: {fileID: 1573939753}
+  _levelUIView: {fileID: 1974237959}
 --- !u!114 &1557328251
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7208,11 +7267,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Padding:
-    m_Left: 10
+    m_Left: 5
     m_Right: 0
     m_Top: -5
     m_Bottom: 0
-  m_ChildAlignment: 0
+  m_ChildAlignment: 4
   m_StartCorner: 0
   m_StartAxis: 0
   m_CellSize: {x: 90, y: 100}
@@ -7899,6 +7958,12 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adf2f5649760dba40bcda82291dbf017, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  <EscapeButton>k__BackingField: {fileID: 1194050711}
+  <RetryLevelButton>k__BackingField: {fileID: 1023909594}
+  <MoveCounterText>k__BackingField: {fileID: 584720986}
+  <GoalParentTr>k__BackingField: {fileID: 1570871148}
+  <SuccessPanelTr>k__BackingField: {fileID: 859949601}
+  <FailPanelTr>k__BackingField: {fileID: 535155009}
 --- !u!1 &2023581817
 GameObject:
   m_ObjectHideFlags: 0

@@ -10,12 +10,13 @@ namespace MVP.Presenters
     public class LevelPresenter
     {
         private readonly LevelStateHandler _levelStateHandler;
-        //private GoalHandler m_GoalHandler;
+        private readonly GoalHandler _goalHandler;
         private readonly IGridView _gridView;
 
-        public LevelPresenter(LevelStateHandler levelStateHandler, IGridView gridView)
+        public LevelPresenter(LevelStateHandler levelStateHandler, GoalHandler goalHandler, IGridView gridView)
         {
             _levelStateHandler = levelStateHandler;
+            _goalHandler = goalHandler;
             _gridView = gridView;
             GameEventSystem.AddListener<OnLevelLoadedEvent>(LevelLoaded);
         }
@@ -49,7 +50,7 @@ namespace MVP.Presenters
             var levelInfo = (args as OnLevelLoadedEvent)?.LevelInfo;
             _gridView.CalculateGridSize(levelInfo.GridSize);
             _levelStateHandler.Initialize(levelInfo);
-            //m_GoalHandler.Initialize(levelInfo);
+            _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
             _gridView.ScaleGrid();
         }
     }

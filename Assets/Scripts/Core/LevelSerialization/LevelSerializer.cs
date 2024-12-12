@@ -1,6 +1,7 @@
 using System;
 using System.Collections.Generic;
 using Core.GridElements.Enums;
+using Core.GridElements.UI;
 using UnityEngine;
 
 namespace Core.LevelSerialization
