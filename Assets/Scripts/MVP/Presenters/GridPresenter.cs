@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using Core.GridElements.Enums;
@@ -27,8 +28,6 @@ namespace MVP.Presenters
         private readonly BlastEffectHandler _blastEffectHandler;
         private readonly GridShiftHandler _gridShiftHandler;
         private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
-        
-
 
         public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
             HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
@@ -101,9 +100,8 @@ namespace MVP.Presenters
         
         private async UniTask ProcessBoosterCreationAsync(Item item, List<BaseGridObject> matchedObjects, List<BaseGridObject> effectedObstacles, BoosterType boosterType)
         {
-            // Deactivate obstacles and play blast particles
             effectedObstacles.ForEach(obstacle => obstacle.gameObject.SetActive(false));//TODO:
-            _blastEffectHandler.PlayBlastParticles(effectedObstacles); // Assume this is async-ready//TODO:
+            _blastEffectHandler.PlayBlastParticles(effectedObstacles); //TODO:
 
             // Update input state
             GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = false });
@@ -160,6 +158,9 @@ namespace MVP.Presenters
             GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = true });
 
             // Apply the combo effect and get affected grid objects
+            
+            await UniTask.Delay(TimeSpan.FromSeconds(0.1f), DelayType.DeltaTime);//TODO:
+            
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
 
             // Process matches after applying the combo
