@@ -10,6 +10,7 @@ GameObject:
   m_Component:
   - component: {fileID: 3989464117711107169}
   - component: {fileID: 3299299654860653308}
+  - component: {fileID: 1879785339915285804}
   - component: {fileID: 7163898569675625147}
   - component: {fileID: 7665867345026158638}
   m_Layer: 0
@@ -86,6 +87,18 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &1879785339915285804
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2745786761681807913}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c4620c9f6b5e2d04482a1f28b49b40b9, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!114 &7163898569675625147
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -100,9 +113,9 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   <BoxCollider>k__BackingField: {fileID: 7665867345026158638}
   <SpriteRenderer>k__BackingField: {fileID: 3299299654860653308}
-  <BaseGridObjectEffect>k__BackingField: {fileID: 0}
+  <BaseGridObjectEffect>k__BackingField: {fileID: 1879785339915285804}
   <Coordinate>k__BackingField: {x: 0, y: 0}
-  <BoosterType>k__BackingField: 0
+  <ComboType>k__BackingField: 0
 --- !u!61 &7665867345026158638
 BoxCollider2D:
   m_ObjectHideFlags: 0

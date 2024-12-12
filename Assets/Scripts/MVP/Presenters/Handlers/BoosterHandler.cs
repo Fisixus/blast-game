@@ -44,43 +44,40 @@ namespace MVP.Presenters.Handlers
             return BoosterType.None;
         }
 
-        public void AnimateBoosterCreation(Item centerItem, List<BaseGridObject> items, Action<Item> onComplete)
+        public async UniTask AnimateBoosterCreationAsync(Item centerItem, List<BaseGridObject> items)
         {
             const float durationPerAnimation = 0.2f;
             const float offsetMultiplier = 0.15f;
             const int highSortingOrder = 100;
             const int defaultSortingOrder = 0;
-
-            foreach (var matchedItem in items)
-            {
-                AnimateItemsGathering(centerItem, matchedItem, durationPerAnimation, offsetMultiplier,
-                    highSortingOrder);
-            }
-
-            // Wait for the animations to complete before resetting and invoking callback
-            UTask.Wait(durationPerAnimation * 2 + 0.05f).Do(() =>
-            {
-                items.ForEach(item => { item.SetSortingOrder(defaultSortingOrder); });
-                onComplete?.Invoke(centerItem);
-            });
+        
+            // Create a list of tasks to animate all items
+            var animationTasks = items.Select(matchedItem =>
+                AnimateItemsGatheringAsync(centerItem, matchedItem, durationPerAnimation, offsetMultiplier, highSortingOrder)
+            ).ToList();
+        
+            // Wait for all animations to complete
+            await UniTask.WhenAll(animationTasks);
+        
+            // Reset sorting orders after animations
+            items.ForEach(item => item.SetSortingOrder(defaultSortingOrder));
         }
-        private void AnimateItemsGathering(Item centerItem, BaseGridObject matchedItem, float duration, float offsetMultiplier,
-            int sortingOrder)
+        
+        private async UniTask AnimateItemsGatheringAsync(Item centerItem, BaseGridObject matchedItem, float duration, float offsetMultiplier, int sortingOrder)
         {
             var direction = (matchedItem.transform.position - centerItem.transform.position).normalized;
             var effect = matchedItem.GetComponent<BaseGridObjectEffect>();
             matchedItem.SetSortingOrder(sortingOrder);
+        
             // Calculate the intermediate and final positions
             var intermediatePosition = matchedItem.transform.position + direction * offsetMultiplier;
             var finalPosition = centerItem.transform.position;
-
-            // Animate to intermediate position first
-            effect.Shift(intermediatePosition, duration, Ease.OutQuad)
-                .OnComplete(() =>
-                {
-                    // Animate to final position after the first animation completes
-                    effect.Shift(finalPosition, duration, Ease.InCubic);
-                });
+        
+            // Animate to intermediate position
+            await effect.ShiftAsync(intermediatePosition, duration, Ease.OutQuad);
+        
+            // Animate to final position
+            await effect.ShiftAsync(finalPosition, duration, Ease.InCubic);
         }
         
         public async UniTask<List<BaseGridObject>> ApplyBoostAsync(BaseGridObject finalBooster)

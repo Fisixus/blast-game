@@ -1,3 +1,4 @@
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 
@@ -7,6 +8,7 @@ namespace Core.GridElements.GridPawns.Effect
     {
         private Sequence _shakeSeq;
         private Tween _shiftTween;
+        private Tween _shiftTweenAsync;
 
         public void Shake()
         {
@@ -27,6 +29,23 @@ namespace Core.GridElements.GridPawns.Effect
                 : transform.DOMove(targetPosition, duration).SetEase(easeType);
 
             return _shiftTween;
+        }
+        
+        public async UniTask ShiftAsync(Vector3 targetPosition, float duration, Ease easeType, float? overshoot = null)
+        {
+            _shiftTweenAsync?.Kill(); // Ensure only one tween sequence is active
+
+            var completionSource = new UniTaskCompletionSource();
+
+            _shiftTweenAsync = overshoot.HasValue
+                ? transform.DOMove(targetPosition, duration)
+                    .SetEase(easeType, overshoot.Value)
+                    .OnComplete(() => completionSource.TrySetResult())
+                : transform.DOMove(targetPosition, duration)
+                    .SetEase(easeType)
+                    .OnComplete(() => completionSource.TrySetResult());
+
+            await completionSource.Task;
         }
     }
 }

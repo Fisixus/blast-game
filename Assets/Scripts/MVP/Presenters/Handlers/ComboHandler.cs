@@ -5,6 +5,7 @@ using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Combo;
 using Core.GridElements.GridPawns.Effect;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using UnityEngine;
 using UTasks;
@@ -20,7 +21,7 @@ namespace MVP.Presenters.Handlers
             _comboFactory = comboFactory;
         }
         
-        public Combo MergeBoosters(List<Booster> boosters, Vector2Int clickedPos)
+        public ComboType MergeBoosters(List<Booster> boosters)
         {
             if (boosters == null || !boosters.Any())
                 throw new ArgumentException("Boosters collection cannot be null or empty.");
@@ -34,52 +35,51 @@ namespace MVP.Presenters.Handlers
                 if (requiredIngredients.All(ingredient => boosters.Any(booster => booster.BoosterType == ingredient)))
                 {
                     // Return a new Booster of the selected combo type
-                    return _comboFactory.GenerateCombo(comboType, clickedPos);
+                    return comboType;
                 }
             }
 
             // If no combo type is matched, return null or handle accordingly
-            return null;
+            return ComboType.None;
         }
         
 
-        public void AnimateComboCreation(Item centerItem, List<BaseGridObject> boosters, Action<Item> onComplete)
+        public async UniTask AnimateComboCreationAsync(Booster centerBooster, IEnumerable<BaseGridObject> boosters)
         {
             const float durationPerAnimation = 0.2f;
             const float offsetMultiplier = 0.15f;
             const int highSortingOrder = 100;
             const int defaultSortingOrder = 0;
 
-            foreach (var matchedBooster in boosters)
-            {
-                AnimateComboCreation(centerItem, matchedBooster, durationPerAnimation, offsetMultiplier,
-                    highSortingOrder);
-            }
+            var matchedObjs = boosters.ToList();
 
-            // Wait for the animations to complete before resetting and invoking callback
-            UTask.Wait(durationPerAnimation * 2 + 0.05f).Do(() =>
-            {
-                boosters.ForEach(item => { item.SetSortingOrder(defaultSortingOrder); });
-                onComplete?.Invoke(centerItem);
-            });
+            // Animate each booster
+            var animationTasks = matchedObjs.Select(matchedBooster =>
+                AnimateComboCreationAsync(centerBooster, matchedBooster, durationPerAnimation, offsetMultiplier, highSortingOrder)
+            ).ToList();
+
+            // Wait for all animations to complete
+            await UniTask.WhenAll(animationTasks);
+
+            // Reset sorting orders after animations
+            matchedObjs.ForEach(item => { item.SetSortingOrder(defaultSortingOrder); });
         }
-        private void AnimateComboCreation(Item centerItem, BaseGridObject matchedItem, float duration, float offsetMultiplier,
-            int sortingOrder)
+
+        private async UniTask AnimateComboCreationAsync(Booster centerBooster, BaseGridObject matchedItem, float duration, float offsetMultiplier, int sortingOrder)
         {
-            var direction = (matchedItem.transform.position - centerItem.transform.position).normalized;
+            var direction = (matchedItem.transform.position - centerBooster.transform.position).normalized;
             var effect = matchedItem.GetComponent<BaseGridObjectEffect>();
             matchedItem.SetSortingOrder(sortingOrder);
+
             // Calculate the intermediate and final positions
             var intermediatePosition = matchedItem.transform.position + direction * offsetMultiplier;
-            var finalPosition = centerItem.transform.position;
+            var finalPosition = centerBooster.transform.position;
 
-            // Animate to intermediate position first
-            effect.Shift(intermediatePosition, duration, Ease.OutQuad)
-                .OnComplete(() =>
-                {
-                    // Animate to final position after the first animation completes
-                    effect.Shift(finalPosition, duration, Ease.InCubic);
-                });
+            // Animate to intermediate position
+            await effect.ShiftAsync(intermediatePosition, duration, Ease.OutQuad);
+
+            // Animate to final position
+            await effect.ShiftAsync(finalPosition, duration, Ease.InCubic);
         }
 
     }

@@ -1,4 +1,5 @@
 using Core.GridElements.Enums;
+using Core.GridElements.GridPawns.Combo;
 using Core.GridElements.GridPawns.Effect;
 using Core.GridElements.GridPawns.Interface;
 using Core.GridObjectsData;
@@ -73,7 +74,7 @@ namespace Core.GridElements.GridPawns
             SetSortingOrder(-newCoord.y);
             
             // Update the GridAttributes
-            IsEmpty = Type is ItemType.None or BoosterType.None or ObstacleType.None;
+            IsEmpty = Type is ItemType.None or BoosterType.None or ObstacleType.None or ComboType.None;
             SetInteraction();
         }
         

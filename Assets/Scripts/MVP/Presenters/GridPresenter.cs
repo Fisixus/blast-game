@@ -76,7 +76,7 @@ namespace MVP.Presenters
             }
         }
         
-        private void ProcessItemTouch(Item item)
+        private async void ProcessItemTouch(Item item)
         {
             var matchedGridObjects = _hintHandler.GetSelectedMatchedItems(item).ToList();
             if (matchedGridObjects.Count == 0)
@@ -88,7 +88,7 @@ namespace MVP.Presenters
             var effectedObstacles = _matchHandler.FindObstacles(matchedGridObjects);
             if (boosterType != BoosterType.None)
             {
-                ProcessBoosterCreation(item, matchedGridObjects, effectedObstacles, boosterType);
+                await ProcessBoosterCreationAsync(item, matchedGridObjects, effectedObstacles, boosterType);
             }
             else
             {
@@ -99,42 +99,79 @@ namespace MVP.Presenters
             }
         }
         
-        private void ProcessBoosterCreation(Item item, List<BaseGridObject> matchedObjects, List<BaseGridObject> effectedObstacles, BoosterType boosterType)
+        private async UniTask ProcessBoosterCreationAsync(Item item, List<BaseGridObject> matchedObjects, List<BaseGridObject> effectedObstacles, BoosterType boosterType)
         {
+            // Deactivate obstacles and play blast particles
             effectedObstacles.ForEach(obstacle => obstacle.gameObject.SetActive(false));//TODO:
-            _blastEffectHandler.PlayBlastParticles(effectedObstacles);//TODO:
-            //TODO: m_GoalHandler.UpdateGoals(effectedObstacles);
-            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = false});
-        
-            _boosterHandler.AnimateBoosterCreation(
-                item,
-                matchedObjects,
-                (centerItem) =>
-                {
-                    var booster = _gridObjectFactoryHandler.CreateBoosterAndDestroyOldItem(centerItem, boosterType);
-                    _gridModel.UpdateGridObjects(new List<BaseGridObject> { booster }, false);
+            _blastEffectHandler.PlayBlastParticles(effectedObstacles); // Assume this is async-ready//TODO:
 
-                    //m_GoalHandler.UpdateMoves();
-                    matchedObjects.AddRange(effectedObstacles);
-                    ProcessMatch(matchedObjects, false);
-                    ProcessMatch(effectedObstacles, true);
-                    GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent(){IsInputOn = true});
-                });
+            // Update input state
+            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = false });
+
+            // Animate booster creation
+            await _boosterHandler.AnimateBoosterCreationAsync(item, matchedObjects);
+
+            // Create booster and update grid model
+            var booster = _gridObjectFactoryHandler.CreateBoosterAndDestroyOldItem(item, boosterType);
+            _gridModel.UpdateGridObjects(new List<BaseGridObject> { booster }, false);
+
+            // Update moves and process matches
+            // m_GoalHandler.UpdateMoves();
+            matchedObjects.AddRange(effectedObstacles);
+            ProcessMatch(matchedObjects, true);
+
+            // Re-enable input
+            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = true });
         }
-        
         private async UniTaskVoid ProcessBoosterTouchAsync(Booster booster)
         {
+            // Find all matching boosters for the touched booster
             var boosters = _matchHandler.FindBoosterMatches(booster).Cast<Booster>().ToList();
-            var combo = _comboHandler.MergeBoosters(boosters, booster.Coordinate);
-            //finalBooster.BoosterType = BoosterType.BombBomb;
-            Debug.Log(combo);
-            //ProcessMatch(boosters, false);
-
-            var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
-            // Update moves after applying the boost
+            // Determine if a combo should be created or a single booster applied
+            if (boosters.Count > 1)
+            {
+                await HandleComboBoostAsync(boosters, booster);
+            }
+            else
+            {
+                await HandleSingleBoostAsync(booster);
+            }
             //TODO:m_GoalHandler.UpdateMoves();
+        }
 
-            // Process matches after boosting is complete
+        private async UniTask HandleComboBoostAsync(List<Booster> boosters, Booster centerBooster)
+        {
+            // Disable input during combo handling
+            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = false });
+
+            // Animate combo creation and wait for completion
+            await _comboHandler.AnimateComboCreationAsync(centerBooster, boosters);
+
+            // Merge boosters into a combo
+            var comboType = _comboHandler.MergeBoosters(boosters);
+            var combo = _gridObjectFactoryHandler.CreateComboAndDestroyOldBooster(centerBooster, comboType);
+            _gridModel.UpdateGridObjects(new List<BaseGridObject> { combo }, false);
+
+            // Update moves and process matches
+            //TODO:m_GoalHandler.UpdateMoves();
+            ProcessMatch(boosters, false);
+
+            // Re-enable input
+            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = true });
+
+            // Apply the combo effect and get affected grid objects
+            var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
+
+            // Process matches after applying the combo
+            ProcessMatch(effectedGridObjects, false);
+        }
+        
+        private async UniTask HandleSingleBoostAsync(Booster booster)
+        {
+            // Apply the single booster effect and get affected grid objects
+            var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(booster);
+
+            // Process matches after applying the booster
             ProcessMatch(effectedGridObjects, false);
         }
 
