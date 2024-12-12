@@ -21,6 +21,7 @@ namespace MVP.Presenters
     {
         private readonly IGridView _gridView;
         private readonly IGridModel _gridModel;
+        private readonly GoalHandler _goalHandler;
         private readonly MatchHandler _matchHandler;
         private readonly BoosterHandler _boosterHandler;
         private readonly ComboHandler _comboHandler;
@@ -29,11 +30,12 @@ namespace MVP.Presenters
         private readonly GridShiftHandler _gridShiftHandler;
         private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
 
-        public GridPresenter(IGridView gridView, IGridModel gridModel, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
+        public GridPresenter(IGridView gridView, IGridModel gridModel, GoalHandler goalHandler, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
             HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
+            _goalHandler = goalHandler;
             _matchHandler = matchHandler;
             _boosterHandler = boosterHandler;
             _comboHandler = comboHandler;
@@ -91,7 +93,6 @@ namespace MVP.Presenters
             }
             else
             {
-                // m_GoalHandler.UpdateMoves();
                 matchedGridObjects.AddRange(effectedObstacles);
                 _blastEffectHandler.PlayBlastParticles(matchedGridObjects); //TODO:
                 ProcessMatch(matchedGridObjects);
@@ -114,7 +115,6 @@ namespace MVP.Presenters
             _gridModel.UpdateGridObjects(new List<BaseGridObject> { booster }, false);
 
             // Update moves and process matches
-            // m_GoalHandler.UpdateMoves();
             matchedObjects.AddRange(effectedObstacles);
             ProcessMatch(matchedObjects, true);
 
@@ -134,7 +134,6 @@ namespace MVP.Presenters
             {
                 await HandleSingleBoostAsync(booster);
             }
-            //TODO:m_GoalHandler.UpdateMoves();
         }
 
         private async UniTask HandleComboBoostAsync(List<Booster> boosters, Booster centerBooster)
@@ -151,20 +150,20 @@ namespace MVP.Presenters
             _gridModel.UpdateGridObjects(new List<BaseGridObject> { combo }, false);
 
             // Update moves and process matches
-            //TODO:m_GoalHandler.UpdateMoves();
-            ProcessMatch(boosters, false);
+            //ProcessMatch(boosters, false);
 
             // Re-enable input
             GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = true });
 
             // Apply the combo effect and get affected grid objects
             
-            await UniTask.Delay(TimeSpan.FromSeconds(0.1f), DelayType.DeltaTime);//TODO:
+            //await UniTask.Delay(TimeSpan.FromSeconds(0.25f), DelayType.DeltaTime);//TODO:
             
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
 
             // Process matches after applying the combo
-            ProcessMatch(effectedGridObjects, false);
+            effectedGridObjects.AddRange(boosters);
+            ProcessMatch(effectedGridObjects, true);
         }
         
         private async UniTask HandleSingleBoostAsync(Booster booster)
@@ -173,7 +172,7 @@ namespace MVP.Presenters
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(booster);
 
             // Process matches after applying the booster
-            ProcessMatch(effectedGridObjects, false);
+            ProcessMatch(effectedGridObjects, true);
         }
 
         
@@ -184,13 +183,15 @@ namespace MVP.Presenters
         
         private void ProcessMatch(IEnumerable<BaseGridObject> matchedObjs, bool shouldUpdateGoals = true)
         {
-            var baseGridObjects = matchedObjs.ToList();
-            // if (shouldUpdateGoals)
-            // {
-            //     var itemsOnly = baseGridObjects.OfType<Item>().ToList();
-            //     m_GoalHandler.UpdateGoals(itemsOnly);
-            // }
+            var baseGridObjects = matchedObjs.Distinct().ToList();//TODO:Don't use distinct find the same items
+            if (shouldUpdateGoals)
+            {
+                var obstaclesOnly = baseGridObjects.OfType<Obstacle>().ToList();
+                _goalHandler.UpdateGoals(obstaclesOnly);
+            }
             ShiftAndReplaceGridObjects(baseGridObjects);
+            
+            _goalHandler.UpdateMoves();
             _hintHandler.DetectAndSetHints();
             baseGridObjects.Clear();
         }
