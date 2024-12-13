@@ -3,8 +3,6 @@ using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
-using Events;
-using Events.Grid;
 
 namespace MVP.Presenters.Handlers
 {

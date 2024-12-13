@@ -1,8 +1,6 @@
 using System;
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
-using Events;
-using Events.Grid;
 using MVP.Models.Interface;
 using UnityEngine;
 

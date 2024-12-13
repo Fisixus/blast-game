@@ -7214,9 +7214,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ec71a701d2617d744bcfaf41654cab60, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _userInput: {fileID: 1130994150}
   _handlerInstaller: {fileID: 1557328247}
   _strategyInstaller: {fileID: 1557328251}
-  mvpLevelInstaller: {fileID: 1557328250}
+  _mvpLevelInstaller: {fileID: 1557328250}
   _factoryInstaller: {fileID: 1557328246}
 --- !u!1 &1570871147
 GameObject:

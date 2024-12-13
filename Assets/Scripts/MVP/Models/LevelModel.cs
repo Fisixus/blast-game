@@ -1,8 +1,6 @@
 using System;
 using Core.GridElements.Enums;
 using Core.LevelSerialization;
-using Events;
-using Events.Level;
 using MVP.Models.Interface;
 using UnityEngine;
 

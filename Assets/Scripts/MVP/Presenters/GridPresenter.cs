@@ -5,20 +5,18 @@ using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Cysharp.Threading.Tasks;
-using Events;
-using Events.Grid;
-using Events.Input;
+using Input;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Presenters.Handlers.Effects;
 using MVP.Views.Interface;
 using UnityEngine;
-using OnGridObjectTouchedEvent = Events.Grid.OnGridObjectTouchedEvent;
 
 namespace MVP.Presenters
 {
     public class GridPresenter
     {
+        private readonly UserInput _userInput;
         private readonly IGridView _gridView;
         private readonly IGridModel _gridModel;
         private readonly GoalHandler _goalHandler;
@@ -29,12 +27,11 @@ namespace MVP.Presenters
         private readonly BlastEffectHandler _blastEffectHandler;
         private readonly GridShiftHandler _gridShiftHandler;
         private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
-        
 
-
-        public GridPresenter(IGridView gridView, IGridModel gridModel, GoalHandler goalHandler, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
+        public GridPresenter(UserInput userInput, IGridView gridView, IGridModel gridModel, GoalHandler goalHandler, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
             HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
         {
+            _userInput = userInput;
             _gridView = gridView;
             _gridModel = gridModel;
             _goalHandler = goalHandler;
@@ -46,7 +43,7 @@ namespace MVP.Presenters
             _gridShiftHandler = gridShiftHandler;
             _gridObjectFactoryHandler = gridObjectFactoryHandler;
             
-            GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
+            _userInput.OnGridObjectTouched += OnTouch;
             _gridModel.OnGridObjectInitializedEvent += GridObjectInitializedInGrid;
             _gridShiftHandler.OnGridObjectShiftedEvent += GridObjectShiftedInGrid;
             _gridModel.OnGridObjectUpdatedEvent += GridObjectUpdatedInGrid;
@@ -54,16 +51,15 @@ namespace MVP.Presenters
         
         ~GridPresenter()
         {
-            GameEventSystem.RemoveListener<OnGridObjectTouchedEvent>(OnTouch);
+            _userInput.OnGridObjectTouched -= OnTouch;
             _gridModel.OnGridObjectInitializedEvent -= GridObjectInitializedInGrid;
             _gridShiftHandler.OnGridObjectShiftedEvent -= GridObjectShiftedInGrid;
             _gridModel.OnGridObjectUpdatedEvent -= GridObjectUpdatedInGrid;
         }
         
-        private void OnTouch(object args)
+        private void OnTouch(BaseGridObject touchedGridObject)
         {
-            var eventArgs = (OnGridObjectTouchedEvent)args;
-            switch (eventArgs.GridObject)
+            switch (touchedGridObject)
             {
                 case Item item:
                     ProcessItemTouch(item);
@@ -105,7 +101,7 @@ namespace MVP.Presenters
             _blastEffectHandler.PlayBlastParticles(effectedObstacles); //TODO:
 
             // Update input state
-            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = false });
+            _userInput.SetInputState(false);
 
             // Animate booster creation
             await _boosterHandler.AnimateBoosterCreationAsync(item, matchedObjects);
@@ -119,7 +115,7 @@ namespace MVP.Presenters
             ProcessMatch(matchedObjects, true);
 
             // Re-enable input
-            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = true });
+            _userInput.SetInputState(true);
         }
         private async UniTaskVoid ProcessBoosterTouchAsync(Booster booster)
         {
@@ -139,7 +135,7 @@ namespace MVP.Presenters
         private async UniTask HandleComboBoostAsync(List<Booster> boosters, Booster centerBooster)
         {
             // Disable input during combo handling
-            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = false });
+            _userInput.SetInputState(false);
 
             // Animate combo creation and wait for completion
             await _comboHandler.AnimateComboCreationAsync(centerBooster, boosters);
@@ -153,7 +149,7 @@ namespace MVP.Presenters
             //ProcessMatch(boosters, false);
 
             // Re-enable input
-            GameEventSystem.Invoke<OnInputStateChangedEvent>(new OnInputStateChangedEvent() { IsInputOn = true });
+            _userInput.SetInputState(true);
 
             // Apply the combo effect and get affected grid objects
             

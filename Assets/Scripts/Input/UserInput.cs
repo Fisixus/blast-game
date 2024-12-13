@@ -1,11 +1,9 @@
+using System;
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
-using Events;
-using Events.Input;
 using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.InputSystem;
-using OnGridObjectTouchedEvent = Events.Grid.OnGridObjectTouchedEvent;
 
 namespace Input
 {
@@ -15,26 +13,24 @@ namespace Input
         private EventSystem _eventSystem;
 
         private bool _isInputOn = true;
-        
+        public event Action<BaseGridObject> OnGridObjectTouched;
+        private IA_User _iaUser;
         private void Awake()
         {
-            var userActions = new IA_User(); // Instantiate the input actions class
-            userActions.Match.Enable(); // Enable the specific action map
-            userActions.Match.Touch.performed += TouchItemNotifier; // Subscribe to the action
-            
-            GameEventSystem.AddListener<OnInputStateChangedEvent>(SetInputState);
+            _iaUser = new IA_User(); // Instantiate the input actions class
+            _iaUser.Match.Enable(); // Enable the specific action map
+            _iaUser.Match.Touch.performed += TouchItemNotifier; // Subscribe to the action
         }
 
         private void OnDestroy()
         {
-            GameEventSystem.RemoveListener<OnInputStateChangedEvent>(SetInputState);
+            _iaUser.Match.Disable();
+            _iaUser.Match.Touch.performed -= TouchItemNotifier;
         }
 
-
-        private void SetInputState(object args)
+        public void SetInputState(bool isInputOn)
         {
-            var argsEvent = (OnInputStateChangedEvent)args;
-            _isInputOn = argsEvent.IsInputOn;
+            _isInputOn = isInputOn;
         }
 
         private bool IsPointerOverUIObject()
@@ -70,7 +66,7 @@ namespace Input
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);
             if (hit && hit.transform.TryGetComponent<BaseGridObject>(out var gridObject))
             {
-                GameEventSystem.Invoke<OnGridObjectTouchedEvent>(new OnGridObjectTouchedEvent() { GridObject = gridObject });
+                OnGridObjectTouched?.Invoke(gridObject);
             }
         }
     }

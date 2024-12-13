@@ -2,8 +2,6 @@ using System;
 using Cysharp.Threading.Tasks;
 using DI;
 using DI.Contexts;
-using Events;
-using Events.Level;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
@@ -23,14 +21,12 @@ namespace MVP.Presenters
             _goalHandler = goalHandler;
             _gridView = gridView;
             
-            GameEventSystem.AddListener<OnLevelRequestedEvent>(LevelRequested);
             _goalHandler.OnLevelCompleted += HandleLevelCompleted;
             _goalHandler.OnLevelFailed += HandleLevelFailed;
         }
 
         ~LevelPresenter()
         {
-            GameEventSystem.RemoveListener<OnLevelRequestedEvent>(LevelRequested);
             _goalHandler.OnLevelCompleted -= HandleLevelCompleted;
             _goalHandler.OnLevelFailed -= HandleLevelFailed;
         }
@@ -43,13 +39,6 @@ namespace MVP.Presenters
         private void HandleLevelFailed()
         {
             _levelStateHandler.FailLevel();
-        }
-
-        //After the button clicked for retry or next level
-        private void LevelRequested(object args)
-        {
-
-            //m_LevelStateHandler.RequestLevel();
         }
 
         public async UniTask LoadLevel()
