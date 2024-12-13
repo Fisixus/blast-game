@@ -17,9 +17,9 @@ namespace MVP.Presenters.Handlers
     public class BoosterHandler
     {
         private BaseGridObject[,] _grid;
-        private readonly Dictionary<Enum, IBoosterStrategy> _boosterStrategies = new();
+        private readonly Dictionary<Enum, IBoosterComboStrategy> _boosterStrategies = new();
         
-        public BoosterHandler(IEnumerable<IBoosterStrategy> boosterStrategies)
+        public BoosterHandler(IEnumerable<IBoosterComboStrategy> boosterStrategies)
         {
             // Register strategies
             foreach (var strategy in boosterStrategies)

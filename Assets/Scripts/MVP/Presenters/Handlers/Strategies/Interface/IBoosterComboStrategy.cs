@@ -4,7 +4,7 @@ using Core.GridElements.GridPawns;
 
 namespace MVP.Presenters.Handlers.Strategies.Interface
 {
-    public interface IBoosterStrategy
+    public interface IBoosterComboStrategy
     {
         public Enum Type { get; }
         public List<BaseGridObject> FindAffectedItems(BaseGridObject[,] grid, BaseGridObject booster);

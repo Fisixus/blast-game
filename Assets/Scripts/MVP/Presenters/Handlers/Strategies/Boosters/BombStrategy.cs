@@ -9,7 +9,7 @@ using MVP.Presenters.Handlers.Strategies.Interface;
 
 namespace MVP.Presenters.Handlers.Strategies.Boosters
 {
-    public class BombStrategy : IBoosterStrategy
+    public class BombStrategy : IBoosterComboStrategy
     {
         private readonly IBoosterFactory _boosterFactory;
         private readonly BombEffectHandler _bombEffectHandler;

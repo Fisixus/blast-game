@@ -16,8 +16,8 @@ namespace Installers.LevelScene
             Container.BindAsTransient<IMatchStrategy>(()=> new VaseMatchStrategy());
             
             // Bind each BoosterStrategy implementation
-            Container.BindAsTransient<IBoosterStrategy>(() => Container.Construct<BombStrategy>());
-            Container.BindAsTransient<IBoosterStrategy>(() => Container.Construct<BombBombStrategy>());
+            Container.BindAsTransient<IBoosterComboStrategy>(() => Container.Construct<BombStrategy>());
+            Container.BindAsTransient<IBoosterComboStrategy>(() => Container.Construct<BombBombStrategy>());
         }
     }
 }

@@ -86,37 +86,39 @@ namespace Core.Helpers.GridHelpers
             return gridObjects;
         }
 
-        public static List<BaseGridObject> FindItemsInRadiusRange(BaseGridObject[,] grid, Vector2Int coord, int bombRadius)
+        public static List<BaseGridObject> FindItemsInRadiusRange(
+            BaseGridObject[,] grid, Vector2Int coord, int bombRadius)
         {
             var affectedObjects = new List<BaseGridObject>();
-            var maxX = grid.GetLength(0) - 1;
-            var maxY = grid.GetLength(1) - 1;
+            int maxX = grid.GetLength(0) - 1;
+            int maxY = grid.GetLength(1) - 1;
 
-            // Process from radius 0 to bombRadius
+            // Iterate over each position in the radius
             for (int radius = 0; radius <= bombRadius; radius++)
             {
-                for (int x = coord.x - radius; x <= coord.x + radius; x++)
+                for (int x = Mathf.Max(0, coord.x - radius); x <= Mathf.Min(maxX, coord.x + radius); x++)
                 {
-                    for (int y = coord.y - radius; y <= coord.y + radius; y++)
+                    for (int y = Mathf.Max(0, coord.y - radius); y <= Mathf.Min(maxY, coord.y + radius); y++)
                     {
-                        // Ensure the coordinates are within grid bounds
-                        if (x >= 0 && x <= maxX && y >= 0 && y <= maxY)
+                        var gridObject = grid[x, y];
+
+                        if (gridObject == null || affectedObjects.Contains(gridObject))
+                            continue;
+
+                        if (gridObject is Obstacle obstacle)
                         {
-                            var gridObject = grid[x, y];
-                            if (gridObject != null && !affectedObjects.Contains(gridObject))
-                            {
-                                affectedObjects.Add(gridObject);
-                            }
+                            int remainingLife = obstacle.TakeDamage();
+                            if (remainingLife > 0)
+                                continue;
                         }
+
+                        affectedObjects.Add(gridObject);
                     }
                 }
             }
-
             return affectedObjects;
         }
 
-
-        
         // public static (List<Item> Obstacles, List<Item> RegularItems) SeparateRegularItems(List<Item> matchedItems)
         // {
         //     var groupedItems = matchedItems.ToLookup(i => i.ItemType is ItemType.SI_Box or ItemType.SI_Stone or ItemType.SI_Vase);
