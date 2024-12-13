@@ -1,4 +1,6 @@
 using Cysharp.Threading.Tasks;
+using MVP.Presenters.Handlers;
+using UnityEngine;
 
 
 namespace MVP.Presenters
@@ -6,15 +8,16 @@ namespace MVP.Presenters
     public class GamePresenter
     {
         private readonly ScenePresenter _scenePresenter;
-        public GamePresenter(ScenePresenter scenePresenter)
+        private readonly LevelTransitionHandler _levelTransitionHandler;
+        public GamePresenter(ScenePresenter scenePresenter, LevelTransitionHandler levelTransitionHandler)
         {
             _scenePresenter = scenePresenter;
+            _levelTransitionHandler = levelTransitionHandler;
             InitializeGame().Forget();
         }
         private async UniTask InitializeGame()
         {
-            // Load the main scene or perform other initialization tasks
-            await _scenePresenter.TransitionToNextScene("LoadScene", "MainScene");
+            await _scenePresenter.TransitionToNextScene("MainScene", _levelTransitionHandler.SetupMainSceneRequirements);
         }
 
     }

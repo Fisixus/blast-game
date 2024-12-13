@@ -8,5 +8,7 @@ namespace MVP.Views.Interface
     {
         public Button NewLevelButton { get;  }
         public TextMeshProUGUI LevelButtonText { get;  }
+
+        public void SetLevelButtonText(int level);
     }
 }

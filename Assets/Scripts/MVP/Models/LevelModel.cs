@@ -2,7 +2,6 @@ using System;
 using Core.GridElements.Enums;
 using Core.LevelSerialization;
 using Events;
-using Events.Game;
 using Events.Level;
 using MVP.Models.Interface;
 using UnityEngine;
@@ -31,12 +30,10 @@ namespace MVP.Models
 
         public LevelModel()
         {
-            GameEventSystem.AddListener<OnGameStartedEvent>(LoadLevel);
         }
 
         ~LevelModel()
         {
-            GameEventSystem.RemoveListener<OnGameStartedEvent>(LoadLevel);
         }
         
         public void LoadLevel(object args)
