@@ -1,7 +1,7 @@
 using DI.Contexts;
 using UnityEngine.SceneManagement;
 
-namespace MVP.Helpers.Scene
+namespace MVP.Helpers
 {
     public static class SceneHelper
     {

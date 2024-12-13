@@ -2,6 +2,8 @@ using System.Collections.Generic;
 using Core.GridElements.GridPawns;
 using Core.LevelSerialization;
 using MVP.Models.Interface;
+using MVP.Views.Interface;
+using UTasks;
 
 namespace MVP.Presenters.Handlers
 {
@@ -12,15 +14,17 @@ namespace MVP.Presenters.Handlers
         private readonly HintHandler _hintHandler;
         private readonly BoosterHandler _boosterHandler;
         private readonly MatchHandler _matchHandler;
+        private readonly ILevelUIView _levelUIView;
         
         public LevelStateHandler(GridObjectFactoryHandler gridObjectFactoryHandler, IGridModel gridModel,
-            HintHandler hintHandler, BoosterHandler boosterHandler, MatchHandler matchHandler)
+            HintHandler hintHandler, BoosterHandler boosterHandler, MatchHandler matchHandler, ILevelUIView levelUIView)
         {
             _gridObjectFactoryHandler = gridObjectFactoryHandler;
             _gridModel = gridModel;
             _hintHandler = hintHandler;
             _boosterHandler = boosterHandler;
             _matchHandler = matchHandler;
+            _levelUIView = levelUIView;
         }
 
         public void Initialize(LevelInfo levelInfo)
@@ -39,16 +43,16 @@ namespace MVP.Presenters.Handlers
             _hintHandler.Initialize(_gridModel.Grid);
         }
 
-        // public void CompleteLevel()
-        // {
-        //     m_LevelModel.LevelIndex++;
-        //     UTask.Wait(0.25f).Do(() => { m_UIView.OpenSuccessPanel(); });
-        // }
-        //
-        // public void FailLevel()
-        // {
-        //     UTask.Wait(0.25f).Do(() => { m_UIView.OpenFailPanel(); });
-        // }
+        public void CompleteLevel()
+        {
+            //TODO:m_LevelModel.LevelIndex++;
+            UTask.Wait(0.25f).Do(() => { _levelUIView.OpenSuccessPanel(); });
+        }
+        
+        public void FailLevel()
+        {
+            UTask.Wait(0.25f).Do(() => { _levelUIView.OpenFailPanel(); });
+        }
 
         // public void RequestLevel()
         // {

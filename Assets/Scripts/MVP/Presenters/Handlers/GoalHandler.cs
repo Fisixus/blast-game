@@ -41,13 +41,7 @@ namespace MVP.Presenters.Handlers
             DecreaseMoveCounter();
             CheckLevelEndConditions();
         }
-
-        public void UpdateGoal(Obstacle obstacle)
-        {
-            UpdateGoalCount(obstacle);
-            CheckLevelEndConditions();
-        }
-
+        
         public void UpdateGoals(List<Obstacle> matchedObstacles)
         {
             UpdateGoalCounts(matchedObstacles);
@@ -59,16 +53,6 @@ namespace MVP.Presenters.Handlers
         {
             _goalUIHandler.UpdateMoveCounter(--_numberOfMoves);
         }
-        
-        private void UpdateGoalCount(Obstacle obstacle)
-        {
-            var goal = _goals.FirstOrDefault(goal => obstacle.ObstacleType == goal.ObstacleType);
-            if (goal == null || goal.Count <= 0) return;
-
-            goal.Count = Mathf.Max(--goal.Count, 0);
-            _goalUIHandler.UpdateGoalUI(goal);
-        }
-
 
         // Updates goal counts based on matched obstacles
         private void UpdateGoalCounts(List<Obstacle> matchedObstacles)

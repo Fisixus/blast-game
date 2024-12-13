@@ -19,8 +19,8 @@ namespace Core.Factories
 
         public override void PreInitialize()
         {
-            Pool = new ObjectPool<Obstacle>(ObjPrefab, ParentTr, 32);
-            _allObstacles = new List<Obstacle>(32);
+            Pool = new ObjectPool<Obstacle>(ObjPrefab, ParentTr, 16);
+            _allObstacles = new List<Obstacle>(16);
         }
 
         public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate)

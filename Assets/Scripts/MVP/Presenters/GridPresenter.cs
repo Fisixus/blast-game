@@ -56,8 +56,6 @@ namespace MVP.Presenters
             GameEventSystem.RemoveListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
             GameEventSystem.RemoveListener<OnGridObjectShiftedEvent>(GridObjectShiftedInGrid);
             GameEventSystem.RemoveListener<OnGridObjectUpdatedEvent>(GridObjectUpdatedInGrid);
-            //m_GoalHandler.OnLevelCompleted -= HandleLevelCompleted;
-            //m_GoalHandler.OnLevelFailed -= HandleLevelFailed;
         }
         
         private void OnTouch(object args)

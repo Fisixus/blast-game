@@ -13,6 +13,7 @@ namespace MVP.Views.Interface
         public TextMeshProUGUI MoveCounterText { get; }
         public Transform GoalParentTr { get; }
         public Transform SuccessPanelTr { get; }
+        public ParticleSystem StarPS { get;}
         public Transform FailPanelTr { get; }
         public void SetMoveCounter(int numberOfMoves);
         public void InitializeGoal(Texture newTexture, Vector2 newSize, GoalUI goalUI, LevelGoal goal);

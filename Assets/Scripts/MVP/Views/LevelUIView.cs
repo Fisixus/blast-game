@@ -1,7 +1,13 @@
+using System;
 using Core.GridElements.UI;
 using Core.LevelSerialization;
+using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using DI;
+using DI.Contexts;
+using MVP.Helpers;
+using MVP.Presenters;
+using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using TMPro;
 using UnityEngine;
@@ -9,33 +15,61 @@ using UnityEngine.UI;
 
 namespace MVP.Views
 {
-    public class LevelUIView : MonoBehaviour, ILevelUIView, IPreInitializable
+    public class LevelUIView : MonoBehaviour, ILevelUIView
     {
         [field: SerializeField] public Button EscapeButton { get; private set; }
         [field: SerializeField] public Button RetryLevelButton { get; private set; }
         [field: SerializeField] public TextMeshProUGUI MoveCounterText { get; private set; }
         [field: SerializeField] public Transform GoalParentTr { get; private set; }
         [field: SerializeField] public Transform SuccessPanelTr { get; private set; }
+        [field: SerializeField] public ParticleSystem StarPS { get; private set; }
         [field: SerializeField] public Transform FailPanelTr { get; private set; }
-
         
-        public void PreInitialize()
+        private void Awake()
         {
-            //EscapeButton.onClick.AddListener(RequestSceneTransfer);
-            RetryLevelButton.onClick.AddListener(RequestLevel);
-            EscapeButton.onClick.AddListener(RequestLevel);
+            RetryLevelButton.onClick.AddListener(() =>
+            {
+                RetryLevel().Forget();
+            });
+            EscapeButton.onClick.AddListener(() =>
+            {
+                EscapeLevel().Forget();
+            });
         }
+
         private void OnDisable()
         {
-            RetryLevelButton.onClick.RemoveListener(RequestLevel);
-            EscapeButton.onClick.RemoveListener(RequestLevel);
+            RetryLevelButton.onClick.RemoveAllListeners();
+            EscapeButton.onClick.RemoveAllListeners();
         }
 
-        private void RequestLevel()
+        private async UniTask EscapeLevel()
         {
-            //NextLevelButton.interactable = false;
-            //RetryLevelButton.interactable = false;
-            //m_SignalBus.Fire(new OnLevelRequestedSignal() { });
+            // Resolve dependencies
+            var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+            var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
+
+            // Perform scene transition
+            Debug.Log("Starting Level Transition...");
+            await scenePresenter.TransitionToNextScene("MainScene", async (container) =>
+            {
+                await levelTransitionHandler.SetupMainSceneRequirements(container);
+            });
+        }
+
+        private async UniTask RetryLevel()
+        {
+                // Resolve dependencies
+                var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
+
+                // Perform scene transition
+                Debug.Log("Starting Level Transition...");
+                await scenePresenter.TransitionToNextScene("LevelScene", async (container) =>
+                {
+                    await levelTransitionHandler.SetupLevelSceneRequirements(container);
+                });
+           
         }
 
 

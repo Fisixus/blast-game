@@ -2,7 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using DI;
 using DI.Contexts;
-using MVP.Helpers.Scene;
+using MVP.Helpers;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 

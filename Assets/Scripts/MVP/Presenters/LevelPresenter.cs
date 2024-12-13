@@ -22,25 +22,27 @@ namespace MVP.Presenters
             _levelStateHandler = levelStateHandler;
             _goalHandler = goalHandler;
             _gridView = gridView;
+            
             GameEventSystem.AddListener<OnLevelRequestedEvent>(LevelRequested);
+            _goalHandler.OnLevelCompleted += HandleLevelCompleted;
+            _goalHandler.OnLevelFailed += HandleLevelFailed;
         }
 
         ~LevelPresenter()
         {
             GameEventSystem.RemoveListener<OnLevelRequestedEvent>(LevelRequested);
-
-            //m_GoalHandler.OnLevelCompleted -= HandleLevelCompleted;
-            //m_GoalHandler.OnLevelFailed -= HandleLevelFailed;
+            _goalHandler.OnLevelCompleted -= HandleLevelCompleted;
+            _goalHandler.OnLevelFailed -= HandleLevelFailed;
         }
 
         private void HandleLevelCompleted()
         {
-            //m_LevelStateHandler.CompleteLevel();
+            _levelStateHandler.CompleteLevel();
         }
 
         private void HandleLevelFailed()
         {
-            //m_LevelStateHandler.FailLevel();
+            _levelStateHandler.FailLevel();
         }
 
         //After the button clicked for retry or next level
@@ -53,12 +55,12 @@ namespace MVP.Presenters
         public async UniTask LoadLevel()
         {
             var levelModel = ProjectContext.Container.Resolve<ILevelModel>();
-            var levelInfo = levelModel.LoadLevel();
+            var levelInfo = levelModel.LoadLevel();//TODO:Make here adressables and wait that
             _gridView.CalculateGridSize(levelInfo.GridSize);
             _levelStateHandler.Initialize(levelInfo);
             _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
             _gridView.ScaleGrid();
-            await UniTask.Delay(TimeSpan.FromSeconds(5f));
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
         }
         
     }

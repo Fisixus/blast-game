@@ -5,6 +5,7 @@ using DI;
 using DI.Contexts;
 using Events;
 using Events.Level;
+using MVP.Helpers;
 using MVP.Presenters;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
@@ -38,23 +39,19 @@ namespace MVP.Views
             {
                 // Disable the button to prevent multiple clicks
                 NewLevelButton.interactable = false;
-
-                // Resolve dependencies
-                var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
-                var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
-
-                // Perform scene transition
-                Debug.Log("Starting Level Transition...");
-                await scenePresenter.TransitionToNextScene("LevelScene", async (container) =>
-                {
-                    await levelTransitionHandler.SetupLevelSceneRequirements(container);
-                });
-
-                Debug.Log("Level Transition Complete!");
+                // Use the reusable scene transition logic
+                await SceneTransitionHelper.PerformTransition(
+                    "LevelScene",
+                    async (container) =>
+                    {
+                        // Specific setup logic for this scene
+                        var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                        await levelTransitionHandler.SetupLevelSceneRequirements(container);
+                    });
             }
-            catch (Exception ex)
+            catch (Exception e)
             {
-                Debug.LogError($"Error during level transition: {ex.Message}");
+                throw new Exception();
             }
         }
 
