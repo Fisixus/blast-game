@@ -15,12 +15,10 @@ namespace Core.Factories
         [SerializedDictionary("Obstacle Type", "Obstacle Data")]
         public SerializedDictionary<ObstacleType, ObstacleDataSO> ObstacleDataDict { get; private set; }
 
-        private List<Obstacle> _allObstacles;
 
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Obstacle>(ObjPrefab, ParentTr, 16);
-            _allObstacles = new List<Obstacle>(16);
         }
 
         public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate)
@@ -34,7 +32,6 @@ namespace Core.Factories
         public override Obstacle CreateObj()
         {
             var item = base.CreateObj();
-            _allObstacles.Add(item);
             return item;
         }
 
@@ -42,15 +39,8 @@ namespace Core.Factories
         {
             base.DestroyObj(emptyItem);
             emptyItem.SetAttributes(-Vector2Int.one, ItemType.None);
-            _allObstacles.Remove(emptyItem);
         }
-
-        public void DestroyAllObstacles()
-        {
-            var obstaclesToDestroy = new List<Obstacle>(_allObstacles);
-            base.DestroyObjs(obstaclesToDestroy);
-            _allObstacles.Clear();
-        }
+        
 
 
     }

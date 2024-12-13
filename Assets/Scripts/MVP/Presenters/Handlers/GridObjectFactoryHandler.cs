@@ -51,12 +51,12 @@ namespace MVP.Presenters.Handlers
             }
         }
 
-        public void DestroyAllGridObjects()
-        {
-            _itemFactory.DestroyAllItems();
-            _boosterFactory.DestroyAllBoosters();
-            _obstacleFactory.DestroyAllObstacles();
-        }
+        // public void DestroyAllGridObjects()
+        // {
+        //     _itemFactory.DestroyAllItems();
+        //     _boosterFactory.DestroyAllBoosters();
+        //     _obstacleFactory.DestroyAllObstacles();
+        // }
 
         public void DestroyOldItems(List<BaseGridObject> emptyItems)
         {

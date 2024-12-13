@@ -14,6 +14,5 @@ namespace Core.Factories.Interface
         public SerializedDictionary<ItemType, ItemDataSO> ItemDataDict { get; }
         public Item GenerateRandItem(Vector2Int itemCoordinate);
         public Item GenerateItem(ItemType itemType, Vector2Int itemCoordinate);
-        public void DestroyAllItems();
     }
 }

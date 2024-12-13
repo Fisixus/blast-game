@@ -22,9 +22,6 @@ namespace Input
             userActions.Match.Enable(); // Enable the specific action map
             userActions.Match.Touch.performed += TouchItemNotifier; // Subscribe to the action
             
-            _cam = Camera.main;
-            _eventSystem = EventSystem.current;
-            
             GameEventSystem.AddListener<OnInputStateChangedEvent>(SetInputState);
         }
 
@@ -66,6 +63,8 @@ namespace Input
 
         private void TouchItemNotifier(InputAction.CallbackContext context)
         {
+            if(_cam == null) _cam = Camera.main;
+            if(_eventSystem == null) _eventSystem = EventSystem.current;
             if (IsPointerOverUIObject() || !_isInputOn)
                 return;
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);

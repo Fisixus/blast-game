@@ -12,6 +12,7 @@ using MVP.Views.Interface;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
+using UTasks;
 
 namespace MVP.Views
 {
@@ -59,16 +60,16 @@ namespace MVP.Views
 
         private async UniTask RetryLevel()
         {
-                // Resolve dependencies
-                var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
-                var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
+            // Resolve dependencies
+            var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+            var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
 
-                // Perform scene transition
-                Debug.Log("Starting Level Transition...");
-                await scenePresenter.TransitionToNextScene("LevelScene", async (container) =>
-                {
-                    await levelTransitionHandler.SetupLevelSceneRequirements(container);
-                });
+            // Perform scene transition
+            Debug.Log("Starting Level Transition...");
+            await scenePresenter.TransitionToNextScene("LevelScene", async (container) =>
+            {
+                await levelTransitionHandler.SetupLevelSceneRequirements(container);
+            });
            
         }
 
@@ -88,24 +89,36 @@ namespace MVP.Views
                 UpdateGoalCount(countText, ps, checkedImg, mainImg, updatedCount);
         }
 
-        public void OpenSuccessPanel(float duration)
+        public async UniTask OpenSuccessPanel(float duration)
         {
-            TogglePanel(SuccessPanelTr, true, duration);
+            await TogglePanel(SuccessPanelTr, true, duration);
+            StarPS.Play();
+            await UniTask.Delay(TimeSpan.FromSeconds(4)); 
+            
+            var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+            var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
+
+            Debug.Log("Starting Level Transition...");
+            await scenePresenter.TransitionToNextScene("MainScene", async (container) =>
+            {
+                await levelTransitionHandler.SetupMainSceneRequirements(container);
+            });
         }
 
         public void CloseSuccessPanel(float duration)
         {
-            TogglePanel(SuccessPanelTr, false, duration);
+            TogglePanel(SuccessPanelTr, false, duration).Forget();
         }
 
         public void OpenFailPanel(float duration)
         {
-            TogglePanel(FailPanelTr, true, duration);
+            TogglePanel(FailPanelTr, true, duration).Forget();
+            
         }
 
         public void CloseFailPanel(float duration)
         {
-            TogglePanel(FailPanelTr, false, duration);
+            TogglePanel(FailPanelTr, false, duration).Forget();
         }
 
         public void SetMoveCounter(int numberOfMoves)
@@ -149,7 +162,7 @@ namespace MVP.Views
             countText.transform.DOScale(Vector3.zero, 0.15f);
         }
 
-        private void TogglePanel(Transform panelTransform, bool isOpen, float duration)
+        private async UniTask TogglePanel(Transform panelTransform, bool isOpen, float duration)
         {
             var cg = panelTransform.GetComponent<CanvasGroup>();
             if (isOpen)
@@ -164,6 +177,7 @@ namespace MVP.Views
                 cg.interactable = false;
                 cg.blocksRaycasts = false;
             }
+            await UniTask.Delay(TimeSpan.FromSeconds(duration)); 
         }
 
 

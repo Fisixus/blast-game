@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Core.Factories.Interface;
@@ -18,14 +19,12 @@ namespace Core.Factories
         [SerializedDictionary("Item Type", "Item Data")]
         public SerializedDictionary<ItemType, ItemDataSO> ItemDataDict { get; private set; }
 
-        private List<Item> _allItems;
 
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Item>(ObjPrefab, ParentTr, 64);
-            _allItems = new List<Item>(64);
         }
-        
+
         public Item GenerateRandItem(Vector2Int itemCoordinate)
         {
             var itemType = Probability.PickRandomItemType();
@@ -43,7 +42,6 @@ namespace Core.Factories
         public override Item CreateObj()
         {
             var item = base.CreateObj();
-            _allItems.Add(item);
             return item;
         }
 
@@ -51,16 +49,8 @@ namespace Core.Factories
         {
             base.DestroyObj(emptyItem);
             emptyItem.SetAttributes(-Vector2Int.one, ItemType.None);
-            _allItems.Remove(emptyItem);
         }
-
-        public void DestroyAllItems()
-        {
-            var itemsToDestroy = new List<Item>(_allItems);
-            base.DestroyObjs(itemsToDestroy);
-            _allItems.Clear();
-        }
-
+        
 
     }
 }

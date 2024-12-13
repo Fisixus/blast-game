@@ -1,5 +1,6 @@
 using Core.GridElements.UI;
 using Core.LevelSerialization;
+using Cysharp.Threading.Tasks;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
@@ -18,7 +19,7 @@ namespace MVP.Views.Interface
         public void SetMoveCounter(int numberOfMoves);
         public void InitializeGoal(Texture newTexture, Vector2 newSize, GoalUI goalUI, LevelGoal goal);
 
-        public void OpenSuccessPanel(float duration = 1f);
+        public UniTask OpenSuccessPanel(float duration = 1f);
         public void CloseSuccessPanel(float duration = 0f);
         public void OpenFailPanel(float duration = 1f);
         public void CloseFailPanel(float duration = 0f);

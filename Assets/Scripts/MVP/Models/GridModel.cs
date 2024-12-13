@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
 using Events;
@@ -12,7 +13,8 @@ namespace MVP.Models
         public BaseGridObject[,] Grid { get; private set; } // x:column, y:row
         public int ColumnCount { get; private set; }
         public int RowCount { get; private set; }
-        
+        public event Action<BaseGridObject> OnGridObjectInitializedEvent;
+        public event Action<BaseGridObject, bool> OnGridObjectUpdatedEvent;
         
         public void Initialize(List<BaseGridObject> gridObjs, int columns, int rows)
         {
@@ -23,8 +25,7 @@ namespace MVP.Models
             for (var j = 0; j < RowCount; j++)
             {
                 Grid[i, j] = gridObjs[i * RowCount + j];
-                GameEventSystem.Invoke<OnGridObjectInitializedEvent>
-                    (new OnGridObjectInitializedEvent() { GridObject = Grid[i, j] });
+                OnGridObjectInitializedEvent?.Invoke(Grid[i,j]);
             }
         }
         
@@ -33,8 +34,7 @@ namespace MVP.Models
             foreach (var newGridObj in newGridObjects)
             {
                 Grid[newGridObj.Coordinate.x, newGridObj.Coordinate.y] = newGridObj;
-                GameEventSystem.Invoke<OnGridObjectUpdatedEvent>
-                    (new OnGridObjectUpdatedEvent(){ GridObject = newGridObj, IsAnimationOn = isAnimationOn });
+                OnGridObjectUpdatedEvent?.Invoke(newGridObj, isAnimationOn);
             }
         }
     }

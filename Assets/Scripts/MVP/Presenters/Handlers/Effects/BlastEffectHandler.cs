@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
+using Cysharp.Threading.Tasks;
+using UnityEngine;
 using UTasks;
 
 namespace MVP.Presenters.Handlers.Effects
@@ -22,18 +25,19 @@ namespace MVP.Presenters.Handlers.Effects
         {
             foreach (var gridObject in matchedGridObjects)
             {
-                if (gridObject is Item item)
+                switch (gridObject)
                 {
-                    PlayBlastParticle(item);
-                }
-                else if (gridObject is Obstacle obstacle)
-                {
-                    PlayBlastParticle(obstacle);
+                    case Item item:
+                        PlayBlastParticle(item).Forget();
+                        break;
+                    case Obstacle obstacle:
+                        PlayBlastParticle(obstacle).Forget();
+                        break;
                 }
             }
         }
 
-        public void PlayBlastParticle(Item item)
+        private async UniTask PlayBlastParticle(Item item)
         {
             if (!_itemBlastEffectFactory.BlastEffectDataDict.TryGetValue(item.ItemType, out var blastEffectData))
                 return;
@@ -44,21 +48,23 @@ namespace MVP.Presenters.Handlers.Effects
 
             var itemView = item.GetComponent<ItemEffect>();
             var duration = itemView.PlayBlastParticle(particle.BlastParticleSystem);
-            UTask.Wait(duration).Do(() => { _itemBlastEffectFactory.DestroyObj(particle); });
+            await UniTask.Delay(TimeSpan.FromSeconds(duration));
+            _itemBlastEffectFactory.DestroyObj(particle);
         }
         
-        public void PlayBlastParticle(Obstacle obstacle)
+        private async UniTask PlayBlastParticle(Obstacle obstacle)
         {
             if (!_obstacleBlastEffectFactory.BlastEffectDataDict.TryGetValue(obstacle.ObstacleType, out var blastEffectData))
                 return;
-
+            Debug.Log(obstacle);
             var particle = _obstacleBlastEffectFactory.CreateObj();
             particle.SetTextureSheetSprites(blastEffectData.TextureAnimationSprites);
             particle.transform.position = obstacle.transform.position;
 
             var obstacleView = obstacle.GetComponent<ObstacleEffect>();
             var duration = obstacleView.PlayBlastParticle(particle.BlastParticleSystem);
-            UTask.Wait(duration).Do(() => { _obstacleBlastEffectFactory.DestroyObj(particle); });
+            await UniTask.Delay(TimeSpan.FromSeconds(duration));
+            _itemBlastEffectFactory.DestroyObj(particle);
         }
     }
 }

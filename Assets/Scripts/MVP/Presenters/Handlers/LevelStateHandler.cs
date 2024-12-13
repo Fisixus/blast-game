@@ -60,9 +60,7 @@ namespace MVP.Presenters.Handlers
         //     {
         //         m_UIView.CloseFailPanel();
         //         m_UIView.CloseSuccessPanel();
-        //         _itemFactory.DestroyAllItems();
-        //         _boosterFactory.DestroyAllBoosters();
-        //         _obstacleFactory.DestroyAllObstacles();
+        //         _gridObjectFactoryHandler.DestroyAllGridObjects();
         //         m_LevelModel.LoadLevel();
         //     }
         //

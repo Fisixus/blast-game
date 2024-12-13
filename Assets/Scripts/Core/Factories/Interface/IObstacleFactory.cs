@@ -12,6 +12,5 @@ namespace Core.Factories.Interface
         public SerializedDictionary<ObstacleType, ObstacleDataSO> ObstacleDataDict { get; }
         public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate);
 
-        public void DestroyAllObstacles();
     }
 }

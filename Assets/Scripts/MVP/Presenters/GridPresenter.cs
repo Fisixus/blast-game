@@ -29,6 +29,8 @@ namespace MVP.Presenters
         private readonly BlastEffectHandler _blastEffectHandler;
         private readonly GridShiftHandler _gridShiftHandler;
         private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
+        
+
 
         public GridPresenter(IGridView gridView, IGridModel gridModel, GoalHandler goalHandler, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
             HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
@@ -45,17 +47,17 @@ namespace MVP.Presenters
             _gridObjectFactoryHandler = gridObjectFactoryHandler;
             
             GameEventSystem.AddListener<OnGridObjectTouchedEvent>(OnTouch);
-            GameEventSystem.AddListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
-            GameEventSystem.AddListener<OnGridObjectShiftedEvent>(GridObjectShiftedInGrid);
-            GameEventSystem.AddListener<OnGridObjectUpdatedEvent>(GridObjectUpdatedInGrid);
+            _gridModel.OnGridObjectInitializedEvent += GridObjectInitializedInGrid;
+            _gridShiftHandler.OnGridObjectShiftedEvent += GridObjectShiftedInGrid;
+            _gridModel.OnGridObjectUpdatedEvent += GridObjectUpdatedInGrid;
         }
         
         ~GridPresenter()
         {
             GameEventSystem.RemoveListener<OnGridObjectTouchedEvent>(OnTouch);
-            GameEventSystem.RemoveListener<OnGridObjectInitializedEvent>(GridObjectInitializedInGrid);
-            GameEventSystem.RemoveListener<OnGridObjectShiftedEvent>(GridObjectShiftedInGrid);
-            GameEventSystem.RemoveListener<OnGridObjectUpdatedEvent>(GridObjectUpdatedInGrid);
+            _gridModel.OnGridObjectInitializedEvent -= GridObjectInitializedInGrid;
+            _gridShiftHandler.OnGridObjectShiftedEvent -= GridObjectShiftedInGrid;
+            _gridModel.OnGridObjectUpdatedEvent -= GridObjectUpdatedInGrid;
         }
         
         private void OnTouch(object args)
@@ -208,24 +210,24 @@ namespace MVP.Presenters
             _gridModel.UpdateGridObjects(newItems, true);
         }
         
-        private void GridObjectInitializedInGrid(object args)
+        private void GridObjectInitializedInGrid(BaseGridObject obj)
         {
-            var eventArgs = (OnGridObjectInitializedEvent)args;
-            _gridView.SetGridObjectLocation(eventArgs.GridObject);
+            //var eventArgs = (OnGridObjectInitializedEvent)args;
+            _gridView.SetGridObjectLocation(obj);
         }
 
-        private void GridObjectShiftedInGrid(object args)
+        private void GridObjectShiftedInGrid(BaseGridObject obj)
         {
-            var eventArgs = (OnGridObjectShiftedEvent)args;
-            _gridView.SetGridObjectLocation(eventArgs.GridObject, isAnimOn: true, animationTime: 0.5f);
+            //var eventArgs = (OnGridObjectShiftedEvent)args;
+            _gridView.SetGridObjectLocation(obj, isAnimOn: true, animationTime: 0.5f);
         }
 
-        private void GridObjectUpdatedInGrid(object args)
+        private void GridObjectUpdatedInGrid(BaseGridObject obj, bool isAnimOn)
         {
-            var eventArgs = (OnGridObjectUpdatedEvent)args;
-            var newItem = eventArgs.GridObject;
-            _gridView.SetGridObjectLocation(newItem, newCoord:new Vector2Int(newItem.Coordinate.x, newItem.Coordinate.y - _gridModel.ColumnCount), isAnimOn: false);
-            _gridView.SetGridObjectLocation(newItem, isAnimOn: eventArgs.IsAnimationOn, animationTime: 0.6f);
+            //var eventArgs = (OnGridObjectUpdatedEvent)args;
+            //var newItem = eventArgs.GridObject;
+            _gridView.SetGridObjectLocation(obj, newCoord:new Vector2Int(obj.Coordinate.x, obj.Coordinate.y - _gridModel.ColumnCount), isAnimOn: false);
+            _gridView.SetGridObjectLocation(obj, isAnimOn: isAnimOn, animationTime: 0.6f);
         }
     }
 }

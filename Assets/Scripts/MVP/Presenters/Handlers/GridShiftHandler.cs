@@ -1,3 +1,4 @@
+using System;
 using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
@@ -10,6 +11,7 @@ namespace MVP.Presenters.Handlers
     public class GridShiftHandler
     {
         private GridObjectFactoryHandler _gridObjectFactoryHandler;
+        public event Action<BaseGridObject> OnGridObjectShiftedEvent;
 
         public GridShiftHandler(GridObjectFactoryHandler gridObjectFactoryHandler)
         {
@@ -44,9 +46,9 @@ namespace MVP.Presenters.Handlers
                     {
                         var baseGridObject = grid[col, row];
                         GridItemModifierHelper.SwapItems(grid, col, emptyRow, col, row);
-                        
-                        GameEventSystem.Invoke<OnGridObjectShiftedEvent>
-                            (new OnGridObjectShiftedEvent(){ GridObject = baseGridObject});
+                        OnGridObjectShiftedEvent?.Invoke(baseGridObject);
+                        //GameEventSystem.Invoke<OnGridObjectShiftedEvent>
+                            //(new OnGridObjectShiftedEvent(){ GridObject = baseGridObject});
                         
                         emptyRow--;
                     }
