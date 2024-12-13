@@ -9,10 +9,10 @@ namespace Installers
     {
         protected override void InstallBindings()
         {
-            Container.BindAsSingleNonLazy(() => Container.Construct<ScenePresenter>());
+            Container.BindAsSingle(() => Container.Construct<ScenePresenter>());
+            Container.BindAsSingle(() => Container.Construct<LevelPresenter>());
+            Container.BindAsSingle<ILevelModel>(() => Container.Construct<LevelModel>());
             Container.BindAsSingleNonLazy(() => Container.Construct<GamePresenter>());
-            Container.BindAsSingleNonLazy(() => Container.Construct<LevelPresenter>());
-            Container.BindAsSingleNonLazy<ILevelModel>(() => Container.Construct<LevelModel>());
         }
     }
 }

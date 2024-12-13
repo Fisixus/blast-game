@@ -1249,8 +1249,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ce532e3b0db9d7740be5491319deb3d2, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  <NewLevelButton>k__BackingField: {fileID: 0}
-  <LevelButtonText>k__BackingField: {fileID: 0}
+  <NewLevelButton>k__BackingField: {fileID: 1307224169}
+  <LevelButtonText>k__BackingField: {fileID: 474557712}
 --- !u!1 &2049436634
 GameObject:
   m_ObjectHideFlags: 0
