@@ -17,7 +17,10 @@ namespace MVP.Presenters
         }
         private async UniTask InitializeGame()
         {
-            await _scenePresenter.TransitionToNextScene("MainScene", _levelTransitionHandler.SetupMainSceneRequirements);
+            await _scenePresenter.TransitionToNextScene("MainScene", async (container) =>
+            {
+                await _levelTransitionHandler.SetupMainSceneRequirements(container);
+            });
         }
 
     }

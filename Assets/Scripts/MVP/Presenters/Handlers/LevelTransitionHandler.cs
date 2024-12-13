@@ -24,7 +24,7 @@ namespace MVP.Presenters.Handlers
             var levelIndex = _levelModel.LevelIndex;
             var maxLevel = _levelModel.MaxLevel;
             mainUIView.SetLevelButtonText(levelIndex, maxLevel);
-            await UniTask.Delay(TimeSpan.FromSeconds(5f));
+            await UniTask.Delay(TimeSpan.FromSeconds(1f));
         }
         
         public async UniTask SetupLevelSceneRequirements(Container container)

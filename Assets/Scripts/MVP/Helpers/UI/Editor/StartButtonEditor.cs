@@ -1,6 +1,6 @@
 using UnityEditor;
 
-namespace UIExtensions.Editor
+namespace MVP.Helpers.UI.Editor
 {
     [CustomEditor(typeof(StartButton))]
     public class ButtonExtendedEditor : UnityEditor.Editor

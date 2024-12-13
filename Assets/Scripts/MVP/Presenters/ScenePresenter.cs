@@ -41,7 +41,7 @@ namespace MVP.Presenters
 
             // Set the new scene as active
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(nextSceneName));
-            var sceneContext = SceneHelper.FindSceneContextInActiveScene();//TODO:
+            var sceneContext = SceneHelper.FindSceneContextInActiveScene();
             if (sceneContext == null)
             {
                 Debug.LogError("SceneContext not found in the loaded scene.");
