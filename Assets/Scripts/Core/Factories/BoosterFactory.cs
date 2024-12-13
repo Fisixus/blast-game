@@ -2,10 +2,10 @@ using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Core.Factories.Interface;
 using Core.Factories.Pools;
+using Core.GridElements.Data;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
-using Core.GridObjectsData;
 using UnityEngine;
 
 namespace Core.Factories

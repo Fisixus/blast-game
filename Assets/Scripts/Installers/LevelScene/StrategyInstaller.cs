@@ -3,7 +3,7 @@ using MVP.Presenters.Handlers.Strategies.Boosters;
 using MVP.Presenters.Handlers.Strategies.Interface;
 using MVP.Presenters.Handlers.Strategies.Matches;
 
-namespace Installers
+namespace Installers.LevelScene
 {
     public class StrategyInstaller : Installer
     {

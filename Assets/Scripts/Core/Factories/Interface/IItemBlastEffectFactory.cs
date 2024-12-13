@@ -1,7 +1,7 @@
 using AYellowpaper.SerializedCollections;
+using Core.GridElements.Data.Effects;
 using Core.GridElements.Effects;
 using Core.GridElements.Enums;
-using Core.GridObjectsData.Effects;
 
 namespace Core.Factories.Interface
 {

@@ -1,7 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using UnityEngine;
 
-namespace Core.GridObjectsData
+namespace Core.GridElements.Data
 {
     [CreateAssetMenu(fileName = "ObstacleData_00", menuName = "Grid Objects/New ObstacleData")]
     public class ObstacleDataSO : BaseGridObjectDataSO

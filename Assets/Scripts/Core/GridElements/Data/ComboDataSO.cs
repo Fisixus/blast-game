@@ -2,7 +2,7 @@ using System.Collections.Generic;
 using Core.GridElements.Enums;
 using UnityEngine;
 
-namespace Core.GridObjectsData
+namespace Core.GridElements.Data
 {
     [CreateAssetMenu(fileName = "ComboData_00", menuName = "Combos/New ComboData")]
     public class ComboDataSO : BaseGridObjectDataSO

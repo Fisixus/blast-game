@@ -1,4 +1,4 @@
-namespace Core.GridElements.GridPawns.Combo
+namespace Core.GridElements.Enums
 {
     public enum ComboType
     {

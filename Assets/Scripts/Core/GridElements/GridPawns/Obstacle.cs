@@ -1,7 +1,7 @@
 using System;
 using System.Collections.Generic;
+using Core.GridElements.Data;
 using Core.GridElements.Enums;
-using Core.GridObjectsData;
 using UnityEngine;
 
 namespace Core.GridElements.GridPawns

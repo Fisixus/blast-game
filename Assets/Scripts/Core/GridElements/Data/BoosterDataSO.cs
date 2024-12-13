@@ -1,7 +1,7 @@
 
 using UnityEngine;
 
-namespace Core.GridObjectsData
+namespace Core.GridElements.Data
 {
     [CreateAssetMenu(fileName = "BoosterData_00", menuName = "Grid Objects/New BoosterData")]
     public class BoosterDataSO : BaseGridObjectDataSO

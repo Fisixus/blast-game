@@ -1,5 +1,6 @@
 using System;
-using Core.GridObjectsData;
+using Core.GridElements.Data;
+using Core.GridElements.Enums;
 using UnityEngine;
 
 namespace Core.GridElements.GridPawns.Combo

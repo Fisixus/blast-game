@@ -2,7 +2,7 @@ using DI;
 using MVP.Presenters.Handlers;
 using MVP.Presenters.Handlers.Effects;
 
-namespace Installers
+namespace Installers.LevelScene
 {
     public class HandlerInstaller : Installer
     {

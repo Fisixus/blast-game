@@ -1,8 +1,6 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 
-namespace Core.GridObjectsData
+namespace Core.GridElements.Data
 {
     public class BaseGridObjectDataSO : ScriptableObject
     {

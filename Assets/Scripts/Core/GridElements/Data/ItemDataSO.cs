@@ -2,7 +2,7 @@ using AYellowpaper.SerializedCollections;
 using Core.GridElements.Enums;
 using UnityEngine;
 
-namespace Core.GridObjectsData
+namespace Core.GridElements.Data
 {
     [CreateAssetMenu(fileName = "ItemData_00", menuName = "Grid Objects/New ItemData")]
     public class ItemDataSO : BaseGridObjectDataSO
