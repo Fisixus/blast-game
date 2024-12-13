@@ -56,7 +56,6 @@ namespace MVP.Presenters.Handlers.Effects
         {
             if (!_obstacleBlastEffectFactory.BlastEffectDataDict.TryGetValue(obstacle.ObstacleType, out var blastEffectData))
                 return;
-            Debug.Log(obstacle);
             var particle = _obstacleBlastEffectFactory.CreateObj();
             particle.SetTextureSheetSprites(blastEffectData.TextureAnimationSprites);
             particle.transform.position = obstacle.transform.position;

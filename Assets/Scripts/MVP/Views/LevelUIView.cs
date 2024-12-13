@@ -46,31 +46,46 @@ namespace MVP.Views
 
         private async UniTask EscapeLevel()
         {
-            // Resolve dependencies
-            var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
-            var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
-
-            // Perform scene transition
-            Debug.Log("Starting Level Transition...");
-            await scenePresenter.TransitionToNextScene("MainScene", async (container) =>
+            try
             {
-                await levelTransitionHandler.SetupMainSceneRequirements(container);
-            });
+                // Disable the button to prevent multiple clicks
+                EscapeButton.interactable = false;
+                // Use the reusable scene transition logic
+                await SceneTransitionHelper.PerformTransition(
+                    "MainScene",
+                    async (container) =>
+                    {
+                        // Specific setup logic for this scene
+                        var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                        await levelTransitionHandler.SetupMainSceneRequirements(container);
+                    });
+            }
+            catch (Exception e)
+            {
+                throw new Exception();
+            }
         }
 
         private async UniTask RetryLevel()
         {
-            // Resolve dependencies
-            var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
-            var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
-
-            // Perform scene transition
-            Debug.Log("Starting Level Transition...");
-            await scenePresenter.TransitionToNextScene("LevelScene", async (container) =>
+            try
             {
-                await levelTransitionHandler.SetupLevelSceneRequirements(container);
-            });
-           
+                // Disable the button to prevent multiple clicks
+                RetryLevelButton.interactable = false;
+                // Use the reusable scene transition logic
+                await SceneTransitionHelper.PerformTransition(
+                    "LevelScene",
+                    async (container) =>
+                    {
+                        // Specific setup logic for this scene
+                        var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                        await levelTransitionHandler.SetupLevelSceneRequirements(container);
+                    });
+            }
+            catch (Exception e)
+            {
+                throw new Exception();
+            }
         }
 
 
@@ -93,16 +108,16 @@ namespace MVP.Views
         {
             await TogglePanel(SuccessPanelTr, true, duration);
             StarPS.Play();
-            await UniTask.Delay(TimeSpan.FromSeconds(4)); 
-            
-            var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
-            var scenePresenter = ProjectContext.Container.Resolve<ScenePresenter>();
-
-            Debug.Log("Starting Level Transition...");
-            await scenePresenter.TransitionToNextScene("MainScene", async (container) =>
-            {
-                await levelTransitionHandler.SetupMainSceneRequirements(container);
-            });
+            await UniTask.Delay(TimeSpan.FromSeconds(5)); 
+            StarPS.Stop();
+            await SceneTransitionHelper.PerformTransition(
+                "MainScene",
+                async (container) =>
+                {
+                    // Specific setup logic for this scene
+                    var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                    await levelTransitionHandler.SetupMainSceneRequirements(container);
+                });
         }
 
         public void CloseSuccessPanel(float duration)

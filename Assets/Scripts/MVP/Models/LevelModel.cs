@@ -8,8 +8,15 @@ namespace MVP.Models
 {
     public class LevelModel: ILevelModel
     {
+        public int MaxLevel
+        {
+            get
+            {
+                var jsonFiles = Resources.LoadAll<TextAsset>("Levels");
+                return jsonFiles?.Length ?? 0; // Return 1 if jsonFiles is null
+            }
+        }
 
-        public int MaxLevel { get; private set; } = 10;//TODO:
         public int LevelIndex
         {
             get

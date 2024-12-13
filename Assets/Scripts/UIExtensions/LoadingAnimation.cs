@@ -3,7 +3,7 @@ using System.Text;
 using TMPro;
 using UnityEngine;
 
-namespace MVP.Helpers.UI
+namespace UIExtensions
 {
     public class LoadingAnimation : MonoBehaviour
     {

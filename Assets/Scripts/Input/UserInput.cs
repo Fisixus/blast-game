@@ -17,6 +17,8 @@ namespace Input
         private IA_User _iaUser;
         private void Awake()
         {
+            _cam = Camera.main;
+            _eventSystem = EventSystem.current;
             _iaUser = new IA_User(); // Instantiate the input actions class
             _iaUser.Match.Enable(); // Enable the specific action map
             _iaUser.Match.Touch.performed += TouchItemNotifier; // Subscribe to the action
@@ -59,8 +61,7 @@ namespace Input
 
         private void TouchItemNotifier(InputAction.CallbackContext context)
         {
-            if(_cam == null) _cam = Camera.main;
-            if(_eventSystem == null) _eventSystem = EventSystem.current;
+
             if (IsPointerOverUIObject() || !_isInputOn)
                 return;
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);

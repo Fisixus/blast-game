@@ -7,24 +7,22 @@ using UTasks;
 
 namespace MVP.Presenters.Handlers
 {
-    public class LevelStateHandler
+    public class LevelSetupHandler
     {
         private readonly IGridModel _gridModel;
         private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
         private readonly HintHandler _hintHandler;
         private readonly BoosterHandler _boosterHandler;
         private readonly MatchHandler _matchHandler;
-        private readonly ILevelUIView _levelUIView;
         
-        public LevelStateHandler(GridObjectFactoryHandler gridObjectFactoryHandler, IGridModel gridModel,
-            HintHandler hintHandler, BoosterHandler boosterHandler, MatchHandler matchHandler, ILevelUIView levelUIView)
+        public LevelSetupHandler(GridObjectFactoryHandler gridObjectFactoryHandler, IGridModel gridModel,
+            HintHandler hintHandler, BoosterHandler boosterHandler, MatchHandler matchHandler)
         {
             _gridObjectFactoryHandler = gridObjectFactoryHandler;
             _gridModel = gridModel;
             _hintHandler = hintHandler;
             _boosterHandler = boosterHandler;
             _matchHandler = matchHandler;
-            _levelUIView = levelUIView;
         }
 
         public void Initialize(LevelInfo levelInfo)
@@ -42,29 +40,6 @@ namespace MVP.Presenters.Handlers
             _boosterHandler.Initialize(_gridModel.Grid);
             _hintHandler.Initialize(_gridModel.Grid);
         }
-
-        public void CompleteLevel()
-        {
-            //TODO:m_LevelModel.LevelIndex++;
-            UTask.Wait(0.25f).Do(() => { _levelUIView.OpenSuccessPanel(); });
-        }
         
-        public void FailLevel()
-        {
-            UTask.Wait(0.25f).Do(() => { _levelUIView.OpenFailPanel(); });
-        }
-
-        // public void RequestLevel()
-        // {
-        //     void LevelEndActions()
-        //     {
-        //         m_UIView.CloseFailPanel();
-        //         m_UIView.CloseSuccessPanel();
-        //         _gridObjectFactoryHandler.DestroyAllGridObjects();
-        //         m_LevelModel.LoadLevel();
-        //     }
-        //
-        //     m_LevelTransitionHandler.DoTransition(LevelEndActions);
-        // }
     }
 }

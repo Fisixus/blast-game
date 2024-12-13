@@ -6,21 +6,26 @@ using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using UnityEngine;
+using UTasks;
 
 namespace MVP.Presenters
 {
     public class LevelPresenter
     {
-        private readonly LevelStateHandler _levelStateHandler;
+        private readonly LevelSetupHandler _levelSetupHandler;
         private readonly GoalHandler _goalHandler;
         private readonly IGridView _gridView;
+        private readonly ILevelModel _levelModel;
+        private readonly ILevelUIView _levelUIView;
         
-        public LevelPresenter(LevelStateHandler levelStateHandler, GoalHandler goalHandler, IGridView gridView)
+        public LevelPresenter(LevelSetupHandler levelSetupHandler, GoalHandler goalHandler, IGridView gridView, ILevelUIView levelUIView)
         {
-            _levelStateHandler = levelStateHandler;
+            _levelSetupHandler = levelSetupHandler;
             _goalHandler = goalHandler;
             _gridView = gridView;
-            
+            _levelUIView = levelUIView;
+            _levelModel = ProjectContext.Container.Resolve<ILevelModel>();
+
             _goalHandler.OnLevelCompleted += HandleLevelCompleted;
             _goalHandler.OnLevelFailed += HandleLevelFailed;
         }
@@ -33,12 +38,13 @@ namespace MVP.Presenters
 
         private void HandleLevelCompleted()
         {
-            _levelStateHandler.CompleteLevel();
+            _levelModel.LevelIndex++;
+            UTask.Wait(0.25f).Do(() => { _levelUIView.OpenSuccessPanel(); });
         }
 
         private void HandleLevelFailed()
         {
-            _levelStateHandler.FailLevel();
+            UTask.Wait(0.25f).Do(() => { _levelUIView.OpenFailPanel(); });
         }
 
         public async UniTask LoadLevel()
@@ -46,7 +52,7 @@ namespace MVP.Presenters
             var levelModel = ProjectContext.Container.Resolve<ILevelModel>();
             var levelInfo = levelModel.LoadLevel();//TODO:Make here adressables and wait that
             _gridView.CalculateGridSize(levelInfo.GridSize);
-            _levelStateHandler.Initialize(levelInfo);
+            _levelSetupHandler.Initialize(levelInfo);
             _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
             _gridView.ScaleGrid();
             await UniTask.Delay(TimeSpan.FromSeconds(1f));

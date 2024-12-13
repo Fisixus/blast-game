@@ -35,7 +35,6 @@ namespace MVP.Presenters.Handlers
             _levelCompleted = false;
         }
 
-        //TODO: If there is only 1 move left and booster got clicked and objective is completed, it doesn't check that  
         public void UpdateMoves()
         {
             DecreaseMoveCounter();
@@ -51,7 +50,7 @@ namespace MVP.Presenters.Handlers
         // Helper methods to reduce redundancy
         private void DecreaseMoveCounter()
         {
-            _goalUIHandler.UpdateMoveCounter(--_numberOfMoves);
+            _goalUIHandler.UpdateMoveCounter(Mathf.Max(--_numberOfMoves, 0));
         }
 
         // Updates goal counts based on matched obstacles

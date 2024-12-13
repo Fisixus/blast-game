@@ -3,7 +3,7 @@ using UnityEngine;
 using UnityEngine.EventSystems;
 using UnityEngine.UI;
 
-namespace MVP.Helpers.UI
+namespace UIExtensions
 {
     public class StartButton : Button
     {

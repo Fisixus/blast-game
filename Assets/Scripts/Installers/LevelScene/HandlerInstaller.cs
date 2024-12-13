@@ -13,7 +13,7 @@ namespace Installers.LevelScene
             Container.BindAsSingle(() => Container.Construct<GoalHandler>());
             Container.BindAsSingle(() => Container.Construct<BombEffectHandler>());
             Container.BindAsSingle(() => Container.Construct<BlastEffectHandler>());
-            Container.BindAsSingle(() => Container.Construct<LevelStateHandler>());
+            Container.BindAsSingle(() => Container.Construct<LevelSetupHandler>());
             Container.BindAsSingle(() => Container.Construct<MatchHandler>());
             Container.BindAsSingle(() => Container.Construct<BoosterHandler>());
             Container.BindAsSingle(() => Container.Construct<ComboHandler>());

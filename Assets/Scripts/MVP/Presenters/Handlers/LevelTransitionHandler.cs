@@ -22,13 +22,13 @@ namespace MVP.Presenters.Handlers
             var levelIndex = _levelModel.LevelIndex;
             var maxLevel = _levelModel.MaxLevel;
             mainUIView.SetLevelButtonText(levelIndex, maxLevel);
-            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            // Future async work can go here
+            await UniTask.CompletedTask;
         }
         
         public async UniTask SetupLevelSceneRequirements(Container container)
         {
             LevelPresenter levelPresenter = container.Resolve<LevelPresenter>();
-
             await levelPresenter.LoadLevel();
         }
     }
