@@ -17,6 +17,8 @@ namespace Installers.LevelScene
             Container.BindAsSingle<IGridModel>(() => Container.Construct<GridModel>());
             Container.BindAsSingle<IGridView>(() => _gridView);
             Container.BindAsSingle<ILevelUIView>(() => _levelUIView);
+            
+            Container.BindAsSingleNonLazy(() => Container.Construct<LevelPresenter>());
             Container.BindAsSingleNonLazy(() => Container.Construct<GridPresenter>());
         }
     }

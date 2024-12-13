@@ -9,6 +9,6 @@ namespace MVP.Views.Interface
         public Button NewLevelButton { get;  }
         public TextMeshProUGUI LevelButtonText { get;  }
 
-        public void SetLevelButtonText(int level);
+        public void SetLevelButtonText(int level, int maxLevel);
     }
 }

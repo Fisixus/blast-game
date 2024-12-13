@@ -2,6 +2,7 @@ using System;
 using Cysharp.Threading.Tasks;
 using DI;
 using DI.Contexts;
+using MVP.Helpers.Scene;
 using UnityEngine;
 using UnityEngine.SceneManagement;
 
@@ -25,8 +26,11 @@ namespace MVP.Presenters
             {
                 await SceneManager.LoadSceneAsync(LoadingSceneName, LoadSceneMode.Additive);
             }
-            SetLoadingSceneActive(true);
+            SceneHelper.SetLoadingSceneActive(LoadingSceneName, true);
 
+            // Unload the current scene
+            await SceneManager.UnloadSceneAsync(currentSceneName);
+            
             // Load the next scene
             var loadOp = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
             while (!loadOp.isDone)
@@ -37,7 +41,7 @@ namespace MVP.Presenters
 
             // Set the new scene as active
             SceneManager.SetActiveScene(SceneManager.GetSceneByName(nextSceneName));
-            var sceneContext = FindSceneContextInActiveScene();//TODO:
+            var sceneContext = SceneHelper.FindSceneContextInActiveScene();//TODO:
             if (sceneContext == null)
             {
                 Debug.LogError("SceneContext not found in the loaded scene.");
@@ -47,37 +51,11 @@ namespace MVP.Presenters
             var sceneContainer = sceneContext.SceneContainer;
             await setupTask(sceneContainer);
             
-            // Unload the current scene
-            await SceneManager.UnloadSceneAsync(currentSceneName);
-
+            
             // Deactivate the loading screen
-            SetLoadingSceneActive(false);
+            SceneHelper.SetLoadingSceneActive(LoadingSceneName,false);
         }
         
-        private SceneContext FindSceneContextInActiveScene()
-        {
-            var activeScene = SceneManager.GetActiveScene();
-            foreach (var rootGameObject in activeScene.GetRootGameObjects())
-            {
-                var context = rootGameObject.GetComponent<SceneContext>();
-                if (context != null)
-                {
-                    return context;
-                }
-            }
-            return null;
-        }
-
-        private void SetLoadingSceneActive(bool isActive)
-        {
-            var loadingScene = SceneManager.GetSceneByName(LoadingSceneName);
-            if (loadingScene.isLoaded)
-            {
-                foreach (var rootGameObject in loadingScene.GetRootGameObjects())
-                {
-                    rootGameObject.SetActive(isActive);
-                }
-            }
-        }
+        
     }
 }

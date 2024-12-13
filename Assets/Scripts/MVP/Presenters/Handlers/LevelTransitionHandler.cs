@@ -21,10 +21,17 @@ namespace MVP.Presenters.Handlers
         {
             IMainUIView mainUIView = container.Resolve<IMainUIView>();
 
-            // Resolve MainUIView from the scene's container
             var levelIndex = _levelModel.LevelIndex;
-            mainUIView.SetLevelButtonText(levelIndex);
-            await UniTask.Delay(TimeSpan.FromSeconds(0.1f));
+            var maxLevel = _levelModel.MaxLevel;
+            mainUIView.SetLevelButtonText(levelIndex, maxLevel);
+            await UniTask.Delay(TimeSpan.FromSeconds(5f));
+        }
+        
+        public async UniTask SetupLevelSceneRequirements(Container container)
+        {
+            LevelPresenter levelPresenter = container.Resolve<LevelPresenter>();
+
+            await levelPresenter.LoadLevel();
         }
     }
 }

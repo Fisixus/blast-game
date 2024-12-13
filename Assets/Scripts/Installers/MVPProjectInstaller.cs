@@ -11,7 +11,6 @@ namespace Installers
         protected override void InstallBindings()
         {
             Container.BindAsSingle(() => Container.Construct<ScenePresenter>());
-            Container.BindAsSingle(() => Container.Construct<LevelPresenter>());
             Container.BindAsSingle(() => Container.Construct<LevelTransitionHandler>());
             Container.BindAsSingle<ILevelModel>(() => Container.Construct<LevelModel>());
             Container.BindAsSingleNonLazy(() => Container.Construct<GamePresenter>());

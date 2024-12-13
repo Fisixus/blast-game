@@ -10,7 +10,8 @@ namespace MVP.Models
 {
     public class LevelModel: ILevelModel
     {
-        public LevelInfo CurrentLevelInfo { get; private set; }
+
+        public int MaxLevel { get; private set; } = 10;//TODO:
         public int LevelIndex
         {
             get
@@ -25,7 +26,6 @@ namespace MVP.Models
             }
         }
 
-        private ItemType[,] _gridData;
         private const string LevelIndexStr = "LevelIndex";
 
         public LevelModel()
@@ -36,15 +36,16 @@ namespace MVP.Models
         {
         }
         
-        public void LoadLevel(object args)
+        public LevelInfo LoadLevel()
         {
-            CurrentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
-            if (CurrentLevelInfo is null)
+            var currentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
+            if (currentLevelInfo is null)
             {
                 ResetLevelIndex();
-                CurrentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
+                currentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
             }
-            GameEventSystem.Invoke<OnLevelLoadedEvent>(new OnLevelLoadedEvent() { LevelInfo = CurrentLevelInfo });
+
+            return currentLevelInfo;
         }
         
         private void ResetLevelIndex()
