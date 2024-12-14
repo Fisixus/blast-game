@@ -75,7 +75,7 @@ namespace MVP.Presenters
         
         private async void ProcessItemTouch(Item item)
         {
-            var matchedGridObjects = _hintHandler.GetSelectedMatchedItems(item).ToList();
+            var matchedGridObjects = _hintHandler.GetSelectedMatchedGridObjects(item).ToList();
             if (matchedGridObjects.Count == 0)
             {
                 ProcessNoMatch(item);
@@ -120,7 +120,7 @@ namespace MVP.Presenters
         private async UniTaskVoid ProcessBoosterTouchAsync(Booster booster)
         {
             // Find all matching boosters for the touched booster
-            var boosters = _matchHandler.FindBoosterMatches(booster).Cast<Booster>().ToList();
+            var boosters = _hintHandler.GetSelectedMatchedGridObjects(booster).Cast<Booster>().ToList();
             // Determine if a combo should be created or a single booster applied
             if (boosters.Count > 1)
             {

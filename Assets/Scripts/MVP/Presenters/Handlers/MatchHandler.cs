@@ -50,7 +50,7 @@ namespace MVP.Presenters.Handlers
         
         public List<BaseGridObject> FindBoosterMatches(BaseGridObject gridObject)
         {
-            ClearVisited(_visited, _columnCount, _rowCount);
+            //ClearVisited(_visited, _columnCount, _rowCount);
             var matchedObjs = new List<BaseGridObject>();
 
             if (_strategies.TryGetValue(MatchType.Booster, out var strategyItem))

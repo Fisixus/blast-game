@@ -33,10 +33,10 @@ namespace MVP.Presenters.Handlers
             _grid = grid;
         }
         
-        public BoosterType IsBoosterCreatable(List<BaseGridObject> matchedObjs)
+        public BoosterType IsBoosterCreatable(IEnumerable<Item> matchedItems)
         {
             foreach (var strategy in _boosterStrategies.Values.Where(strategy =>
-                         strategy.CanCreateBooster(matchedObjs.Count)))
+                         strategy.CanCreateBooster(matchedItems.Count())))
             {
                 return (BoosterType)strategy.Type;
             }
