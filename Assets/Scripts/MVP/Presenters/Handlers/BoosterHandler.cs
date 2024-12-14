@@ -8,7 +8,7 @@ using Core.GridElements.GridPawns.Effect;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using MVP.Presenters.Handlers.Effects;
-using MVP.Presenters.Handlers.Strategies.Interface;
+using MVP.Presenters.Strategies.Interface;
 
 namespace MVP.Presenters.Handlers
 {

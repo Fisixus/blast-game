@@ -1,7 +1,7 @@
 using DI;
-using MVP.Presenters.Handlers.Strategies.Boosters;
-using MVP.Presenters.Handlers.Strategies.Interface;
-using MVP.Presenters.Handlers.Strategies.Matches;
+using MVP.Presenters.Strategies.Boosters;
+using MVP.Presenters.Strategies.Interface;
+using MVP.Presenters.Strategies.Matches;
 
 namespace Installers.LevelScene
 {

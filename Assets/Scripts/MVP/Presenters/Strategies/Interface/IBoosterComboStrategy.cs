@@ -2,7 +2,7 @@ using System;
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
 
-namespace MVP.Presenters.Handlers.Strategies.Interface
+namespace MVP.Presenters.Strategies.Interface
 {
     public interface IBoosterComboStrategy
     {

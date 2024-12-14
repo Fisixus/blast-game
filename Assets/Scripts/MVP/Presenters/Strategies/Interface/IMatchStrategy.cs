@@ -1,10 +1,10 @@
 using System;
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
-using MVP.Presenters.Handlers.Strategies.Enums;
+using MVP.Presenters.Strategies.Enums;
 using UnityEngine;
 
-namespace MVP.Presenters.Handlers.Strategies.Interface
+namespace MVP.Presenters.Strategies.Interface
 {
     public interface IMatchStrategy
     {

@@ -4,11 +4,11 @@ using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.Helpers.Enums;
 using Core.Helpers.GridHelpers;
-using MVP.Presenters.Handlers.Strategies.Enums;
-using MVP.Presenters.Handlers.Strategies.Interface;
+using MVP.Presenters.Strategies.Enums;
+using MVP.Presenters.Strategies.Interface;
 using UnityEngine;
 
-namespace MVP.Presenters.Handlers.Strategies.Matches
+namespace MVP.Presenters.Strategies.Matches
 {
     public class BoxMatchStrategy : IMatchStrategy
     {

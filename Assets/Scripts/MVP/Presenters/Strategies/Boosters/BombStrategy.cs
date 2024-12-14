@@ -5,9 +5,9 @@ using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
 using MVP.Presenters.Handlers.Effects;
-using MVP.Presenters.Handlers.Strategies.Interface;
+using MVP.Presenters.Strategies.Interface;
 
-namespace MVP.Presenters.Handlers.Strategies.Boosters
+namespace MVP.Presenters.Strategies.Boosters
 {
     public class BombStrategy : IBoosterComboStrategy
     {
