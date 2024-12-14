@@ -2,7 +2,6 @@ using System;
 using System.Collections.Generic;
 using Core.GridElements.GridPawns;
 using MVP.Models.Interface;
-using UnityEngine;
 
 namespace MVP.Models
 {

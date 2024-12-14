@@ -9,7 +9,7 @@ namespace Core.GridElements.GridPawns
     {
         [field: SerializeField] public BoosterType BoosterType { get; set; }
 
-        public override System.Enum Type
+        public override Enum Type
         {
             get => BoosterType;
             protected set => BoosterType = (BoosterType)value;

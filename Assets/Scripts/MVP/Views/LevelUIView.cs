@@ -1,18 +1,14 @@
 using System;
 using Core.GridElements.UI;
-using Core.LevelSerialization;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using DI;
 using DI.Contexts;
 using MVP.Helpers;
-using MVP.Presenters;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using TMPro;
 using UnityEngine;
 using UnityEngine.UI;
-using UTasks;
 
 namespace MVP.Views
 {

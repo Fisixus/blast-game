@@ -1,11 +1,10 @@
 using System;
 using Cysharp.Threading.Tasks;
-using DI;
 using DI.Contexts;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
-using UnityEngine;
+using UnityEngine.SceneManagement;
 using UTasks;
 
 namespace MVP.Presenters
@@ -28,12 +27,18 @@ namespace MVP.Presenters
 
             _goalHandler.OnLevelCompleted += HandleLevelCompleted;
             _goalHandler.OnLevelFailed += HandleLevelFailed;
+            SceneManager.sceneUnloaded += OnSceneUnloaded;
+        }
+        private void OnSceneUnloaded(Scene scene)
+        {
+            Dispose();
         }
 
-        ~LevelPresenter()
+        private void Dispose()
         {
             _goalHandler.OnLevelCompleted -= HandleLevelCompleted;
             _goalHandler.OnLevelFailed -= HandleLevelFailed;
+            SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
 
         private void HandleLevelCompleted()

@@ -2,8 +2,6 @@ using System.Collections.Generic;
 using Core.GridElements.GridPawns;
 using Core.LevelSerialization;
 using MVP.Models.Interface;
-using MVP.Views.Interface;
-using UTasks;
 
 namespace MVP.Presenters.Handlers
 {

@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
-using Core.GridElements.GridPawns.Combo;
 using Core.Helpers.GridHelpers;
 using MVP.Presenters.Handlers.Effects;
 using MVP.Presenters.Handlers.Strategies.Interface;

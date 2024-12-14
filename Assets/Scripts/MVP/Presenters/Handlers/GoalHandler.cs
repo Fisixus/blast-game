@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Core.GridElements.UI;
 using UnityEngine;

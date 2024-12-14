@@ -1,7 +1,9 @@
+using System;
+
 namespace Core.GridElements.GridPawns.Interface
 {
     public interface IType
     {
-        public System.Enum Type { get; }
+        public Enum Type { get; }
     }
 }

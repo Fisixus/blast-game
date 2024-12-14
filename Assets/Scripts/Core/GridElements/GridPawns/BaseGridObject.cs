@@ -1,6 +1,6 @@
+using System;
 using Core.GridElements.Data;
 using Core.GridElements.Enums;
-using Core.GridElements.GridPawns.Combo;
 using Core.GridElements.GridPawns.Effect;
 using Core.GridElements.GridPawns.Interface;
 using Core.Helpers.GridHelpers;
@@ -19,7 +19,7 @@ namespace Core.GridElements.GridPawns
 
         [field: SerializeField] public Vector2Int Coordinate { get; set; }
 
-        public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
+        public abstract Enum Type { get; protected set; } // Enforced by derived classes to follow IType
         public bool IsStationary { get; set; } = false;
         public bool IsEmpty
         {
@@ -73,7 +73,7 @@ namespace Core.GridElements.GridPawns
         }
 
         // SetAttributes, leveraging IType and polymorphism
-        public void SetAttributes(Vector2Int newCoord, System.Enum type)
+        public void SetAttributes(Vector2Int newCoord, Enum type)
         {
             Coordinate = newCoord;
             Type = type;

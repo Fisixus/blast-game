@@ -1,21 +1,16 @@
 using DI;
-using Input;
 using UnityEngine;
 
 namespace Installers.LevelScene
 {
     public class LevelSceneInstaller : Installer
     {
-        [SerializeField] private UserInput _userInput;
-
         [SerializeField] private HandlerInstaller _handlerInstaller;
         [SerializeField] private StrategyInstaller _strategyInstaller;
         [SerializeField] private MVPLevelInstaller _mvpLevelInstaller;
         [SerializeField] private FactoryInstaller _factoryInstaller;
         protected override void InstallBindings()
         {
-            Container.BindAsSingle<UserInput>(() => _userInput);
-
             _strategyInstaller.Install(Container);
             _factoryInstaller.Install(Container);
             _handlerInstaller.Install(Container);

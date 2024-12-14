@@ -1,3 +1,5 @@
+using System;
+
 namespace Core.LevelSerialization
 {
     /// <summary>
@@ -6,7 +8,7 @@ namespace Core.LevelSerialization
     /// It is serializable and compatible with JSON format to be used in the game level system.
     /// 
     /// </summary>
-    [System.Serializable]
+    [Serializable]
     public class LevelJson
     {
         public int level_number;

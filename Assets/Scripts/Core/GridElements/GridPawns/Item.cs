@@ -10,7 +10,7 @@ namespace Core.GridElements.GridPawns
     {
         [field: SerializeField] public ItemType ItemType { get; set; }
         public BoosterType HintType { get; private set; }
-        public override System.Enum Type
+        public override Enum Type
         {
             get => ItemType;
             protected set => ItemType = (ItemType)value;

@@ -4,12 +4,9 @@ using System.Linq;
 using Core.Factories.Interface;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
-using Core.GridElements.GridPawns.Combo;
 using Core.GridElements.GridPawns.Effect;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
-using UnityEngine;
-using UTasks;
 
 namespace MVP.Presenters.Handlers
 {

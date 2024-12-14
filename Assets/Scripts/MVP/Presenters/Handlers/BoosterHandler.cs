@@ -9,9 +9,6 @@ using Cysharp.Threading.Tasks;
 using DG.Tweening;
 using MVP.Presenters.Handlers.Effects;
 using MVP.Presenters.Handlers.Strategies.Interface;
-using UnityEngine;
-using UTasks;
-using Random = UnityEngine.Random;
 
 namespace MVP.Presenters.Handlers
 {

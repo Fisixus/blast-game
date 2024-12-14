@@ -1,6 +1,5 @@
 using System.Collections.Generic;
 using System.Linq;
-using Core.Factories.Interface;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
 using Unity.VisualScripting;
@@ -78,7 +77,7 @@ namespace MVP.Presenters.Handlers
             if (matchedBoosters is { Count: > 0 })
             {
                 _allMatchableObjs.Add(matchedBoosters);
-                visited.AddRange(matchedBoosters.Select(m => m.Coordinate));
+                visited.UnionWith(matchedBoosters.Select(m => m.Coordinate));
             }
         }
 

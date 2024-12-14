@@ -4,8 +4,6 @@ using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Cysharp.Threading.Tasks;
-using UnityEngine;
-using UTasks;
 
 namespace MVP.Presenters.Handlers.Effects
 {

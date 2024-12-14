@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.GridElements.Enums;
 using Core.GridElements.UI;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Core.LevelSerialization
 {
@@ -24,7 +25,7 @@ namespace Core.LevelSerialization
                 throw;
             }
         }
-        private static (System.Enum[,] GridObjectTypes, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
+        private static (Enum[,] GridObjectTypes, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
         {
             // Count obstacles for goal data
             int numberOfBoxes = 0;
@@ -32,7 +33,7 @@ namespace Core.LevelSerialization
             int numberOfVases = 0;
 
             // Set the grid data
-            var gridData = new System.Enum[levelJson.grid_height, levelJson.grid_width];
+            var gridData = new Enum[levelJson.grid_height, levelJson.grid_width];
 
             int gridIndex = 0;
             for (int i = levelJson.grid_height - 1; i >= 0; --i)
@@ -67,14 +68,14 @@ namespace Core.LevelSerialization
                             gridData[i, j] = ItemType.Yellow;
                             break;
                         case "rand":
-                            gridData[i, j] = ((ItemType[]) System.Enum.GetValues(typeof(ItemType)))[UnityEngine.Random.Range(1, 5)];
+                            gridData[i, j] = ((ItemType[]) Enum.GetValues(typeof(ItemType)))[Random.Range(1, 5)];
                             break;
                         //Boosters
                         case "t":
                             gridData[i, j] = BoosterType.Bomb;
                             break;
                         default:
-                            gridData[i, j] = ((ItemType[])System.Enum.GetValues(typeof(ItemType)))[UnityEngine.Random.Range(1, 5)];
+                            gridData[i, j] = ((ItemType[])Enum.GetValues(typeof(ItemType)))[Random.Range(1, 5)];
                             break;
                     }
                 }

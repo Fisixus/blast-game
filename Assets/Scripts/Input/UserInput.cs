@@ -12,8 +12,8 @@ namespace Input
         private Camera _cam;
         private EventSystem _eventSystem;
 
-        private bool _isInputOn = true;
-        public event Action<BaseGridObject> OnGridObjectTouched;
+        private static bool _isInputOn = true;
+        public static event Action<BaseGridObject> OnGridObjectTouched;
         private IA_User _iaUser;
         private void Awake()
         {
@@ -28,9 +28,10 @@ namespace Input
         {
             _iaUser.Match.Disable();
             _iaUser.Match.Touch.performed -= TouchItemNotifier;
+            OnGridObjectTouched = null;
         }
 
-        public void SetInputState(bool isInputOn)
+        public static void SetInputState(bool isInputOn)
         {
             _isInputOn = isInputOn;
         }

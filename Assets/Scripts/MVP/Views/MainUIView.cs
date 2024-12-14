@@ -1,10 +1,8 @@
 using System;
 using System.Text;
 using Cysharp.Threading.Tasks;
-using DI;
 using DI.Contexts;
 using MVP.Helpers;
-using MVP.Presenters;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
 using TMPro;
@@ -65,7 +63,7 @@ namespace MVP.Views
             else
             {
                 NewLevelButton.interactable = true;
-                stringBuilder = new StringBuilder("Level");
+                stringBuilder = new StringBuilder("Level ");
                 stringBuilder.Append(level);
             }
             LevelButtonText.text = stringBuilder.ToString();

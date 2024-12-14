@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using Core.GridElements.Data;
 using Core.GridElements.Enums;
 using UnityEngine;
+using Random = UnityEngine.Random;
 
 namespace Core.GridElements.GridPawns
 {
@@ -12,7 +13,7 @@ namespace Core.GridElements.GridPawns
         public int Life { get; private set;}
         private Dictionary<int, Sprite>  ObstacleSpritesPerLife { get; set; }
 
-        public override System.Enum Type
+        public override Enum Type
         {
             get => ObstacleType;
             protected set => ObstacleType = (ObstacleType)value;
@@ -23,7 +24,7 @@ namespace Core.GridElements.GridPawns
             Life--;
             if (Life <= 0) 
                 return 0;
-            BaseGridObjectEffect.Shake(UnityEngine.Random.Range(0.1f,0.2f));
+            BaseGridObjectEffect.Shake(Random.Range(0.1f,0.2f));
             SpriteRenderer.sprite = ObstacleSpritesPerLife[Life];
             return Life;
         }

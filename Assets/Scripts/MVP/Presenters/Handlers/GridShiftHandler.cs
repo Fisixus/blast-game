@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using Core.Factories.Interface;
 using Core.GridElements.GridPawns;
 using Core.Helpers.GridHelpers;
 
