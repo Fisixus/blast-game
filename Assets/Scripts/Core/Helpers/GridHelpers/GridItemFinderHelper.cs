@@ -101,6 +101,7 @@ namespace Core.Helpers.GridHelpers
             BaseGridObject[,] grid, Vector2Int coord, int bombRadius)
         {
             var affectedObjects = new List<BaseGridObject>();
+            var processedObjects = new HashSet<BaseGridObject>(); // To track objects already processed
             int maxX = grid.GetLength(0) - 1;
             int maxY = grid.GetLength(1) - 1;
 
@@ -113,22 +114,30 @@ namespace Core.Helpers.GridHelpers
                     {
                         var gridObject = grid[x, y];
 
-                        if (gridObject == null || affectedObjects.Contains(gridObject))
+                        // Skip null objects or objects already processed
+                        if (gridObject == null || processedObjects.Contains(gridObject))
                             continue;
 
+                        // Handle obstacles like Vases
                         if (gridObject is Obstacle obstacle)
                         {
                             int remainingLife = obstacle.TakeDamage();
+                            processedObjects.Add(gridObject); // Mark this object as processed
+                    
+                            // Only add fully cleared objects to the affected list
                             if (remainingLife > 0)
                                 continue;
                         }
 
                         affectedObjects.Add(gridObject);
+                        processedObjects.Add(gridObject); // Mark non-obstacle objects as processed
                     }
                 }
             }
+
             return affectedObjects;
         }
+
         public static (IEnumerable<BaseGridObject> ObstaclesAlive, IEnumerable<BaseGridObject> ObstaclesDead) SeparateObstaclesByLife(List<BaseGridObject> obstacles)
         {
             var groupedObstacles = obstacles
