@@ -10,14 +10,14 @@ namespace Core.GridElements.GridPawns.Effect
         private Tween _shiftTween;
         private Tween _shiftTweenAsync;
 
-        public void Shake()
+        public void Shake(float duration = 0.05f)
         {
             _shakeSeq?.Kill();
             _shakeSeq = DOTween.Sequence()
-                .Append(transform.DORotate(new Vector3(0f, 0f, -45f), 0.05f).SetEase(Ease.OutQuad))
-                .Append(transform.DORotate(new Vector3(0f, 0f, 0f), 0.05f).SetEase(Ease.InQuad))
-                .Append(transform.DORotate(new Vector3(0f, 0f, 45f), 0.05f).SetEase(Ease.InQuad))
-                .Append(transform.DORotate(new Vector3(0f, 0f, 0f), 0.05f).SetEase(Ease.OutQuad));
+                .Append(transform.DORotate(new Vector3(0f, 0f, -45f), duration).SetEase(Ease.OutQuad))
+                .Append(transform.DORotate(new Vector3(0f, 0f, 0f), duration).SetEase(Ease.InQuad))
+                .Append(transform.DORotate(new Vector3(0f, 0f, 45f), duration).SetEase(Ease.InQuad))
+                .Append(transform.DORotate(new Vector3(0f, 0f, 0f), duration).SetEase(Ease.OutQuad));
         }
 
         public Tween Shift(Vector3 targetPosition, float duration, Ease easeType, float? overshoot = null)

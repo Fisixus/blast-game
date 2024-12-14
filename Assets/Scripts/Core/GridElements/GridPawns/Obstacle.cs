@@ -23,7 +23,7 @@ namespace Core.GridElements.GridPawns
             Life--;
             if (Life <= 0) 
                 return 0;
-            
+            BaseGridObjectEffect.Shake(UnityEngine.Random.Range(0.1f,0.2f));
             SpriteRenderer.sprite = ObstacleSpritesPerLife[Life];
             return Life;
         }
