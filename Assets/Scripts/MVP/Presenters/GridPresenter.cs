@@ -83,6 +83,9 @@ namespace MVP.Presenters
             }
             var boosterType = item.HintType;
             var effectedObstacles = _matchHandler.FindObstacles(matchedGridObjects);
+            effectedObstacles.ForEach(obstacle => obstacle.IsEmpty = true);
+            _blastEffectHandler.PlayBlastParticles(effectedObstacles);
+            
             if (boosterType != BoosterType.None)
             {
                 await ProcessBoosterCreationAsync(item, matchedGridObjects, effectedObstacles, boosterType);
@@ -90,16 +93,13 @@ namespace MVP.Presenters
             else
             {
                 matchedGridObjects.AddRange(effectedObstacles);
-                _blastEffectHandler.PlayBlastParticles(matchedGridObjects); //TODO:
+                _blastEffectHandler.PlayBlastParticles(matchedGridObjects);
                 ProcessMatch(matchedGridObjects);
             }
         }
         
         private async UniTask ProcessBoosterCreationAsync(Item item, List<BaseGridObject> matchedObjects, List<BaseGridObject> effectedObstacles, BoosterType boosterType)
         {
-            effectedObstacles.ForEach(obstacle => obstacle.gameObject.SetActive(false));//TODO:
-            _blastEffectHandler.PlayBlastParticles(effectedObstacles); //TODO:
-
             // Update input state
             _userInput.SetInputState(false);
 
@@ -112,7 +112,7 @@ namespace MVP.Presenters
 
             // Update moves and process matches
             matchedObjects.AddRange(effectedObstacles);
-            ProcessMatch(matchedObjects, true);
+            ProcessMatch(matchedObjects);
 
             // Re-enable input
             _userInput.SetInputState(true);
@@ -134,7 +134,6 @@ namespace MVP.Presenters
 
         private async UniTask HandleComboBoostAsync(List<Booster> boosters, Booster centerBooster)
         {
-            // Disable input during combo handling
             _userInput.SetInputState(false);
 
             // Animate combo creation and wait for completion
@@ -144,22 +143,19 @@ namespace MVP.Presenters
             var comboType = _comboHandler.MergeBoosters(boosters);
             var combo = _gridObjectFactoryHandler.CreateComboAndDestroyOldBooster(centerBooster, comboType);
             _gridModel.UpdateGridObjects(new List<BaseGridObject> { combo }, false);
-
-            // Update moves and process matches
             //ProcessMatch(boosters, false);
 
-            // Re-enable input
             _userInput.SetInputState(true);
 
             // Apply the combo effect and get affected grid objects
-            
-            //await UniTask.Delay(TimeSpan.FromSeconds(0.25f), DelayType.DeltaTime);//TODO:
+            await UniTask.Delay(TimeSpan.FromSeconds(0.15f), DelayType.DeltaTime);//TODO:
             
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
 
             // Process matches after applying the combo
+            _gridObjectFactoryHandler.DestroyCombo(combo);
             effectedGridObjects.AddRange(boosters);
-            ProcessMatch(effectedGridObjects, true);
+            ProcessMatch(effectedGridObjects);
         }
         
         private async UniTask HandleSingleBoostAsync(Booster booster)
@@ -168,23 +164,22 @@ namespace MVP.Presenters
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(booster);
 
             // Process matches after applying the booster
-            ProcessMatch(effectedGridObjects, true);
+            ProcessMatch(effectedGridObjects);
         }
 
         
         private void ProcessNoMatch(BaseGridObject touchedGridObject)
         {
-            touchedGridObject.GetComponent<BaseGridObjectEffect>().Shake();
+            touchedGridObject.BaseGridObjectEffect.Shake();
         }
         
-        private void ProcessMatch(IEnumerable<BaseGridObject> matchedObjs, bool shouldUpdateGoals = true)
+        private void ProcessMatch(IEnumerable<BaseGridObject> matchedObjs)
         {
-            var baseGridObjects = matchedObjs.Distinct().ToList();//TODO:Don't use distinct find the same items
-            if (shouldUpdateGoals)
-            {
-                var obstaclesOnly = baseGridObjects.OfType<Obstacle>().ToList();
-                _goalHandler.UpdateGoals(obstaclesOnly);
-            }
+            var baseGridObjects = matchedObjs.Distinct().ToList();
+            
+            var obstaclesOnly = baseGridObjects.OfType<Obstacle>().ToList();
+            _goalHandler.UpdateGoals(obstaclesOnly);
+            
             ShiftAndReplaceGridObjects(baseGridObjects);
             
             _goalHandler.UpdateMoves();

@@ -9,7 +9,7 @@ namespace Core.GridElements.GridPawns
     public class Obstacle : BaseGridObject
     {
         [field: SerializeField] public ObstacleType ObstacleType { get; set; }
-        private int Life { get; set;}
+        public int Life { get; private set;}
         private Dictionary<int, Sprite>  ObstacleSpritesPerLife { get; set; }
 
         public override System.Enum Type

@@ -27,7 +27,6 @@ namespace Core.GridElements.GridPawns
             set
             {
                 _isEmpty = value;
-
                 if (_isEmpty)
                 {
                     // If empty, adjust other properties accordingly

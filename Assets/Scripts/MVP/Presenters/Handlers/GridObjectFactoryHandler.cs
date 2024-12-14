@@ -112,6 +112,11 @@ namespace MVP.Presenters.Handlers
 
             return newItems;
         }
+
+        public void DestroyCombo(Combo combo)
+        {
+            _comboFactory.DestroyObj(combo);
+        }
         
         public Booster CreateBoosterAndDestroyOldItem(Item clickedItem, BoosterType boosterType)
         {

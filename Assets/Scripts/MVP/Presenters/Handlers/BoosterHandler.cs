@@ -7,6 +7,7 @@ using Core.GridElements.GridPawns;
 using Core.GridElements.GridPawns.Effect;
 using Cysharp.Threading.Tasks;
 using DG.Tweening;
+using MVP.Presenters.Handlers.Effects;
 using MVP.Presenters.Handlers.Strategies.Interface;
 using UnityEngine;
 using UTasks;
@@ -18,14 +19,17 @@ namespace MVP.Presenters.Handlers
     {
         private BaseGridObject[,] _grid;
         private readonly Dictionary<Enum, IBoosterComboStrategy> _boosterStrategies = new();
+        private readonly BlastEffectHandler _blastEffectHandler;
         
-        public BoosterHandler(IEnumerable<IBoosterComboStrategy> boosterStrategies)
+        public BoosterHandler(IEnumerable<IBoosterComboStrategy> boosterStrategies, BlastEffectHandler blastEffectHandler)
         {
             // Register strategies
             foreach (var strategy in boosterStrategies)
             {
                 _boosterStrategies[strategy.Type] = strategy;
             }
+
+            _blastEffectHandler = blastEffectHandler;
         }
         
         public void Initialize(BaseGridObject[,] grid)
@@ -95,7 +99,7 @@ namespace MVP.Presenters.Handlers
 
             strategy.PlayExplosionEffect(finalBooster);
             AddToAffectedGridObjects(effectedGridObjects, finalBooster);
-            finalBooster.gameObject.SetActive(false);
+            finalBooster.IsEmpty = true;
 
             var foundGridObjects = strategy.FindAffectedItems(_grid, finalBooster);
 
@@ -112,18 +116,12 @@ namespace MVP.Presenters.Handlers
 
                 // Skip if already added to the affected list
                 if (!isAddable) continue;
-
-                gridObject.gameObject.SetActive(false);
-                switch (gridObject)
-                {
-                    case Booster booster:
-                        // Process nested boosters asynchronously
-                        boosterTasks.Add(ProcessBoostersAsync(booster, effectedGridObjects));
-                        break;
-                    case Obstacle obstacle:
-                        //TODO:m_GoalHandler.UpdateGoal(obstacle);
-                        break;
-                }
+                gridObject.IsEmpty = true;
+                
+                if(gridObject is Booster booster)
+                    boosterTasks.Add(ProcessBoostersAsync(booster, effectedGridObjects));
+                else
+                    _blastEffectHandler.PlayBlastParticles(new List<BaseGridObject> { gridObject });
             }
 
             // Await all booster tasks in parallel

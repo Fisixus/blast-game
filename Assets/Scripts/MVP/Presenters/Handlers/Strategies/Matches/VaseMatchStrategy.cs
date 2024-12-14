@@ -40,7 +40,7 @@ namespace MVP.Presenters.Handlers.Strategies.Matches
                 
                 var vase = adjacentItem as Obstacle;
                 var currentLife = vase.TakeDamage();
-                if (currentLife != 0) continue;
+                if (currentLife > 0) continue;
                 
                 matchedVases.Add(adjacentItem);
                 visited[adjacentPosition.x, adjacentPosition.y] = true;

@@ -131,11 +131,16 @@ namespace Core.Helpers.GridHelpers
             }
             return affectedObjects;
         }
+        public static (IEnumerable<BaseGridObject> ObstaclesAlive, IEnumerable<BaseGridObject> ObstaclesDead) SeparateObstaclesByLife(List<BaseGridObject> obstacles)
+        {
+            var groupedObstacles = obstacles
+                .OfType<Obstacle>() // Ensure we only consider Obstacle objects
+                .ToLookup(obstacle => obstacle.Life > 0);
 
-        // public static (List<Item> Obstacles, List<Item> RegularItems) SeparateRegularItems(List<Item> matchedItems)
-        // {
-        //     var groupedItems = matchedItems.ToLookup(i => i.ItemType is ItemType.SI_Box or ItemType.SI_Stone or ItemType.SI_Vase);
-        //     return (groupedItems[true].ToList(), groupedItems[false].ToList());
-        // }
+            return (
+                groupedObstacles[true].ToList(),
+                groupedObstacles[false].ToList()
+            );
+        }
     }
 }
