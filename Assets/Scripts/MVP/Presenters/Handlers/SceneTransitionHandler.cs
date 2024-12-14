@@ -6,11 +6,11 @@ using MVP.Views.Interface;
 
 namespace MVP.Presenters.Handlers
 {
-    public class LevelTransitionHandler
+    public class SceneTransitionHandler
     {
         private readonly ILevelModel _levelModel;
 
-        public LevelTransitionHandler(ILevelModel levelModel)
+        public SceneTransitionHandler(ILevelModel levelModel)
         {
             _levelModel = levelModel;
         }

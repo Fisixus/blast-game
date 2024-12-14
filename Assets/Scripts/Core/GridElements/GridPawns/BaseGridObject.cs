@@ -20,8 +20,30 @@ namespace Core.GridElements.GridPawns
         [field: SerializeField] public Vector2Int Coordinate { get; set; }
 
         public abstract System.Enum Type { get; protected set; } // Enforced by derived classes to follow IType
-        public bool IsEmpty { get; set; } = false;
         public bool IsStationary { get; set; } = false;
+        public bool IsEmpty
+        {
+            get => _isEmpty;
+            set
+            {
+                _isEmpty = value;
+
+                if (_isEmpty)
+                {
+                    // If empty, adjust other properties accordingly
+                    IsStationary = false;
+                    SpriteRenderer.enabled = false;
+                    BoxCollider.enabled = false;
+                }
+                else
+                {
+                    // If not empty, adjust properties oppositely
+                    SpriteRenderer.enabled = true;
+                    BoxCollider.enabled = true;
+                }
+            }
+        }
+        private bool _isEmpty;
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
             Vector2Int? coordinateOverride = null,
@@ -51,20 +73,6 @@ namespace Core.GridElements.GridPawns
                 scaleNormalizing);
         }
 
-        private void SetInteraction()
-        {
-            if (IsEmpty)
-            {
-                SpriteRenderer.enabled = false;
-                BoxCollider.enabled = false;
-            }
-            else
-            {
-                SpriteRenderer.enabled = true;
-                BoxCollider.enabled = true;
-            }
-        }
-        
         // SetAttributes, leveraging IType and polymorphism
         public void SetAttributes(Vector2Int newCoord, System.Enum type)
         {
@@ -75,11 +83,8 @@ namespace Core.GridElements.GridPawns
             
             // Update the GridAttributes
             IsEmpty = Type is ItemType.None or BoosterType.None or ObstacleType.None or ComboType.None;
-            SetInteraction();
         }
         
-        
-
         public void SetSortingOrder(int order)
         {
             SpriteRenderer.sortingOrder = order;

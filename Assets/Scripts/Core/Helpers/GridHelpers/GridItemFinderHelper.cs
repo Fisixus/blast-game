@@ -9,6 +9,19 @@ namespace Core.Helpers.GridHelpers
 {
     public static class GridItemFinderHelper
     {
+        public static bool HasStationaryAbove(BaseGridObject[,] grid, int column, int row)
+        {
+            for (int checkRow = row - 1; checkRow >= 0; checkRow--)
+            {
+                if (grid[column, checkRow].IsStationary)
+                {
+                    return true;
+                }
+            }
+
+            return false;
+        }
+        
         public static List<BaseGridObject> GetFirstXEmptyGridObjectsByRow(BaseGridObject[,] grid, int matchCount)
         {
             var baseGridObjects = new List<BaseGridObject>(matchCount);

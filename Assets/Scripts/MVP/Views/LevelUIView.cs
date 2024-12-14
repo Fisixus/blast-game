@@ -56,7 +56,7 @@ namespace MVP.Views
                     async (container) =>
                     {
                         // Specific setup logic for this scene
-                        var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                        var levelTransitionHandler = ProjectContext.Container.Resolve<SceneTransitionHandler>();
                         await levelTransitionHandler.SetupMainSceneRequirements(container);
                     });
             }
@@ -78,7 +78,7 @@ namespace MVP.Views
                     async (container) =>
                     {
                         // Specific setup logic for this scene
-                        var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                        var levelTransitionHandler = ProjectContext.Container.Resolve<SceneTransitionHandler>();
                         await levelTransitionHandler.SetupLevelSceneRequirements(container);
                     });
             }
@@ -115,7 +115,7 @@ namespace MVP.Views
                 async (container) =>
                 {
                     // Specific setup logic for this scene
-                    var levelTransitionHandler = ProjectContext.Container.Resolve<LevelTransitionHandler>();
+                    var levelTransitionHandler = ProjectContext.Container.Resolve<SceneTransitionHandler>();
                     await levelTransitionHandler.SetupMainSceneRequirements(container);
                 });
         }

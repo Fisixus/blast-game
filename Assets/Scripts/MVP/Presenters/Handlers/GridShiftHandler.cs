@@ -21,44 +21,60 @@ namespace MVP.Presenters.Handlers
             // Mark matched items as empty
             GridItemModifierHelper.MarkEmpty(matchedGridObjects);
 
-            // Shift existing items downward
-            var emptyItems = ShiftItems(grid, columnCount, rowCount);
+            // Combine empty items across all columns
+            var combinedEmptyItems = new List<BaseGridObject>();
 
-            // Generate new items to fill empty slots
-            var newItems = _gridObjectFactoryHandler.GenerateNewItems(emptyItems);
-
-            return newItems;
-        }
-        
-        private List<BaseGridObject> ShiftItems(BaseGridObject[,] grid, int columnCount, int rowCount)
-        {
-            var emptyItems = new List<BaseGridObject>();
-
+            // Process each column
             for (var col = 0; col < columnCount; col++)
             {
-                var emptyRow = rowCount - 1;
+                combinedEmptyItems.AddRange(ProcessColumn(grid, col, rowCount));
+            }
 
-                for (var row = rowCount - 1; row >= 0; row--)
+            // Generate new items to fill the empty slots
+            return _gridObjectFactoryHandler.GenerateNewItems(combinedEmptyItems);
+        }
+
+        private List<BaseGridObject> ProcessColumn(BaseGridObject[,] grid, int column, int rowCount)
+        {
+            var emptyItems = new List<BaseGridObject>();
+            var emptyRow = rowCount - 1;
+
+            for (var row = rowCount - 1; row >= 0; row--)
+            {
+                var currentGridObject = grid[column, row];
+
+                if (currentGridObject.IsStationary)
                 {
-                    if (!grid[col, row].IsEmpty)
-                    {
-                        var baseGridObject = grid[col, row];
-                        GridItemModifierHelper.SwapItems(grid, col, emptyRow, col, row);
-                        OnGridObjectShiftedEvent?.Invoke(baseGridObject);
-                        //GameEventSystem.Invoke<OnGridObjectShiftedEvent>
-                            //(new OnGridObjectShiftedEvent(){ GridObject = baseGridObject});
-                        
-                        emptyRow--;
-                    }
-                    else
-                    {
-                        emptyItems.Add(grid[col, row]);
-                    }
+                    emptyRow = row - 1; // Skip stationary objects and update emptyRow
+                }
+                else if (!currentGridObject.IsEmpty)
+                {
+                    ShiftItemDown(grid, column, row, ref emptyRow);
+                }
+                else if (!GridItemFinderHelper.HasStationaryAbove(grid, column, row))
+                {
+                    emptyItems.Add(currentGridObject);
                 }
             }
 
             return emptyItems;
         }
+
+        private void ShiftItemDown(BaseGridObject[,] grid, int column, int sourceRow, ref int targetRow)
+        {
+            if (sourceRow != targetRow)
+            {
+                GridItemModifierHelper.SwapItems(grid, column, targetRow, column, sourceRow);
+                OnGridObjectShiftedEvent?.Invoke(grid[column, targetRow]);
+            }
+
+            targetRow--;
+        }
+
+        
+
+
+
 
     }
 }

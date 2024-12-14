@@ -12,6 +12,7 @@ namespace Core.Helpers.GridHelpers
             foreach (var baseGridObject in matchedItems)
             {
                 baseGridObject.IsEmpty = true;
+                baseGridObject.IsStationary = false;
                 switch (baseGridObject)
                 {
                     case Item item:
