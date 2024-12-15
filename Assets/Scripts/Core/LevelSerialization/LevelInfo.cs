@@ -11,6 +11,7 @@ namespace Core.LevelSerialization
         public Enum[,] GridObjectTypes { get; private set; }
         public Vector2Int GridSize { get; private set; }
         public List<LevelGoal> Goals { get; private set; }
+
         public int NumberOfMoves { get; private set; }
         //public ItemSpawnProbabilityDistributionSO Probability;
 
@@ -25,7 +26,8 @@ namespace Core.LevelSerialization
 
         public override string ToString()
         {
-            return $"LevelNumber:{LevelNumber}, GridSize:{GridSize}, NumberOfMoves:{NumberOfMoves}, Goals:{Goals.Count}";
+            return
+                $"LevelNumber:{LevelNumber}, GridSize:{GridSize}, NumberOfMoves:{NumberOfMoves}, Goals:{Goals.Count}";
         }
     }
 }

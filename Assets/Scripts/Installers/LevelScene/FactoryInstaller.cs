@@ -8,10 +8,10 @@ namespace Installers.LevelScene
     public class FactoryInstaller : Installer
     {
         // Reference to the scene object
-        [SerializeField] private ItemBlastEffectFactory _itemBlastEffectFactory; 
-        [SerializeField] private ObstacleBlastEffectFactory _obstacleBlastEffectFactory; 
-        [SerializeField] private BombEffectFactory _bombEffectFactory; 
-        [SerializeField] private ItemFactory _itemFactory; 
+        [SerializeField] private ItemBlastEffectFactory _itemBlastEffectFactory;
+        [SerializeField] private ObstacleBlastEffectFactory _obstacleBlastEffectFactory;
+        [SerializeField] private BombEffectFactory _bombEffectFactory;
+        [SerializeField] private ItemFactory _itemFactory;
         [SerializeField] private BoosterFactory _boosterFactory;
         [SerializeField] private ObstacleFactory _obstacleFactory;
         [SerializeField] private ComboFactory _comboFactory;

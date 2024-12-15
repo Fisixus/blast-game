@@ -15,7 +15,7 @@ namespace MVP.Presenters.Handlers
         private readonly IBoosterFactory _boosterFactory;
         private readonly IComboFactory _comboFactory;
 
-        public GridObjectFactoryHandler(IItemFactory itemFactory, IObstacleFactory obstacleFactory, 
+        public GridObjectFactoryHandler(IItemFactory itemFactory, IObstacleFactory obstacleFactory,
             IBoosterFactory boosterFactory, IComboFactory comboFactory)
         {
             _itemFactory = itemFactory;
@@ -27,7 +27,7 @@ namespace MVP.Presenters.Handlers
         public void PopulateGridWithObjects(Enum[,] gridObjectTypes, List<BaseGridObject> gridObjects)
         {
             //var isStationaryObjectExist = false;
-            
+
             // Process the grid with column-to-row traversal
             for (int i = 0; i < gridObjectTypes.GetLength(1); i++) // Columns
             {
@@ -38,13 +38,13 @@ namespace MVP.Presenters.Handlers
                     var gridType = gridObjectTypes[j, i];
 
                     //if (isStationaryObjectExist)
-                        //gridType = ItemType.None;
+                    //gridType = ItemType.None;
                     // Encapsulated factory logic
                     var gridObject = CreateGridObject(gridType, coordinate);
                     if (gridObject != null)
                     {
                         //if (gridObject.IsStationary)
-                            //isStationaryObjectExist = true;
+                        //isStationaryObjectExist = true;
                         gridObjects.Add(gridObject);
                     }
                 }
@@ -76,7 +76,7 @@ namespace MVP.Presenters.Handlers
                 }
             }
         }
-        
+
         public List<BaseGridObject> CreateNewItems(List<BaseGridObject> emptyItems)
         {
             var newItems = new List<BaseGridObject>();
@@ -88,7 +88,7 @@ namespace MVP.Presenters.Handlers
 
             return newItems;
         }
-        
+
         public List<BaseGridObject> GenerateNewItems(List<BaseGridObject> emptyItems)
         {
             var newItems = new List<BaseGridObject>();
@@ -117,20 +117,21 @@ namespace MVP.Presenters.Handlers
         {
             _comboFactory.DestroyObj(combo);
         }
-        
+
         public Booster CreateBoosterAndDestroyOldItem(Item clickedItem, BoosterType boosterType)
         {
             var booster = _boosterFactory.GenerateBooster(boosterType, clickedItem.Coordinate, true);
             _itemFactory.DestroyObj(clickedItem);
             return booster;
         }
-        
+
         public Combo CreateComboAndDestroyOldBooster(Booster clickedBooster, ComboType comboType)
         {
             var combo = _comboFactory.GenerateCombo(comboType, clickedBooster.Coordinate);
             _boosterFactory.DestroyObj(clickedBooster);
             return combo;
         }
+
         private BaseGridObject CreateGridObject(Enum gridType, Vector2Int coordinate)
         {
             switch (gridType)

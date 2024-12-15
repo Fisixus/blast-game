@@ -14,7 +14,7 @@ namespace Core.Factories
         [SerializedDictionary("Combo Type", "Combo Data")]
         public SerializedDictionary<ComboType, ComboDataSO> ComboDataDict { get; private set; }
 
-        
+
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Combo>(ObjPrefab, ParentTr, 2);

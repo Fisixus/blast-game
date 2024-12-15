@@ -39,7 +39,7 @@ namespace MVP.Presenters.Handlers
             DecreaseMoveCounter();
             CheckLevelEndConditions();
         }
-        
+
         public void UpdateGoals(List<Obstacle> matchedObstacles)
         {
             UpdateGoalCounts(matchedObstacles);
@@ -73,7 +73,7 @@ namespace MVP.Presenters.Handlers
                 _goalUIHandler.UpdateGoalUI(goal);
             }
         }
-        
+
         // Checks if goals or moves have completed and triggers end-of-level UI
         private void CheckLevelEndConditions()
         {

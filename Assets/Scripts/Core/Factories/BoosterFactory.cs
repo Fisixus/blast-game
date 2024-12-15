@@ -15,15 +15,16 @@ namespace Core.Factories
         [field: SerializeField]
         [SerializedDictionary("Booster Type", "Booster Data")]
         public SerializedDictionary<BoosterType, BoosterDataSO> BoosterDataDict { get; private set; }
+
         private List<Booster> _allBoosters = new();
 
-        
+
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Booster>(ObjPrefab, ParentTr, 8);
             _allBoosters = new List<Booster>(8);
         }
-        
+
         public override void DestroyObj(Booster emptyBooster)
         {
             base.DestroyObj(emptyBooster);
@@ -41,20 +42,18 @@ namespace Core.Factories
         public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord, bool isEffectOn = false)
         {
             var booster = CreateObj();
-            if(isEffectOn)
+            if (isEffectOn)
                 booster.GetComponent<BoosterEffect>().PlayBoosterCreationParticle();
             booster.SetAttributes(coord, boosterType);
             booster.ApplyData(BoosterDataDict[boosterType]);
             return booster;
         }
-        
+
         public void DestroyAllBoosters()
         {
             var boostersToDestroy = new List<Booster>(_allBoosters);
             base.DestroyObjs(boostersToDestroy);
             _allBoosters.Clear();
         }
-        
-        
     }
 }

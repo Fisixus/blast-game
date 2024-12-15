@@ -27,8 +27,10 @@ namespace MVP.Presenters
         private readonly GridShiftHandler _gridShiftHandler;
         private readonly GridObjectFactoryHandler _gridObjectFactoryHandler;
 
-        public GridPresenter(IGridView gridView, IGridModel gridModel, GoalHandler goalHandler, MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler, 
-            HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler, GridObjectFactoryHandler gridObjectFactoryHandler)
+        public GridPresenter(IGridView gridView, IGridModel gridModel, GoalHandler goalHandler,
+            MatchHandler matchHandler, BoosterHandler boosterHandler, ComboHandler comboHandler,
+            HintHandler hintHandler, BlastEffectHandler blastEffectHandler, GridShiftHandler gridShiftHandler,
+            GridObjectFactoryHandler gridObjectFactoryHandler)
         {
             _gridView = gridView;
             _gridModel = gridModel;
@@ -40,17 +42,19 @@ namespace MVP.Presenters
             _blastEffectHandler = blastEffectHandler;
             _gridShiftHandler = gridShiftHandler;
             _gridObjectFactoryHandler = gridObjectFactoryHandler;
-            
+
             UserInput.OnGridObjectTouched += OnTouch;
             _gridModel.OnGridObjectInitializedEvent += GridObjectInitializedInGrid;
             _gridShiftHandler.OnGridObjectShiftedEvent += GridObjectShiftedInGrid;
             _gridModel.OnGridObjectUpdatedEvent += GridObjectUpdatedInGrid;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
+
         private void OnSceneUnloaded(Scene scene)
         {
             Dispose();
         }
+
         private void Dispose()
         {
             // Unsubscribe from static and instance events
@@ -61,6 +65,7 @@ namespace MVP.Presenters
 
             SceneManager.sceneUnloaded -= OnSceneUnloaded;
         }
+
         private void OnTouch(BaseGridObject touchedGridObject)
         {
             switch (touchedGridObject)
@@ -76,7 +81,7 @@ namespace MVP.Presenters
                     break;
             }
         }
-        
+
         private async void ProcessItemTouch(Item item)
         {
             var matchedGridObjects = _hintHandler.GetSelectedMatchedGridObjects(item).ToList();
@@ -85,11 +90,12 @@ namespace MVP.Presenters
                 ProcessNoMatch(item);
                 return;
             }
+
             var boosterType = item.HintType;
             var effectedObstacles = _matchHandler.FindObstacles(matchedGridObjects);
             effectedObstacles.ForEach(obstacle => obstacle.IsEmpty = true);
             _blastEffectHandler.PlayBlastParticles(effectedObstacles);
-            
+
             if (boosterType != BoosterType.None)
             {
                 await ProcessBoosterCreationAsync(item, matchedGridObjects, effectedObstacles, boosterType);
@@ -101,8 +107,9 @@ namespace MVP.Presenters
                 ProcessMatch(matchedGridObjects);
             }
         }
-        
-        private async UniTask ProcessBoosterCreationAsync(Item item, List<BaseGridObject> matchedObjects, List<BaseGridObject> effectedObstacles, BoosterType boosterType)
+
+        private async UniTask ProcessBoosterCreationAsync(Item item, List<BaseGridObject> matchedObjects,
+            List<BaseGridObject> effectedObstacles, BoosterType boosterType)
         {
             // Update input state
             UserInput.SetInputState(false);
@@ -121,6 +128,7 @@ namespace MVP.Presenters
             // Re-enable input
             UserInput.SetInputState(true);
         }
+
         private async UniTaskVoid ProcessBoosterTouchAsync(Booster booster)
         {
             // Find all matching boosters for the touched booster
@@ -154,7 +162,7 @@ namespace MVP.Presenters
             //await UniTask.Delay(TimeSpan.FromSeconds(0.15f), DelayType.DeltaTime);//TODO:Play combo animation if it exists
             UserInput.SetInputState(true);
             //_userInput.SetInputState(true);
-            
+
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
 
             // Process matches after applying the combo
@@ -162,7 +170,7 @@ namespace MVP.Presenters
             effectedGridObjects.AddRange(boosters);
             ProcessMatch(effectedGridObjects);
         }
-        
+
         private async UniTask HandleSingleBoostAsync(Booster booster)
         {
             // Apply the single booster effect and get affected grid objects
@@ -172,26 +180,26 @@ namespace MVP.Presenters
             ProcessMatch(effectedGridObjects);
         }
 
-        
+
         private void ProcessNoMatch(BaseGridObject touchedGridObject)
         {
             touchedGridObject.BaseGridObjectEffect.Shake();
         }
-        
+
         private void ProcessMatch(IEnumerable<BaseGridObject> matchedObjs)
         {
             var baseGridObjects = matchedObjs.Distinct().ToList();
-            
+
             var obstaclesOnly = baseGridObjects.OfType<Obstacle>().ToList();
             _goalHandler.UpdateGoals(obstaclesOnly);
-            
+
             ShiftAndReplaceGridObjects(baseGridObjects);
-            
+
             _goalHandler.UpdateMoves();
             _hintHandler.DetectAndSetHints();
             baseGridObjects.Clear();
         }
-        
+
         private void ShiftAndReplaceGridObjects(List<BaseGridObject> matchedGridObjects)
         {
             // Perform shifting and replacement
@@ -201,11 +209,11 @@ namespace MVP.Presenters
                 _gridModel.RowCount,
                 matchedGridObjects
             );
-            
+
             // Update the grid with new items
             _gridModel.UpdateGridObjects(newItems, true);
         }
-        
+
         private void GridObjectInitializedInGrid(BaseGridObject obj)
         {
             obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr, null, false);
@@ -218,7 +226,8 @@ namespace MVP.Presenters
 
         private void GridObjectUpdatedInGrid(BaseGridObject obj, bool isAnimOn)
         {
-            obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr,new Vector2Int(obj.Coordinate.x, obj.Coordinate.y - _gridModel.ColumnCount), false);
+            obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr,
+                new Vector2Int(obj.Coordinate.x, obj.Coordinate.y - _gridModel.ColumnCount), false);
             obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr, null, isAnimOn, 0.6f);
         }
     }

@@ -14,11 +14,12 @@ namespace Core.GridElements.GridPawns.Combo
             get => ComboType;
             protected set => ComboType = (ComboType)value;
         }
+
         public override void ApplyData(BaseGridObjectDataSO data)
         {
             base.ApplyData(data);
             var comboData = data as ComboDataSO;
-            if(comboData is null)
+            if (comboData is null)
             {
                 throw new InvalidOperationException("Invalid data type provided!");
             }

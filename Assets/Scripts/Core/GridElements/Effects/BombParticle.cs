@@ -2,7 +2,7 @@ using UnityEngine;
 
 namespace Core.GridElements.Effects
 {
-    public class BombParticle: MonoBehaviour
+    public class BombParticle : MonoBehaviour
     {
         [field: SerializeField] public ParticleSystem BombParticleSystem { get; private set; }
 
@@ -11,7 +11,7 @@ namespace Core.GridElements.Effects
             BombParticleSystem.Play();
             return BombParticleSystem.main.duration;
         }
-        
+
         public void SetBombSize(float size)
         {
         }

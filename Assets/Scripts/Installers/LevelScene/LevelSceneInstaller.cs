@@ -9,6 +9,7 @@ namespace Installers.LevelScene
         [SerializeField] private StrategyInstaller _strategyInstaller;
         [SerializeField] private MVPLevelInstaller _mvpLevelInstaller;
         [SerializeField] private FactoryInstaller _factoryInstaller;
+
         protected override void InstallBindings()
         {
             _strategyInstaller.Install(Container);

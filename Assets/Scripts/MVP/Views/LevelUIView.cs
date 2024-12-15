@@ -21,17 +21,11 @@ namespace MVP.Views
         [field: SerializeField] public Transform SuccessPanelTr { get; private set; }
         [field: SerializeField] public ParticleSystem StarPS { get; private set; }
         [field: SerializeField] public Transform FailPanelTr { get; private set; }
-        
+
         private void Awake()
         {
-            RetryLevelButton.onClick.AddListener(() =>
-            {
-                RetryLevel().Forget();
-            });
-            EscapeButton.onClick.AddListener(() =>
-            {
-                EscapeLevel().Forget();
-            });
+            RetryLevelButton.onClick.AddListener(() => { RetryLevel().Forget(); });
+            EscapeButton.onClick.AddListener(() => { EscapeLevel().Forget(); });
         }
 
         private void OnDisable()
@@ -102,7 +96,7 @@ namespace MVP.Views
         {
             await TogglePanel(SuccessPanelTr, true, duration);
             StarPS.Play();
-            await UniTask.Delay(TimeSpan.FromSeconds(4)); 
+            await UniTask.Delay(TimeSpan.FromSeconds(4));
             StarPS.Stop();
             await SceneTransitionHelper.PerformTransition(
                 "MainScene",
@@ -122,7 +116,6 @@ namespace MVP.Views
         public void OpenFailPanel(float duration)
         {
             TogglePanel(FailPanelTr, true, duration).Forget();
-            
         }
 
         public void CloseFailPanel(float duration)
@@ -186,9 +179,8 @@ namespace MVP.Views
                 cg.interactable = false;
                 cg.blocksRaycasts = false;
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.DeltaTime); 
+
+            await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.DeltaTime);
         }
-
-
     }
 }

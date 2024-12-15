@@ -17,10 +17,10 @@ namespace MVP.Presenters.Handlers.Effects
         public void PlayBombParticle(BaseGridObject booster, float size)
         {
             var bombEffect = _bombEffectFactory.CreateObj();
-            
+
             var defaultSize = bombEffect.transform.localScale;
             bombEffect.transform.localScale *= size;
-            
+
             var duration = bombEffect.PlayParticle();
             bombEffect.transform.position = booster.transform.position;
             UTask.Wait(duration).Do(() =>

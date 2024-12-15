@@ -11,7 +11,8 @@ namespace Core.ProbabilityData
         [FormerlySerializedAs("m_ItemDataDict")] [SerializeField] [SerializedDictionary("Item Type", "Ratio")]
         private SerializedDictionary<ItemType, float> _itemDataDict;
 
-        [FormerlySerializedAs("m_TotalProbability")] [SerializeField] private float _totalProbability;
+        [FormerlySerializedAs("m_TotalProbability")] [SerializeField]
+        private float _totalProbability;
 
 #if UNITY_EDITOR
         private void OnValidate()

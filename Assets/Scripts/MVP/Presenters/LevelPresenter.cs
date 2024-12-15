@@ -5,7 +5,6 @@ using DI.Contexts;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
-using UnityEngine;
 using UnityEngine.SceneManagement;
 using UTasks;
 
@@ -18,8 +17,9 @@ namespace MVP.Presenters
         private readonly IGridView _gridView;
         private readonly ILevelModel _levelModel;
         private readonly ILevelUIView _levelUIView;
-        
-        public LevelPresenter(LevelSetupHandler levelSetupHandler, GoalHandler goalHandler, IGridView gridView, ILevelUIView levelUIView)
+
+        public LevelPresenter(LevelSetupHandler levelSetupHandler, GoalHandler goalHandler, IGridView gridView,
+            ILevelUIView levelUIView)
         {
             _levelSetupHandler = levelSetupHandler;
             _goalHandler = goalHandler;
@@ -31,6 +31,7 @@ namespace MVP.Presenters
             _goalHandler.OnLevelFailed += HandleLevelFailed;
             SceneManager.sceneUnloaded += OnSceneUnloaded;
         }
+
         private void OnSceneUnloaded(Scene scene)
         {
             Dispose();
@@ -57,7 +58,7 @@ namespace MVP.Presenters
         public async UniTask LoadLevel()
         {
             var levelModel = ProjectContext.Container.Resolve<ILevelModel>();
-            var levelInfo = levelModel.LoadLevel();//TODO:Addressable logic next step
+            var levelInfo = levelModel.LoadLevel(); //TODO:Addressable logic next step
             _gridView.CalculateGridSize(levelInfo.GridSize);
             _levelSetupHandler.Initialize(levelInfo);
             _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
@@ -71,8 +72,6 @@ namespace MVP.Presenters
             _levelSetupHandler.Initialize(levelInfo);
             _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
             _gridView.ScaleGrid();
-                
         }
-
     }
 }

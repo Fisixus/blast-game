@@ -2,7 +2,6 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
-using Unity.VisualScripting;
 using UnityEngine;
 
 namespace MVP.Presenters.Handlers
@@ -11,20 +10,20 @@ namespace MVP.Presenters.Handlers
     {
         private readonly MatchHandler _matchHandler;
         private readonly BoosterHandler _boosterHandler;
-        
+
         private BaseGridObject[,] _grid;
         private int _rowCount;
         private int _columnCount;
-        
-        
+
 
         private List<List<BaseGridObject>> _allMatchableObjs = new();
+
         public HintHandler(MatchHandler matchHandler, BoosterHandler boosterHandler)
         {
             _matchHandler = matchHandler;
             _boosterHandler = boosterHandler;
         }
-        
+
         public void Initialize(BaseGridObject[,] grid)
         {
             _grid = grid;
@@ -46,7 +45,7 @@ namespace MVP.Presenters.Handlers
                     var gridObject = _grid[col, row];
 
                     // Skip obstacles and already visited coordinates
-                    if (ShouldSkipObject(gridObject, visited, col, row)) 
+                    if (ShouldSkipObject(gridObject, visited, col, row))
                         continue;
 
                     ProcessMatches(gridObject, visited);
@@ -81,7 +80,8 @@ namespace MVP.Presenters.Handlers
             }
         }
 
-        private void ApplyHintSpritesAndMarkVisited(IEnumerable<BaseGridObject> matchedObjects, BoosterType boosterType, HashSet<Vector2Int> visited)
+        private void ApplyHintSpritesAndMarkVisited(IEnumerable<BaseGridObject> matchedObjects, BoosterType boosterType,
+            HashSet<Vector2Int> visited)
         {
             foreach (var matchedObj in matchedObjects)
             {
@@ -93,6 +93,7 @@ namespace MVP.Presenters.Handlers
                 visited.Add(matchedObj.Coordinate);
             }
         }
+
         public IEnumerable<BaseGridObject> GetSelectedMatchedGridObjects(BaseGridObject touchedObj)
         {
             foreach (var listObjs in _allMatchableObjs)
@@ -105,9 +106,10 @@ namespace MVP.Presenters.Handlers
                     }
                 }
             }
+
             return new List<BaseGridObject>();
         }
-        
+
         private void ClearHintSprites()
         {
             foreach (var listObjs in _allMatchableObjs)

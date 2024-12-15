@@ -8,8 +8,9 @@ namespace MVP.Models.Interface
         public int LevelIndex { get; set; }
         public int MaxLevel { get; }
 
-        public LevelInfo LoadLevel(); 
+        public LevelInfo LoadLevel();
+
         [CanBeNull]
-        public LevelInfo LoadLevel(int index); 
+        public LevelInfo LoadLevel(int index);
     }
 }

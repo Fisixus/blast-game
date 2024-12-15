@@ -20,10 +20,8 @@ namespace MVP.Helpers
 
                 // Perform scene transition
                 Debug.Log($"Starting transition to {sceneName}...");
-                await scenePresenter.TransitionToNextScene(sceneName, async (container) =>
-                {
-                    await setupAction(container);
-                });
+                await scenePresenter.TransitionToNextScene(sceneName,
+                    async (container) => { await setupAction(container); });
                 Debug.Log($"Transition to {sceneName} complete!");
             }
             catch (Exception ex)

@@ -15,6 +15,7 @@ namespace Input
         private static bool _isInputOn = true;
         public static event Action<BaseGridObject> OnGridObjectTouched;
         private IA_User _iaUser;
+
         private void Awake()
         {
             _cam = Camera.main;
@@ -62,7 +63,6 @@ namespace Input
 
         private void TouchItemNotifier(InputAction.CallbackContext context)
         {
-
             if (IsPointerOverUIObject() || !_isInputOn)
                 return;
             var hit = Physics2D.Raycast(_cam.ScreenToWorldPoint(UnityEngine.Input.mousePosition), Vector2.zero);

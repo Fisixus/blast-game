@@ -30,7 +30,7 @@ namespace Core.GridElements.GridPawns.Effect
 
             return _shiftTween;
         }
-        
+
         public async UniTask ShiftAsync(Vector3 targetPosition, float duration, Ease easeType, float? overshoot = null)
         {
             _shiftTweenAsync?.Kill(); // Ensure only one tween sequence is active

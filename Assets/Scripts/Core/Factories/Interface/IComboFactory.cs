@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core.Factories.Interface
 {
-    public interface IComboFactory: IFactory<Combo>
+    public interface IComboFactory : IFactory<Combo>
     {
         public SerializedDictionary<ComboType, ComboDataSO> ComboDataDict { get; }
         public Combo GenerateCombo(ComboType comboType, Vector2Int coord);

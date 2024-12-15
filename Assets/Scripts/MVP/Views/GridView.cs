@@ -1,12 +1,10 @@
-using System;
-using Core.GridElements.GridPawns;
 using MVP.Views.Interface;
 using Unity.Mathematics;
 using UnityEngine;
 
 namespace MVP.Views
 {
-    public class GridView : MonoBehaviour,IGridView
+    public class GridView : MonoBehaviour, IGridView
     {
         [field: SerializeField] public SpriteRenderer GridSprite { get; private set; }
         [field: SerializeField] public Transform GridTopLeftTr { get; private set; }
@@ -16,6 +14,7 @@ namespace MVP.Views
 
         private Camera _camera;
         private Vector3 _gridDefaultScale;
+
         private void Awake()
         {
             _camera = Camera.main;
@@ -43,7 +42,7 @@ namespace MVP.Views
         {
             GridSprite.transform.localScale = _gridDefaultScale;
         }
-        
+
         public void ScaleGrid()
         {
             ResetGridScale();
@@ -54,12 +53,11 @@ namespace MVP.Views
             //cam.orthographicSize = remap ratio;
             GridSprite.transform.localScale = new Vector3(newScale, newScale, 1f);
         }
-        
+
         private void UpdateGridTopLeftTr()
         {
             var bounds = GridSprite.bounds;
             GridTopLeftTr.position = new Vector2(bounds.min.x, bounds.max.y) + GridTopLeftMargin;
         }
-
     }
 }

@@ -6,7 +6,7 @@ using UnityEngine;
 
 namespace Core.Factories.Interface
 {
-    public interface IObstacleFactory: IFactory<Obstacle>
+    public interface IObstacleFactory : IFactory<Obstacle>
     {
         public SerializedDictionary<ObstacleType, ObstacleDataSO> ObstacleDataDict { get; }
         public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate);

@@ -13,7 +13,8 @@ namespace MVP.Presenters.Handlers.Effects
         private readonly IObstacleBlastEffectFactory _obstacleBlastEffectFactory;
 
 
-        public BlastEffectHandler(IItemBlastEffectFactory itemBlastFactory, IObstacleBlastEffectFactory obstacleEffectFactory)
+        public BlastEffectHandler(IItemBlastEffectFactory itemBlastFactory,
+            IObstacleBlastEffectFactory obstacleEffectFactory)
         {
             _itemBlastEffectFactory = itemBlastFactory;
             _obstacleBlastEffectFactory = obstacleEffectFactory;
@@ -49,10 +50,11 @@ namespace MVP.Presenters.Handlers.Effects
             await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.DeltaTime);
             _itemBlastEffectFactory.DestroyObj(particle);
         }
-        
+
         private async UniTask PlayBlastParticle(Obstacle obstacle)
         {
-            if (!_obstacleBlastEffectFactory.BlastEffectDataDict.TryGetValue(obstacle.ObstacleType, out var blastEffectData))
+            if (!_obstacleBlastEffectFactory.BlastEffectDataDict.TryGetValue(obstacle.ObstacleType,
+                    out var blastEffectData))
                 return;
             var particle = _obstacleBlastEffectFactory.CreateObj();
             particle.SetTextureSheetSprites(blastEffectData.TextureAnimationSprites);

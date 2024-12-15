@@ -9,7 +9,11 @@ namespace Core.Factories.Pools
         private readonly Queue<T> _pool = new();
         private readonly T _prefab;
         private readonly Transform _parentTr;
-        public ObjectPool(){}
+
+        public ObjectPool()
+        {
+        }
+
         public ObjectPool(T prefab, Transform parentTr, int poolSize = 64)
         {
             _prefab = prefab;

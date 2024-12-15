@@ -1,6 +1,6 @@
 namespace Core.GridElements.Enums
 {
-    public enum ObstacleType 
+    public enum ObstacleType
     {
         // Obstacles
         None = 0,

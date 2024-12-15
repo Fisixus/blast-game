@@ -37,14 +37,12 @@ namespace MVP.Presenters.Strategies.Matches
 
                 var adjacentItem = grid[adjacentPosition.x, adjacentPosition.y];
                 if (adjacentItem == null || !adjacentItem.Type.Equals(ObstacleType.Box)) continue;
-            
+
                 matchedBoxes.Add(adjacentItem);
                 visited[adjacentPosition.x, adjacentPosition.y] = true;
             }
 
             return matchedBoxes;
         }
-    
-    
     }
 }

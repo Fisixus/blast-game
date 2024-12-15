@@ -42,6 +42,5 @@ namespace MVP.Presenters.Strategies.Boosters
         {
             return false;
         }
-        
     }
 }

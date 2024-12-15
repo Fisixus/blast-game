@@ -21,6 +21,7 @@ namespace Core.GridElements.GridPawns
 
         public abstract Enum Type { get; protected set; } // Enforced by derived classes to follow IType
         public bool IsStationary { get; set; } = false;
+
         public bool IsEmpty
         {
             get => _isEmpty;
@@ -42,6 +43,7 @@ namespace Core.GridElements.GridPawns
                 }
             }
         }
+
         private bool _isEmpty;
 
         public void SetWorldPosition(Vector2 longestCell, Transform gridTopLeftTr,
@@ -79,11 +81,11 @@ namespace Core.GridElements.GridPawns
             Type = type;
             name = ToString();
             SetSortingOrder(-newCoord.y);
-            
+
             // Update the GridAttributes
             IsEmpty = Type is ItemType.None or BoosterType.None or ObstacleType.None or ComboType.None;
         }
-        
+
         public void SetSortingOrder(int order)
         {
             SpriteRenderer.sortingOrder = order;
@@ -96,6 +98,7 @@ namespace Core.GridElements.GridPawns
             SpriteRenderer.size = new Vector2(gridObjectWidthHeight.x, gridObjectWidthHeight.y);
             BoxCollider.size = new Vector2(gridObjectWidthHeight.x, gridObjectWidthHeight.y);
         }
+
         public abstract override string ToString();
     }
 }

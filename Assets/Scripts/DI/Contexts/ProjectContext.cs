@@ -8,7 +8,7 @@ namespace DI.Contexts
 
         [SerializeField] private Installer[] _installers;
 
-        
+
         [RuntimeInitializeOnLoadMethod(RuntimeInitializeLoadType.BeforeSceneLoad)]
         private static void Initialize()
         {
@@ -23,7 +23,7 @@ namespace DI.Contexts
             var instance = Object.Instantiate(prefab);
             DontDestroyOnLoad(instance); // Ensure ProjectContext persists across scenes
         }
-        
+
         private void Awake()
         {
             foreach (var installer in _installers)

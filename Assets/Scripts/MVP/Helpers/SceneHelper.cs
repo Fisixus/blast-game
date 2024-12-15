@@ -20,6 +20,7 @@ namespace MVP.Helpers
                     return context;
                 }
             }
+
             return null;
         }
 

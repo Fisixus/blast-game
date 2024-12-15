@@ -5,10 +5,8 @@ using Core.GridElements.Enums;
 
 namespace Core.Factories.Interface
 {
-    public interface IItemBlastEffectFactory: IFactory<BlastParticle>
+    public interface IItemBlastEffectFactory : IFactory<BlastParticle>
     {
-        public SerializedDictionary<ItemType, BlastEffectDataSO> BlastEffectDataDict { get;}
-
-
+        public SerializedDictionary<ItemType, BlastEffectDataSO> BlastEffectDataDict { get; }
     }
 }

@@ -12,7 +12,7 @@ namespace MVP.Models
         public int RowCount { get; private set; }
         public event Action<BaseGridObject> OnGridObjectInitializedEvent;
         public event Action<BaseGridObject, bool> OnGridObjectUpdatedEvent;
-        
+
         public void Initialize(List<BaseGridObject> gridObjs, int columns, int rows)
         {
             ColumnCount = columns;
@@ -22,10 +22,10 @@ namespace MVP.Models
             for (var j = 0; j < RowCount; j++)
             {
                 Grid[i, j] = gridObjs[i * RowCount + j];
-                OnGridObjectInitializedEvent?.Invoke(Grid[i,j]);
+                OnGridObjectInitializedEvent?.Invoke(Grid[i, j]);
             }
         }
-        
+
         public void UpdateGridObjects(List<BaseGridObject> newGridObjects, bool isAnimationOn)
         {
             foreach (var newGridObj in newGridObjects)

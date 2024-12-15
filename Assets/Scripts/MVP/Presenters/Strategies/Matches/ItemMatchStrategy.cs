@@ -15,7 +15,7 @@ namespace MVP.Presenters.Strategies.Matches
         public MatchType MatchType => MatchType.Item;
 
         private const int MinMatchCount = 2;
-        
+
         private readonly List<BaseGridObject> _matchedItems = new();
 
         public List<BaseGridObject> FindMatches(
@@ -32,6 +32,7 @@ namespace MVP.Presenters.Strategies.Matches
             {
                 return new List<BaseGridObject>();
             }
+
             FindMatchingItems(clickedPosition, clickedType, grid, visited, columnCount, rowCount);
             if (!IsValidMatch()) return new List<BaseGridObject>();
             return _matchedItems;

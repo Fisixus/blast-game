@@ -15,21 +15,22 @@ namespace MVP.Presenters
         {
             await LoadNextSceneAsync(nextScene, setupTask);
         }
-    
+
         private async UniTask LoadNextSceneAsync(string nextSceneName, Func<Container, UniTask> setupTask)
         {
             var currentSceneName = SceneManager.GetActiveScene().name;
-            
+
             // Ensure LoadScene is loaded and activate its UI
             if (!SceneManager.GetSceneByName(LoadingSceneName).isLoaded)
             {
                 await SceneManager.LoadSceneAsync(LoadingSceneName, LoadSceneMode.Additive);
             }
+
             SceneHelper.SetLoadingSceneActive(LoadingSceneName, true);
 
             // Unload the current scene
             await SceneManager.UnloadSceneAsync(currentSceneName);
-            
+
             // Load the next scene
             var loadOp = SceneManager.LoadSceneAsync(nextSceneName, LoadSceneMode.Additive);
             while (!loadOp.isDone)
@@ -46,15 +47,14 @@ namespace MVP.Presenters
                 Debug.LogError("SceneContext not found in the loaded scene.");
                 return;
             }
+
             // Pass the container to the setup task
             var sceneContainer = sceneContext.SceneContainer;
             await setupTask(sceneContainer);
-            
-            
+
+
             // Deactivate the loading screen
-            SceneHelper.SetLoadingSceneActive(LoadingSceneName,false);
+            SceneHelper.SetLoadingSceneActive(LoadingSceneName, false);
         }
-        
-        
     }
 }

@@ -14,8 +14,9 @@ namespace MVP.Presenters.Handlers
         {
             _gridObjectFactoryHandler = gridObjectFactoryHandler;
         }
-        
-        public List<BaseGridObject> ShiftAndReplace(BaseGridObject[,] grid, int columnCount, int rowCount, List<BaseGridObject> matchedGridObjects)
+
+        public List<BaseGridObject> ShiftAndReplace(BaseGridObject[,] grid, int columnCount, int rowCount,
+            List<BaseGridObject> matchedGridObjects)
         {
             // Mark matched items as empty
             GridItemModifierHelper.MarkEmpty(matchedGridObjects);
@@ -69,11 +70,5 @@ namespace MVP.Presenters.Handlers
 
             targetRow--;
         }
-
-        
-
-
-
-
     }
 }

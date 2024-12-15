@@ -12,7 +12,7 @@ namespace MVP.Presenters.Handlers
         private readonly HintHandler _hintHandler;
         private readonly BoosterHandler _boosterHandler;
         private readonly MatchHandler _matchHandler;
-        
+
         public LevelSetupHandler(GridObjectFactoryHandler gridObjectFactoryHandler, IGridModel gridModel,
             HintHandler hintHandler, BoosterHandler boosterHandler, MatchHandler matchHandler)
         {
@@ -39,6 +39,5 @@ namespace MVP.Presenters.Handlers
             _boosterHandler.Initialize(_gridModel.Grid);
             _hintHandler.Initialize(_gridModel.Grid);
         }
-        
     }
 }

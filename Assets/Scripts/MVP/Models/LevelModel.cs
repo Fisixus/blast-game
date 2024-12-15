@@ -1,11 +1,10 @@
 using Core.LevelSerialization;
-using JetBrains.Annotations;
 using MVP.Models.Interface;
 using UnityEngine;
 
 namespace MVP.Models
 {
-    public class LevelModel: ILevelModel
+    public class LevelModel : ILevelModel
     {
         public int MaxLevel => _levelFiles?.Length ?? 0; // Return 1 if jsonFiles is null
 
@@ -25,6 +24,7 @@ namespace MVP.Models
 
         private const string LevelIndexStr = "LevelIndex";
         private TextAsset[] _levelFiles;
+
         public LevelModel()
         {
             _levelFiles = Resources.LoadAll<TextAsset>("Levels");
@@ -33,7 +33,7 @@ namespace MVP.Models
         ~LevelModel()
         {
         }
-        
+
         public LevelInfo LoadLevel()
         {
             var currentLevelInfo = LevelSerializer.SerializeToLevelInfo(LevelIndex);
@@ -45,7 +45,7 @@ namespace MVP.Models
 
             return currentLevelInfo;
         }
-        
+
         public LevelInfo LoadLevel(int levelIndex)
         {
             var currentLevelInfo = LevelSerializer.SerializeToLevelInfo(levelIndex);
@@ -57,7 +57,7 @@ namespace MVP.Models
 
             return currentLevelInfo;
         }
-        
+
         private void ResetLevelIndex()
         {
             LevelIndex = 1;

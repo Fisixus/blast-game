@@ -15,7 +15,7 @@ namespace MVP.Presenters.Strategies.Matches
         public MatchType MatchType => MatchType.Booster;
 
         private const int MinMatchCount = 2;
-        
+
         private readonly List<BaseGridObject> _matchedBoosters = new();
 
         public List<BaseGridObject> FindMatches(
@@ -32,6 +32,7 @@ namespace MVP.Presenters.Strategies.Matches
             {
                 return new List<BaseGridObject>();
             }
+
             FindMatchingBoosters(clickedPosition, grid, visited, columnCount, rowCount);
             if (!IsValidMatch()) return new List<BaseGridObject>();
             return _matchedBoosters;

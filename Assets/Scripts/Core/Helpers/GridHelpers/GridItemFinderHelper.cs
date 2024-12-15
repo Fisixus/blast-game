@@ -19,7 +19,7 @@ namespace Core.Helpers.GridHelpers
 
             return false;
         }
-        
+
         public static List<BaseGridObject> GetFirstXEmptyGridObjectsByRow(BaseGridObject[,] grid, int matchCount)
         {
             var baseGridObjects = new List<BaseGridObject>(matchCount);
@@ -38,7 +38,7 @@ namespace Core.Helpers.GridHelpers
 
             return baseGridObjects;
         }
-    
+
         public static List<BaseGridObject>
             FindItemsOnHorizontal(BaseGridObject[,] grid, Vector2Int coordinate)
         {
@@ -123,7 +123,7 @@ namespace Core.Helpers.GridHelpers
                         {
                             int remainingLife = obstacle.TakeDamage();
                             processedObjects.Add(gridObject); // Mark this object as processed
-                    
+
                             // Only add fully cleared objects to the affected list
                             if (remainingLife > 0)
                                 continue;
@@ -138,7 +138,8 @@ namespace Core.Helpers.GridHelpers
             return affectedObjects;
         }
 
-        public static (IEnumerable<BaseGridObject> ObstaclesAlive, IEnumerable<BaseGridObject> ObstaclesDead) SeparateObstaclesByLife(List<BaseGridObject> obstacles)
+        public static (IEnumerable<BaseGridObject> ObstaclesAlive, IEnumerable<BaseGridObject> ObstaclesDead)
+            SeparateObstaclesByLife(List<BaseGridObject> obstacles)
         {
             var groupedObstacles = obstacles
                 .OfType<Obstacle>() // Ensure we only consider Obstacle objects

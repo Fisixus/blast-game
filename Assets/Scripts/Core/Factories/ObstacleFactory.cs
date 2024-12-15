@@ -14,6 +14,7 @@ namespace Core.Factories
         [field: SerializeField]
         [SerializedDictionary("Obstacle Type", "Obstacle Data")]
         public SerializedDictionary<ObstacleType, ObstacleDataSO> ObstacleDataDict { get; private set; }
+
         private List<Obstacle> _allObstacles = new();
 
 
@@ -21,7 +22,6 @@ namespace Core.Factories
         {
             Pool = new ObjectPool<Obstacle>(ObjPrefab, ParentTr, 16);
             _allObstacles = new List<Obstacle>(16);
-
         }
 
         public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate)
@@ -44,15 +44,13 @@ namespace Core.Factories
             base.DestroyObj(emptyObstacle);
             emptyObstacle.SetAttributes(-Vector2Int.one, ItemType.None);
             _allObstacles.Remove(emptyObstacle);
-
         }
-        
+
         public void DestroyAllObstacles()
         {
             var obstaclesToDestroy = new List<Obstacle>(_allObstacles);
             base.DestroyObjs(obstaclesToDestroy);
             _allObstacles.Clear();
         }
-
     }
 }

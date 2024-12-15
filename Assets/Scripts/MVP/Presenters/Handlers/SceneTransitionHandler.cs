@@ -25,7 +25,7 @@ namespace MVP.Presenters.Handlers
             // Future async work can go here
             await UniTask.CompletedTask;
         }
-        
+
         public async UniTask SetupLevelSceneRequirements(Container container)
         {
             LevelPresenter levelPresenter = container.Resolve<LevelPresenter>();

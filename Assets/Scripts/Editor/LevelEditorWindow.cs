@@ -85,6 +85,7 @@ namespace Editor
                 {
                     _gridObjects[i, j] = (JsonGridObjectType)EditorGUILayout.EnumPopup(_gridObjects[i, j]);
                 }
+
                 EditorGUILayout.EndHorizontal();
             }
         }
@@ -199,7 +200,6 @@ namespace Editor
             _gridHeight = newHeight;
             _gridWidth = newWidth;
         }
-
 
 
         private void PopulateGrid(JsonGridObjectType[,] gridData)

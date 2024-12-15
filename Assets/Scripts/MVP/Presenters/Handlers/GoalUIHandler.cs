@@ -1,4 +1,3 @@
-
 using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.UI;
@@ -11,9 +10,9 @@ namespace MVP.Presenters.Handlers
     {
         private readonly ILevelUIView _levelUIView;
         private readonly IGoalUIFactory _goalUIFactory;
-        
+
         private List<GoalUI> _goalUIs;
-        
+
         public GoalUIHandler(ILevelUIView uiView, IGoalUIFactory goalUIFactory)
         {
             _levelUIView = uiView;
@@ -45,7 +44,8 @@ namespace MVP.Presenters.Handlers
                 _goalUIs.Add(tagGoalUI);
                 tagGoalUI.gameObject.name = $"Goal:{goals[i].ObstacleType}";
                 var goalUIData = _goalUIFactory.GoalUIDataDict[goals[i].ObstacleType];
-                _levelUIView.InitializeGoal(goalUIData.ObstacleTexture, goalUIData.ObstacleWidthHeight, tagGoalUI, goals[i]);
+                _levelUIView.InitializeGoal(goalUIData.ObstacleTexture, goalUIData.ObstacleWidthHeight, tagGoalUI,
+                    goals[i]);
             }
         }
 
@@ -66,7 +66,5 @@ namespace MVP.Presenters.Handlers
         {
             _levelUIView.SetMoveCounter(totalMoveCount);
         }
-        
-        
     }
 }

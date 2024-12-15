@@ -8,6 +8,7 @@ namespace Installers.MainScene
     public class MVPMainInstaller : Installer
     {
         [SerializeField] private MainUIView _mainUIView;
+
         protected override void InstallBindings()
         {
             Container.BindAsSingle<IMainUIView>(() => _mainUIView);

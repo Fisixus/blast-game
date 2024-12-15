@@ -10,6 +10,7 @@ namespace Core.GridElements.GridPawns
     {
         [field: SerializeField] public ItemType ItemType { get; set; }
         public BoosterType HintType { get; private set; }
+
         public override Enum Type
         {
             get => ItemType;
@@ -17,26 +18,25 @@ namespace Core.GridElements.GridPawns
         }
 
         private Dictionary<BoosterType, Sprite> _hintSprites = new();
-        
+
 
         public void ApplyHintSprite(BoosterType hintType)
         {
             HintType = hintType;
             SpriteRenderer.sprite = _hintSprites[hintType];
         }
-        
+
         public override void ApplyData(BaseGridObjectDataSO data)
         {
             base.ApplyData(data);
             var itemData = data as ItemDataSO;
-            if(itemData is null)
+            if (itemData is null)
             {
                 throw new InvalidOperationException("Invalid data type provided!");
             }
-            
+
             _hintSprites = itemData.HintSprites;
             ApplyHintSprite(BoosterType.None);
-            
         }
 
         public override string ToString()

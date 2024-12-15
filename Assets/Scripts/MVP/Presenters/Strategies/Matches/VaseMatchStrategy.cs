@@ -23,13 +23,14 @@ namespace MVP.Presenters.Strategies.Matches
             int rowCount
         )
         {
-            var matchedVases = new List<BaseGridObject>();          // To store cleared Vases.
-            var processedVases = new HashSet<BaseGridObject>();     // To track damaged Vases.
+            var matchedVases = new List<BaseGridObject>(); // To store cleared Vases.
+            var processedVases = new HashSet<BaseGridObject>(); // To track damaged Vases.
 
             // Check all 4 adjacent cells.
             foreach (var direction in new[] { Direction.Up, Direction.Down, Direction.Left, Direction.Right })
             {
-                var adjacentPosition = GridPositionHelper.GetNewPositionByDirection(clickedPosition.x, clickedPosition.y, direction);
+                var adjacentPosition =
+                    GridPositionHelper.GetNewPositionByDirection(clickedPosition.x, clickedPosition.y, direction);
 
                 // Skip invalid positions (out of grid bounds).
                 if (!GridPositionHelper.IsPositionValid(adjacentPosition.x, adjacentPosition.y, columnCount, rowCount))
@@ -41,7 +42,7 @@ namespace MVP.Presenters.Strategies.Matches
                     continue;
 
                 visited[adjacentPosition.x, adjacentPosition.y] = true; // Mark this cell as visited.
-                
+
                 // If the item is a Vase, process it.
                 if (adjacentItem.Type.Equals(ObstacleType.Vase) && processedVases.Add(adjacentItem))
                 {
@@ -55,6 +56,5 @@ namespace MVP.Presenters.Strategies.Matches
 
             return matchedVases;
         }
-
     }
 }

@@ -6,7 +6,7 @@ namespace Core.GridElements.GridPawns.Interface
 {
     public interface IGridObject
     {
-        BoxCollider2D BoxCollider { get;  }
+        BoxCollider2D BoxCollider { get; }
         SpriteRenderer SpriteRenderer { get; }
         BaseGridObjectEffect BaseGridObjectEffect { get; }
         Vector2Int Coordinate { get; set; }

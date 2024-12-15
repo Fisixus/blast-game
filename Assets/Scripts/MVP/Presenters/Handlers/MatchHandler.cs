@@ -8,13 +8,13 @@ namespace MVP.Presenters.Handlers
     public class MatchHandler
     {
         private readonly Dictionary<MatchType, IMatchStrategy> _strategies = new();
-        
+
         private bool[,] _visited; // To track visited items
         private int _rowCount;
         private int _columnCount;
-        
+
         private BaseGridObject[,] _grid;
-        
+
         public MatchHandler(IEnumerable<IMatchStrategy> strategies)
         {
             foreach (var strategy in strategies)
@@ -22,7 +22,7 @@ namespace MVP.Presenters.Handlers
                 _strategies[strategy.MatchType] = strategy;
             }
         }
-        
+
         public void Initialize(BaseGridObject[,] grid)
         {
             _grid = grid;
@@ -30,7 +30,7 @@ namespace MVP.Presenters.Handlers
             _rowCount = _grid.GetLength(1);
             _visited = new bool[_columnCount, _rowCount];
         }
-        
+
         public List<BaseGridObject> FindItemMatches(BaseGridObject gridObject)
         {
             ClearVisited(_visited, _columnCount, _rowCount);
@@ -41,10 +41,10 @@ namespace MVP.Presenters.Handlers
                 matchedObjs.AddRange(strategyItem.FindMatches(gridObject.Coordinate, gridObject.Type, _grid, _visited,
                     _columnCount, _rowCount));
             }
-            
+
             return matchedObjs;
         }
-        
+
         public List<BaseGridObject> FindBoosterMatches(BaseGridObject gridObject)
         {
             //ClearVisited(_visited, _columnCount, _rowCount);
@@ -55,7 +55,7 @@ namespace MVP.Presenters.Handlers
                 matchedObjs.AddRange(strategyItem.FindMatches(gridObject.Coordinate, gridObject.Type, _grid, _visited,
                     _columnCount, _rowCount));
             }
-            
+
             return matchedObjs;
         }
 
@@ -80,7 +80,7 @@ namespace MVP.Presenters.Handlers
                     }
                 }
             }
-            
+
             return obstacles;
         }
 

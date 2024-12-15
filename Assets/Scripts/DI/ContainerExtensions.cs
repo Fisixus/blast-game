@@ -42,6 +42,5 @@ namespace DI
 
             return (T)ctor.Invoke(args);
         }
-
     }
 }

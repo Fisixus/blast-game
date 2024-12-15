@@ -13,17 +13,14 @@ namespace MVP.Views
 {
     public class MainUIView : MonoBehaviour, IMainUIView
     {
-        [field:SerializeField]public Button NewLevelButton { get; private set; }
-        [field:SerializeField]public TextMeshProUGUI LevelButtonText { get; private set; }
+        [field: SerializeField] public Button NewLevelButton { get; private set; }
+        [field: SerializeField] public TextMeshProUGUI LevelButtonText { get; private set; }
 
         private void Awake()
         {
-            NewLevelButton.onClick.AddListener(() =>
-            {
-                RequestLevel().Forget();
-            });
+            NewLevelButton.onClick.AddListener(() => { RequestLevel().Forget(); });
         }
-        
+
         private void OnDisable()
         {
             NewLevelButton.onClick.RemoveAllListeners();
@@ -66,8 +63,8 @@ namespace MVP.Views
                 stringBuilder = new StringBuilder("Level ");
                 stringBuilder.Append(level);
             }
+
             LevelButtonText.text = stringBuilder.ToString();
         }
-        
     }
 }

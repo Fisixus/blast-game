@@ -12,12 +12,13 @@ namespace Installers.LevelScene
     {
         [SerializeField] private GridView _gridView;
         [SerializeField] private LevelUIView _levelUIView;
+
         protected override void InstallBindings()
         {
             Container.BindAsSingle<IGridModel>(() => Container.Construct<GridModel>());
             Container.BindAsSingle<IGridView>(() => _gridView);
             Container.BindAsSingle<ILevelUIView>(() => _levelUIView);
-            
+
             Container.BindAsSingleNonLazy(() => Container.Construct<LevelPresenter>());
             Container.BindAsSingleNonLazy(() => Container.Construct<GridPresenter>());
         }

@@ -10,11 +10,11 @@ namespace Installers.LevelScene
         protected override void InstallBindings()
         {
             // Bind each MatchStrategy implementation
-            Container.BindAsTransient<IMatchStrategy>(()=> new ItemMatchStrategy());
-            Container.BindAsTransient<IMatchStrategy>(()=> new BoosterMatchStrategy());
-            Container.BindAsTransient<IMatchStrategy>(()=> new BoxMatchStrategy());
-            Container.BindAsTransient<IMatchStrategy>(()=> new VaseMatchStrategy());
-            
+            Container.BindAsTransient<IMatchStrategy>(() => new ItemMatchStrategy());
+            Container.BindAsTransient<IMatchStrategy>(() => new BoosterMatchStrategy());
+            Container.BindAsTransient<IMatchStrategy>(() => new BoxMatchStrategy());
+            Container.BindAsTransient<IMatchStrategy>(() => new VaseMatchStrategy());
+
             // Bind each BoosterStrategy implementation
             Container.BindAsTransient<IBoosterComboStrategy>(() => Container.Construct<BombStrategy>());
             Container.BindAsTransient<IBoosterComboStrategy>(() => Container.Construct<BombBombStrategy>());

@@ -13,12 +13,12 @@ namespace MVP.Presenters.Handlers
     public class ComboHandler
     {
         private readonly IComboFactory _comboFactory;
-        
+
         public ComboHandler(IComboFactory comboFactory)
         {
             _comboFactory = comboFactory;
         }
-        
+
         public ComboType MergeBoosters(List<Booster> boosters)
         {
             if (boosters == null || !boosters.Any())
@@ -40,7 +40,7 @@ namespace MVP.Presenters.Handlers
             // If no combo type is matched, return null or handle accordingly
             return ComboType.None;
         }
-        
+
 
         public async UniTask AnimateComboCreationAsync(Booster centerBooster, IEnumerable<BaseGridObject> boosters)
         {
@@ -53,7 +53,8 @@ namespace MVP.Presenters.Handlers
 
             // Animate each booster
             var animationTasks = matchedObjs.Select(matchedBooster =>
-                AnimateComboCreationAsync(centerBooster, matchedBooster, durationPerAnimation, offsetMultiplier, highSortingOrder)
+                AnimateComboCreationAsync(centerBooster, matchedBooster, durationPerAnimation, offsetMultiplier,
+                    highSortingOrder)
             ).ToList();
 
             // Wait for all animations to complete
@@ -63,7 +64,8 @@ namespace MVP.Presenters.Handlers
             matchedObjs.ForEach(item => { item.SetSortingOrder(defaultSortingOrder); });
         }
 
-        private async UniTask AnimateComboCreationAsync(Booster centerBooster, BaseGridObject matchedItem, float duration, float offsetMultiplier, int sortingOrder)
+        private async UniTask AnimateComboCreationAsync(Booster centerBooster, BaseGridObject matchedItem,
+            float duration, float offsetMultiplier, int sortingOrder)
         {
             var direction = (matchedItem.transform.position - centerBooster.transform.position).normalized;
             var effect = matchedItem.GetComponent<BaseGridObjectEffect>();
@@ -79,6 +81,5 @@ namespace MVP.Presenters.Handlers
             // Animate to final position
             await effect.ShiftAsync(finalPosition, duration, Ease.InCubic);
         }
-
     }
 }

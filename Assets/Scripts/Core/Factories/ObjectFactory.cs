@@ -12,10 +12,10 @@ namespace Core.Factories
 
         [field: SerializeField] public Transform ParentTr { get; private set; }
 
-        public IPool<T> Pool { get;  set; }
+        public IPool<T> Pool { get; set; }
 
         public abstract void PreInitialize();
-        
+
 
         public virtual T CreateObj()
         {
@@ -31,6 +31,5 @@ namespace Core.Factories
         {
             Pool.Return(emptyObj);
         }
-        
     }
 }
