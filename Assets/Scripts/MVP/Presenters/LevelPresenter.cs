@@ -64,9 +64,12 @@ namespace MVP.Presenters
             await UniTask.Delay(TimeSpan.FromSeconds(0.75f), DelayType.DeltaTime);
         }
 
-        public void LoadLevelEditor(LevelInfo levelInfo)
+        public void LoadFromLevelEditor(LevelInfo levelInfo)
         {
-            
+            _gridView.CalculateGridSize(levelInfo.GridSize);
+            _levelSetupHandler.Initialize(levelInfo);
+            _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
+            _gridView.ScaleGrid();
         }
         
     }

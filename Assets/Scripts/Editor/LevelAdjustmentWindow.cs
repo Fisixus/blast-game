@@ -1,4 +1,6 @@
 using Core.LevelSerialization;
+using MVP.Helpers;
+using MVP.Presenters;
 using UnityEditor;
 using UnityEngine;
 using UnityEngine.SceneManagement;
@@ -58,8 +60,10 @@ public class LevelAdjustmentWindow : EditorWindow
         if (GUILayout.Button("Apply Changes"))
         {
             var levelJson = LevelSerializer.ConvertToLevelJson(_gridWidth, _gridHeight, _moveCount, _gridObjects);
+            var (gridObjectTypes, levelGoals) = LevelSerializer.ProcessLevelJson(levelJson);
+            LevelInfo levelInfo = new LevelInfo(levelJson.level_number, gridObjectTypes, levelGoals, levelJson.move_count);
             Debug.Log($"Level JSON created:\n{JsonUtility.ToJson(levelJson, true)}");
-            AdjustLevel(_gridWidth, _gridHeight);
+            AdjustLevel(levelInfo);
         }
 
         if (GUI.changed)
@@ -84,12 +88,16 @@ public class LevelAdjustmentWindow : EditorWindow
         _gridObjects = newGrid;
     }
 
-    private static void AdjustLevel(int width, int height)
+    private static void AdjustLevel(LevelInfo levelInfo)
     {
         var activeScene = SceneManager.GetActiveScene().name;
         if (!activeScene.Equals("LevelScene"))
         {
             Debug.Log("You are not in the level scene!");
         }
+
+        var context = SceneHelper.FindSceneContextInActiveScene();
+        var levelPresenter = context.SceneContainer.Resolve<LevelPresenter>();
+        levelPresenter.LoadFromLevelEditor(levelInfo);
     }
 }

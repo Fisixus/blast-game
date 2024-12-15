@@ -25,7 +25,7 @@ namespace Core.LevelSerialization
                 throw;
             }
         }
-        private static (Enum[,] GridObjectTypes, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
+        public static (Enum[,] GridObjectTypes, List<LevelGoal> Goals) ProcessLevelJson(LevelJson levelJson)
         {
             // Count obstacles for goal data
             int numberOfBoxes = 0;
@@ -93,7 +93,7 @@ namespace Core.LevelSerialization
         {
             LevelJson levelJson = new LevelJson
             {
-                level_number = -1,
+                level_number = 0,
                 grid_width = gridWidth,
                 grid_height = gridHeight,
                 move_count = moveCount,
@@ -104,13 +104,16 @@ namespace Core.LevelSerialization
             {
                 for (int y = 0; y < gridWidth; y++)
                 {
-                    // Convert each Enum value to its string representation
-                    levelJson.grid[x + y * gridWidth] = items[x, y].ToString();
+                    // Reverse the row order but keep elements in the same order within each row
+                    int reversedRow = gridHeight - 1 - x;
+                    levelJson.grid[reversedRow * gridWidth + y] = items[x, y].ToString();
                 }
             }
 
             return levelJson;
         }
+
+
 
     }
 }
