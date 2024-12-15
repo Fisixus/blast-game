@@ -31,6 +31,7 @@ namespace MVP.Presenters.Handlers
             var cols = gridObjectTypes.GetLength(1);
 
             List<BaseGridObject> gridObjects = new List<BaseGridObject>(100);
+            _gridObjectFactoryHandler.DestroyAllGridObjects();
             _gridObjectFactoryHandler.PopulateGridWithObjects(gridObjectTypes, gridObjects);
             _gridModel.Initialize(gridObjects, cols, rows);
             // Set up match and effect handlers

@@ -188,7 +188,7 @@ namespace MVP.Views
                 cg.interactable = false;
                 cg.blocksRaycasts = false;
             }
-            await UniTask.Delay(TimeSpan.FromSeconds(duration)); 
+            await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.DeltaTime); 
         }
 
 

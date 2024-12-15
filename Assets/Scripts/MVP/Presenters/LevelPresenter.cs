@@ -1,4 +1,5 @@
 using System;
+using Core.LevelSerialization;
 using Cysharp.Threading.Tasks;
 using DI.Contexts;
 using MVP.Models.Interface;
@@ -55,12 +56,17 @@ namespace MVP.Presenters
         public async UniTask LoadLevel()
         {
             var levelModel = ProjectContext.Container.Resolve<ILevelModel>();
-            var levelInfo = levelModel.LoadLevel();//TODO:Make here adressables and wait that
+            var levelInfo = levelModel.LoadLevel();//TODO:Addressable logic next step
             _gridView.CalculateGridSize(levelInfo.GridSize);
             _levelSetupHandler.Initialize(levelInfo);
             _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
             _gridView.ScaleGrid();
-            await UniTask.Delay(TimeSpan.FromSeconds(1f));
+            await UniTask.Delay(TimeSpan.FromSeconds(0.75f), DelayType.DeltaTime);
+        }
+
+        public void LoadLevelEditor(LevelInfo levelInfo)
+        {
+            
         }
         
     }

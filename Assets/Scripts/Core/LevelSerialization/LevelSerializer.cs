@@ -42,36 +42,36 @@ namespace Core.LevelSerialization
                     switch (levelJson.grid[gridIndex++])
                     {
                         // Obstacles
-                        case "bo":
+                        case nameof(JsonGridObjectType.bo):
                             gridData[i, j] = ObstacleType.Box;
                             ++numberOfBoxes;
                             break;
-                        case "s":
+                        case nameof(JsonGridObjectType.s):
                             gridData[i, j] = ObstacleType.Stone;
                             ++numberOfStones;
                             break;
-                        case "v":
+                        case nameof(JsonGridObjectType.v):
                             gridData[i, j] = ObstacleType.Vase;
                            ++numberOfVases;
                             break;
                         // Cubes
-                        case "b":
+                        case nameof(JsonGridObjectType.b):
                             gridData[i, j] = ItemType.Blue;
                             break;
-                        case "g":
+                        case nameof(JsonGridObjectType.g):
                             gridData[i, j] = ItemType.Green;
                             break;
-                        case "r":
+                        case nameof(JsonGridObjectType.r):
                             gridData[i, j] = ItemType.Red;
                             break;
-                        case "y":
+                        case nameof(JsonGridObjectType.y):
                             gridData[i, j] = ItemType.Yellow;
                             break;
-                        case "rand":
+                        case nameof(JsonGridObjectType.rand):
                             gridData[i, j] = ((ItemType[]) Enum.GetValues(typeof(ItemType)))[Random.Range(1, 5)];
                             break;
                         //Boosters
-                        case "t":
+                        case nameof(JsonGridObjectType.t):
                             gridData[i, j] = BoosterType.Bomb;
                             break;
                         default:
@@ -88,5 +88,29 @@ namespace Core.LevelSerialization
 
             return (gridData, goals);
         }
+        
+        public static LevelJson ConvertToLevelJson(int gridWidth, int gridHeight, int moveCount, JsonGridObjectType[,] items)
+        {
+            LevelJson levelJson = new LevelJson
+            {
+                level_number = -1,
+                grid_width = gridWidth,
+                grid_height = gridHeight,
+                move_count = moveCount,
+                grid = new string[gridWidth * gridHeight]
+            };
+
+            for (int x = 0; x < gridHeight; x++)
+            {
+                for (int y = 0; y < gridWidth; y++)
+                {
+                    // Convert each Enum value to its string representation
+                    levelJson.grid[x + y * gridWidth] = items[x, y].ToString();
+                }
+            }
+
+            return levelJson;
+        }
+
     }
 }

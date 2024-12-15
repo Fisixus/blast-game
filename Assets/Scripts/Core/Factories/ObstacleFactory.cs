@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Core.Factories.Interface;
 using Core.Factories.Pools;
@@ -13,11 +14,14 @@ namespace Core.Factories
         [field: SerializeField]
         [SerializedDictionary("Obstacle Type", "Obstacle Data")]
         public SerializedDictionary<ObstacleType, ObstacleDataSO> ObstacleDataDict { get; private set; }
+        private List<Obstacle> _allObstacles = new();
 
 
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Obstacle>(ObjPrefab, ParentTr, 16);
+            _allObstacles = new List<Obstacle>(16);
+
         }
 
         public Obstacle GenerateObstacle(ObstacleType obstacleType, Vector2Int obstacleCoordinate)
@@ -30,17 +34,25 @@ namespace Core.Factories
 
         public override Obstacle CreateObj()
         {
-            var item = base.CreateObj();
-            return item;
+            var obstacle = base.CreateObj();
+            _allObstacles.Add(obstacle);
+            return obstacle;
         }
 
-        public override void DestroyObj(Obstacle emptyItem)
+        public override void DestroyObj(Obstacle emptyObstacle)
         {
-            base.DestroyObj(emptyItem);
-            emptyItem.SetAttributes(-Vector2Int.one, ItemType.None);
+            base.DestroyObj(emptyObstacle);
+            emptyObstacle.SetAttributes(-Vector2Int.one, ItemType.None);
+            _allObstacles.Remove(emptyObstacle);
+
         }
         
-
+        public void DestroyAllObstacles()
+        {
+            var obstaclesToDestroy = new List<Obstacle>(_allObstacles);
+            base.DestroyObjs(obstaclesToDestroy);
+            _allObstacles.Clear();
+        }
 
     }
 }

@@ -30,7 +30,6 @@ namespace MVP.Views
             UpdateGridTopLeftTr();
         }
 
-        //TODO: Make this realtime maybe
         public void ScaleGrid()
         {
             var ratio = (float)Screen.width / Screen.height;

@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using AYellowpaper.SerializedCollections;
 using Core.Factories.Interface;
 using Core.Factories.Pools;
@@ -14,22 +15,26 @@ namespace Core.Factories
         [field: SerializeField]
         [SerializedDictionary("Booster Type", "Booster Data")]
         public SerializedDictionary<BoosterType, BoosterDataSO> BoosterDataDict { get; private set; }
+        private List<Booster> _allBoosters = new();
 
         
         public override void PreInitialize()
         {
             Pool = new ObjectPool<Booster>(ObjPrefab, ParentTr, 8);
+            _allBoosters = new List<Booster>(8);
         }
         
         public override void DestroyObj(Booster emptyBooster)
         {
             base.DestroyObj(emptyBooster);
             emptyBooster.SetAttributes(-Vector2Int.one, BoosterType.None);
+            _allBoosters.Remove(emptyBooster);
         }
 
         public override Booster CreateObj()
         {
             var booster = base.CreateObj();
+            _allBoosters.Add(booster);
             return booster;
         }
 
@@ -41,6 +46,13 @@ namespace Core.Factories
             booster.SetAttributes(coord, boosterType);
             booster.ApplyData(BoosterDataDict[boosterType]);
             return booster;
+        }
+        
+        public void DestroyAllBoosters()
+        {
+            var boostersToDestroy = new List<Booster>(_allBoosters);
+            base.DestroyObjs(boostersToDestroy);
+            _allBoosters.Clear();
         }
         
         

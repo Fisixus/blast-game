@@ -46,7 +46,7 @@ namespace MVP.Presenters.Handlers.Effects
 
             var itemView = item.GetComponent<ItemEffect>();
             var duration = itemView.PlayBlastParticle(particle.BlastParticleSystem);
-            await UniTask.Delay(TimeSpan.FromSeconds(duration));
+            await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.DeltaTime);
             _itemBlastEffectFactory.DestroyObj(particle);
         }
         
@@ -60,7 +60,7 @@ namespace MVP.Presenters.Handlers.Effects
 
             var obstacleView = obstacle.GetComponent<ObstacleEffect>();
             var duration = obstacleView.PlayBlastParticle(particle.BlastParticleSystem);
-            await UniTask.Delay(TimeSpan.FromSeconds(duration));
+            await UniTask.Delay(TimeSpan.FromSeconds(duration), DelayType.DeltaTime);
             _itemBlastEffectFactory.DestroyObj(particle);
         }
     }

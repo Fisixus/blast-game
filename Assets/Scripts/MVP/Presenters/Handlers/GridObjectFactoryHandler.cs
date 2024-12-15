@@ -51,14 +51,14 @@ namespace MVP.Presenters.Handlers
             }
         }
 
-        // public void DestroyAllGridObjects()
-        // {
-        //     _itemFactory.DestroyAllItems();
-        //     _boosterFactory.DestroyAllBoosters();
-        //     _obstacleFactory.DestroyAllObstacles();
-        // }
+        public void DestroyAllGridObjects()
+        {
+            _itemFactory.DestroyAllItems();
+            _boosterFactory.DestroyAllBoosters();
+            _obstacleFactory.DestroyAllObstacles();
+        }
 
-        public void DestroyOldItems(List<BaseGridObject> emptyItems)
+        public void DestroyOldObjects(List<BaseGridObject> emptyItems)
         {
             foreach (var emptyItem in emptyItems)
             {

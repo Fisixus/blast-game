@@ -10,6 +10,7 @@ namespace Core.Factories.Interface
     {
         public SerializedDictionary<BoosterType, BoosterDataSO> BoosterDataDict { get; }
         public Booster GenerateBooster(BoosterType boosterType, Vector2Int coord, bool isEffectOn=false);
-        
+
+        public void DestroyAllBoosters();
     }
 }
