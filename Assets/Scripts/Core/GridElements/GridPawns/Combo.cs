@@ -3,7 +3,7 @@ using Core.GridElements.Data;
 using Core.GridElements.Enums;
 using UnityEngine;
 
-namespace Core.GridElements.GridPawns.Combo
+namespace Core.GridElements.GridPawns
 {
     public class Combo : BaseGridObject
     {

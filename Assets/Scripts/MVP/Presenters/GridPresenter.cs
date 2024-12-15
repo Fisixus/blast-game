@@ -2,6 +2,7 @@ using System.Collections.Generic;
 using System.Linq;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
+using Core.Helpers.GridHelpers;
 using Cysharp.Threading.Tasks;
 using Input;
 using MVP.Models.Interface;
@@ -15,7 +16,6 @@ namespace MVP.Presenters
 {
     public class GridPresenter
     {
-        //private readonly UserInput _userInput;
         private readonly IGridView _gridView;
         private readonly IGridModel _gridModel;
         private readonly GoalHandler _goalHandler;
@@ -155,18 +155,17 @@ namespace MVP.Presenters
             var comboType = _comboHandler.MergeBoosters(boosters);
             var combo = _gridObjectFactoryHandler.CreateComboAndDestroyOldBooster(centerBooster, comboType);
             _gridModel.UpdateGridObjects(new List<BaseGridObject> { combo }, false);
-            //ProcessMatch(boosters, false);
+            //ProcessMatch(boosters);
+            GridItemModifierHelper.MarkEmpty(boosters);
 
 
             // Apply the combo effect and get affected grid objects
             //await UniTask.Delay(TimeSpan.FromSeconds(0.15f), DelayType.DeltaTime);//TODO:Play combo animation if it exists
             UserInput.SetInputState(true);
-            //_userInput.SetInputState(true);
 
             var effectedGridObjects = await _boosterHandler.ApplyBoostAsync(combo);
 
             // Process matches after applying the combo
-            _gridObjectFactoryHandler.DestroyCombo(combo);
             effectedGridObjects.AddRange(boosters);
             ProcessMatch(effectedGridObjects);
         }

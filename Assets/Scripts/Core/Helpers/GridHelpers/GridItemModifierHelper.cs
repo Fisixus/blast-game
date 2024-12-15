@@ -7,12 +7,11 @@ namespace Core.Helpers.GridHelpers
 {
     public static class GridItemModifierHelper
     {
-        public static void MarkEmpty(List<BaseGridObject> matchedItems)
+        public static void MarkEmpty(IEnumerable<BaseGridObject> matchedItems)
         {
             foreach (var baseGridObject in matchedItems)
             {
                 baseGridObject.IsEmpty = true;
-                baseGridObject.IsStationary = false;
                 switch (baseGridObject)
                 {
                     case Item item:
@@ -23,6 +22,9 @@ namespace Core.Helpers.GridHelpers
                         break;
                     case Obstacle obstacle:
                         obstacle.ObstacleType = ObstacleType.None;
+                        break;
+                    case Combo combo:
+                        combo.ComboType = ComboType.None;
                         break;
                 }
             }

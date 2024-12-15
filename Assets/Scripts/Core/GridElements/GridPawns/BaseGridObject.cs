@@ -54,13 +54,13 @@ namespace Core.GridElements.GridPawns
             var targetCoordinate = coordinateOverride ?? Coordinate;
 
             // Calculate the world position
-            var itemPosition = CalculateWorldPosition(longestCell, gridTopLeftTr, targetCoordinate);
+            var position = CalculateWorldPosition(longestCell, gridTopLeftTr, targetCoordinate);
 
             // Apply the position with or without animation
             if (isAnimationOn)
-                BaseGridObjectEffect.Shift(itemPosition, animationTime, Ease.OutBack, 0.9f);
+                BaseGridObjectEffect.Shift(position, animationTime, Ease.OutBack, 0.9f);
             else
-                transform.position = itemPosition;
+                transform.position = position;
         }
 
         // Helper Method for Position Calculation

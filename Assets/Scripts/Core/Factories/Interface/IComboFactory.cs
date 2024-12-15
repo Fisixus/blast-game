@@ -1,7 +1,7 @@
 using AYellowpaper.SerializedCollections;
 using Core.GridElements.Data;
 using Core.GridElements.Enums;
-using Core.GridElements.GridPawns.Combo;
+using Core.GridElements.GridPawns;
 using UnityEngine;
 
 namespace Core.Factories.Interface

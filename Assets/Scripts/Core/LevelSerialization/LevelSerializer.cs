@@ -83,7 +83,8 @@ namespace Core.LevelSerialization
 
             // Set the goals data
             var goals = new List<LevelGoal>();
-            if (numberOfBoxes != 0) goals.Add(new LevelGoal { ObstacleType = ObstacleType.Box, Count = numberOfBoxes });
+            if (numberOfBoxes != 0)
+                goals.Add(new LevelGoal { ObstacleType = ObstacleType.Box, Count = numberOfBoxes });
             if (numberOfStones != 0)
                 goals.Add(new LevelGoal { ObstacleType = ObstacleType.Stone, Count = numberOfStones });
             if (numberOfVases != 0)

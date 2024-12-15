@@ -4,7 +4,7 @@ namespace Core.LevelSerialization
 {
     /// <summary>
     /// 
-    /// LevelInfo is a class that is used to store the information of a level.
+    /// LevelJson is a class that is used to store the information of a level.
     /// It is serializable and compatible with JSON format to be used in the game level system.
     /// 
     /// </summary>

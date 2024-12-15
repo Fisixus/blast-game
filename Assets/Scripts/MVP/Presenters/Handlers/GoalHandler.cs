@@ -92,7 +92,7 @@ namespace MVP.Presenters.Handlers
 
         private bool AreAllMovesFinished()
         {
-            return _numberOfMoves == 0;
+            return _numberOfMoves <= 0;
         }
 
         private bool AreAllGoalsCompleted()

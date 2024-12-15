@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using Core.Factories.Interface;
 using Core.GridElements.Enums;
 using Core.GridElements.GridPawns;
-using Core.GridElements.GridPawns.Combo;
 using UnityEngine;
 
 namespace MVP.Presenters.Handlers
@@ -107,15 +106,13 @@ namespace MVP.Presenters.Handlers
                     case Obstacle obstacle:
                         _obstacleFactory.DestroyObj(obstacle);
                         break;
+                    case Combo combo:
+                        _comboFactory.DestroyObj(combo);
+                        break;
                 }
             }
 
             return newItems;
-        }
-
-        public void DestroyCombo(Combo combo)
-        {
-            _comboFactory.DestroyObj(combo);
         }
 
         public Booster CreateBoosterAndDestroyOldItem(Item clickedItem, BoosterType boosterType)

@@ -32,7 +32,7 @@ namespace MVP.Presenters.Handlers
                 // Check if all required ingredients are present in the provided boosters
                 if (requiredIngredients.All(ingredient => boosters.Any(booster => booster.BoosterType == ingredient)))
                 {
-                    // Return a new Booster of the selected combo type
+                    // Return a new Combo of the selected combo type
                     return comboType;
                 }
             }
