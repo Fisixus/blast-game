@@ -1,5 +1,6 @@
 using Cysharp.Threading.Tasks;
 using DI;
+using DI.Contexts;
 using MVP.Models.Interface;
 using MVP.Views.Interface;
 
@@ -9,9 +10,9 @@ namespace MVP.Presenters.Handlers
     {
         private readonly ILevelModel _levelModel;
 
-        public SceneTransitionHandler(ILevelModel levelModel)
+        public SceneTransitionHandler()
         {
-            _levelModel = levelModel;
+            _levelModel = ProjectContext.Container.Resolve<ILevelModel>();
         }
 
         public async UniTask SetupMainSceneRequirements(Container container)

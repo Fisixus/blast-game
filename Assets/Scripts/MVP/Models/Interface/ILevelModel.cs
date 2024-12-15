@@ -1,4 +1,5 @@
 using Core.LevelSerialization;
+using JetBrains.Annotations;
 
 namespace MVP.Models.Interface
 {
@@ -8,5 +9,7 @@ namespace MVP.Models.Interface
         public int MaxLevel { get; }
 
         public LevelInfo LoadLevel(); 
+        [CanBeNull]
+        public LevelInfo LoadLevel(int index); 
     }
 }

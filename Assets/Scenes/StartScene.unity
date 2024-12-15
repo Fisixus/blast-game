@@ -342,7 +342,7 @@ GameObject:
   - component: {fileID: 1879733296}
   - component: {fileID: 1879733295}
   m_Layer: 5
-  m_Name: Canvas_SceneTransition
+  m_Name: Canvas_StartScene
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0

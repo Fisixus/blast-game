@@ -88,6 +88,55 @@ namespace Core.LevelSerialization
 
             return (gridData, goals);
         }
+
+        public static JsonGridObjectType[,] ConvertGridToJsonObjectType(Enum[,] gridObjectTypes)
+        {
+            JsonGridObjectType[,] jsonEnumResponses =
+                new JsonGridObjectType[gridObjectTypes.GetLength(0), gridObjectTypes.GetLength(1)];
+            for (int i = 0; i < gridObjectTypes.GetLength(0); ++i)
+            {
+                for (int j = 0; j < gridObjectTypes.GetLength(1); ++j)
+                {
+                    switch (gridObjectTypes[i, j])
+                    {
+                        // Obstacles
+                        case ObstacleType.Box:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.bo;
+                            break;
+                        case ObstacleType.Stone:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.s;
+                            break;
+                        case ObstacleType.Vase:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.v;
+                            break;
+
+                        // Cubes
+                        case ItemType.Blue:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.b;
+                            break;
+                        case ItemType.Green:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.g;
+                            break;
+                        case ItemType.Red:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.r;
+                            break;
+                        case ItemType.Yellow:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.y;
+                            break;
+                        // Boosters
+                        case BoosterType.Bomb:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.t;
+                            break;
+                        // Default (rand items)
+                        default:
+                            jsonEnumResponses[i,j] = JsonGridObjectType.rand;
+                            break;
+                    }
+                }
+            }
+
+            return jsonEnumResponses;
+        }
         
         public static LevelJson ConvertToLevelJson(int gridWidth, int gridHeight, int moveCount, JsonGridObjectType[,] items)
         {
@@ -112,8 +161,6 @@ namespace Core.LevelSerialization
 
             return levelJson;
         }
-
-
 
     }
 }

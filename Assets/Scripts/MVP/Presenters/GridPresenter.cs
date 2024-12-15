@@ -55,7 +55,6 @@ namespace MVP.Presenters
         {
             // Unsubscribe from static and instance events
             UserInput.OnGridObjectTouched -= OnTouch;
-
             _gridModel.OnGridObjectInitializedEvent -= GridObjectInitializedInGrid;
             _gridShiftHandler.OnGridObjectShiftedEvent -= GridObjectShiftedInGrid;
             _gridModel.OnGridObjectUpdatedEvent -= GridObjectUpdatedInGrid;
