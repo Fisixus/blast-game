@@ -46,7 +46,6 @@ namespace MVP.Views
             {
                 // Disable the button to prevent multiple clicks
                 EscapeButton.interactable = false;
-                // Use the reusable scene transition logic
                 await SceneTransitionHelper.PerformTransition(
                     "MainScene",
                     async (container) =>
@@ -68,7 +67,6 @@ namespace MVP.Views
             {
                 // Disable the button to prevent multiple clicks
                 RetryLevelButton.interactable = false;
-                // Use the reusable scene transition logic
                 await SceneTransitionHelper.PerformTransition(
                     "LevelScene",
                     async (container) =>
@@ -104,7 +102,7 @@ namespace MVP.Views
         {
             await TogglePanel(SuccessPanelTr, true, duration);
             StarPS.Play();
-            await UniTask.Delay(TimeSpan.FromSeconds(5)); 
+            await UniTask.Delay(TimeSpan.FromSeconds(4)); 
             StarPS.Stop();
             await SceneTransitionHelper.PerformTransition(
                 "MainScene",

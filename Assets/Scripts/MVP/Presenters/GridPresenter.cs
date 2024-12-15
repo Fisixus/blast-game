@@ -209,22 +209,18 @@ namespace MVP.Presenters
         
         private void GridObjectInitializedInGrid(BaseGridObject obj)
         {
-            //var eventArgs = (OnGridObjectInitializedEvent)args;
-            _gridView.SetGridObjectLocation(obj);
+            obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr, null, false);
         }
 
         private void GridObjectShiftedInGrid(BaseGridObject obj)
         {
-            //var eventArgs = (OnGridObjectShiftedEvent)args;
-            _gridView.SetGridObjectLocation(obj, isAnimOn: true, animationTime: 0.5f);
+            obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr, null, true, 0.5f);
         }
 
         private void GridObjectUpdatedInGrid(BaseGridObject obj, bool isAnimOn)
         {
-            //var eventArgs = (OnGridObjectUpdatedEvent)args;
-            //var newItem = eventArgs.GridObject;
-            _gridView.SetGridObjectLocation(obj, newCoord:new Vector2Int(obj.Coordinate.x, obj.Coordinate.y - _gridModel.ColumnCount), isAnimOn: false);
-            _gridView.SetGridObjectLocation(obj, isAnimOn: isAnimOn, animationTime: 0.6f);
+            obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr,new Vector2Int(obj.Coordinate.x, obj.Coordinate.y - _gridModel.ColumnCount), false);
+            obj.SetWorldPosition(_gridView.CellSize, _gridView.GridTopLeftTr, null, isAnimOn, 0.6f);
         }
     }
 }

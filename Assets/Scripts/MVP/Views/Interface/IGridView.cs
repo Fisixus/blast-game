@@ -20,6 +20,5 @@ namespace MVP.Views.Interface
 
         public void ScaleGrid();
         
-        public void SetGridObjectLocation(BaseGridObject gridObject, Vector2Int? newCoord = null, bool isAnimOn = false, float animationTime = 0f);
     }
 }

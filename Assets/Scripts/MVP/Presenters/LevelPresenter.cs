@@ -5,6 +5,7 @@ using DI.Contexts;
 using MVP.Models.Interface;
 using MVP.Presenters.Handlers;
 using MVP.Views.Interface;
+using UnityEngine;
 using UnityEngine.SceneManagement;
 using UTasks;
 
@@ -70,6 +71,7 @@ namespace MVP.Presenters
             _levelSetupHandler.Initialize(levelInfo);
             _goalHandler.Initialize(levelInfo.Goals, levelInfo.NumberOfMoves);
             _gridView.ScaleGrid();
+                
         }
         
     }
