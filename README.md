@@ -25,14 +25,74 @@ This project was created as a **case study** and is **not intended for commercia
 - Custom **UniTask** library for async operations
 
 ---
-
 ## 🧩 Architecture
 
-This project follows the **Model-View-Presenter (MVP)** architectural pattern for clean separation of concerns and maintainability:
+This project follows the **Model-View-Presenter (MVP)** architectural pattern for clean separation of concerns and maintainability. The structure is designed to ensure clarity, scalability, and testability across all game systems.
 
-1. **StartScene**: The entry point of the project where the `ProjectContext` is activated.
-2. **GamePresenter**: Initialized as non-lazy in the `ProjectContext` to set up the core game logic.
-3. The rest of the game components and systems follow after `GamePresenter`.
+### Key Components
+
+1. **Models**:
+   - Models are responsible for storing and managing **game data**.
+   - They encapsulate the state and rules of the game without direct interaction with Unity components.
+   - Examples include:
+     - Grid data for levels
+     - Player progress and saved state
+
+2. **Views**:
+   - Views handle **visual feedback** and **user interaction**.
+   - They are responsible for rendering the game’s UI and scene elements but do not contain any logic.
+   - Views react to data changes communicated by the Presenters.
+   - Examples:
+     - Visual representation of the game grid
+     - UI elements such as the LevelButton and Fail popup
+
+3. **Presenters**:
+   - Presenters act as the **logic layer** between Models and Views.
+   - They process user input, update models, and synchronize the views accordingly.
+   - Presenters are **high-level managers** of the game’s flow, thanks to their reliance on **Handler classes**.
+
+4. **Handlers**:
+   - Handlers are the **abstraction layer** for Presenters.
+   - They break down game logic into more manageable units, ensuring Presenters remain clean and focused on orchestration.
+   - Handlers handle specific responsibilities, such as:
+     - **Interfacing with Factories** to create and destroy game objects
+     - Managing specific game mechanics (e.g., TNT explosions, grid updates)
+   - Examples:
+     - MatchHandler: Handles matching logic and combo interactions.
+     - EffectHandler: Manages visual effects like explosions and particle systems.
+
+5. **Factories**:
+   - Factories are responsible for **creating and destroying game objects** efficiently.
+   - They are accessed exclusively through Handlers to maintain abstraction.
+   - Examples:
+     - ItemFactory: Creates new grid items (e.g., cubes, obstacles, TNT).
+     - EffectFactory: Creates visual effects like particle systems or animations.
+
+---
+### Game Flow
+
+1. **StartScene**:
+   - The entry point of the project where the `ProjectContext` is activated.
+   - The `ProjectContext` initializes the dependency injection system and ensures core services are ready for use.
+
+2. **GamePresenter**:
+   - The **GamePresenter** is initialized as **non-lazy** in the `ProjectContext`.
+   - It sets up the core game logic and manages the overall flow of the game.
+
+3. **MainScene**:
+   - The **GamePresenter** activates the **ScenePresenter**, which loads the **MainScene**.
+   - In the **MainScene**, the player can select a level using the **LevelButton**. The button displays the current level or "Finished" if all levels are complete.
+
+4. **LevelScene**:
+   - After selecting a level, the **LevelScene** is loaded.
+   - The `SceneContext` inside the **LevelScene** is activated, dynamically initializing the level-specific data and systems for that level.
+---
+
+This architecture ensures:
+- **Separation of Concerns**: Each layer has a specific responsibility, minimizing dependencies and ensuring scalability.
+- **Clean Logic**: Presenters remain focused on high-level orchestration, with Handlers managing specific tasks.
+- **Efficient Resource Management**: Factories optimize object creation and destruction, ensuring smooth gameplay even in complex scenarios.
+
 
 ---
 
@@ -53,7 +113,7 @@ This project follows the **Model-View-Presenter (MVP)** architectural pattern fo
 The game is a **level-based puzzle game** where the player must clear all obstacles to win the level. Here’s the gameplay flow and mechanics:
 
 ### Flow
-1. The game starts in the **MainScene**, where the player sees a **LevelButton** displaying the current level.
+1. In the **MainScene**, where the player sees a **LevelButton** displaying the current level.
    - If all levels are completed, the **LevelButton** displays "Finished".
 2. Clicking the **LevelButton** loads the **LevelScene** for the current level.
 3. After the level:
@@ -117,4 +177,4 @@ Each level is defined by the following properties:
 
 Clone the repository:
    ```bash
-   git clone https://github.com/yourusername/toon-blast-clone.git
+   git clone https://github.com/fisixus/toon-blast-clone.git
