@@ -73,6 +73,6 @@ namespace MVP.Presenters
             _gridView.ScaleGrid();
                 
         }
-        
+
     }
 }

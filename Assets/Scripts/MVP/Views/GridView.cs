@@ -15,13 +15,16 @@ namespace MVP.Views
         [field: SerializeField] public Vector2 GridPadding { get; private set; }
 
         private Camera _camera;
+        private Vector3 _gridDefaultScale;
         private void Awake()
         {
             _camera = Camera.main;
+            _gridDefaultScale = GridSprite.transform.localScale;
         }
 
         public void CalculateGridSize(Vector2Int gridSize)
         {
+            ResetGridScale();
             var cellHeight = CellSize.y;
             var cellWidth = CellSize.x;
 
@@ -33,25 +36,17 @@ namespace MVP.Views
             var scaledPadding = new Vector2(basePadding.x * paddingFactorX, basePadding.y * paddingFactorY);
             GridSprite.size = new Vector2((cellWidth + scaledPadding.x) * gridSize.y,
                 (cellHeight + scaledPadding.y) * gridSize.x);
-            Debug.Log(GridSprite.size);
             UpdateGridTopLeftTr();
-            //CalculateGridTopLeftLocal();
-        }
-        
-        private void CalculateGridTopLeftLocal()
-        {
-            var localTopLeft = new Vector3(-GridSprite.size.x / 2f, GridSprite.size.y / 2f, 0f); // Local space top-left
-            Debug.Log(localTopLeft);
-            Matrix4x4 localToWorld = GridSprite.transform.localToWorldMatrix;
-            Vector3 worldTopLeft = localToWorld.MultiplyPoint3x4(localTopLeft);
-            Debug.Log(worldTopLeft);
-            GridTopLeftTr.position = worldTopLeft + (Vector3)GridTopLeftMargin;
-        
-            //Debug.Log($"Top-Left Position (Local): {GridTopLeftTr.position}");
         }
 
+        private void ResetGridScale()
+        {
+            GridSprite.transform.localScale = _gridDefaultScale;
+        }
+        
         public void ScaleGrid()
         {
+            ResetGridScale();
             var ratio = _camera.aspect;
             var refRatio = math.remap(0.45f, 0.75f, 0.56f, 0.8f, ratio);
             //const float refRatio = 9f / 12f;
@@ -64,7 +59,6 @@ namespace MVP.Views
         {
             var bounds = GridSprite.bounds;
             GridTopLeftTr.position = new Vector2(bounds.min.x, bounds.max.y) + GridTopLeftMargin;
-            Debug.Log(GridTopLeftTr.position);
         }
 
     }
