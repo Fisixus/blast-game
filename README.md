@@ -22,8 +22,7 @@ This project was created as a **case study** and is **not intended for commercia
 
 ### Custom Implementations:
 - Custom **DI (Dependency Injection)** library
-- Custom **UniTask** library for async operations
-
+- Custom **UTask** library
 ---
 ## 🧩 Architecture
 
