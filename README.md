@@ -1,4 +1,4 @@
-# Toon Blast Clone 🎮
+# Blast Game 🎮
 
 A clone of the popular mobile game **Toon Blast**, built using **Unity** and **C#**. This puzzle game challenges players to match 2 or more blocks of the same color to clear them from the board. Each level has specific objectives, and players must complete them to progress to the next level.
 
